@@ -1,0 +1,63 @@
+---
+permalink: san-migration/concept_migration_verify_phase_workflow.html 
+sidebar: sidebar 
+keywords: verify, phase, workflow 
+summary: 'La phase de vérification du processus de migration porte sur le nettoyage post-migration et la confirmation de l"exécution du plan de migration. Les enregistrements d"initiateur sur le stockage source et la zone entre la zone source et la zone de destination sont supprimés.' 
+---
+= Vérifier le workflow de phase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase de vérification du processus de migration porte sur le nettoyage post-migration et la confirmation de l'exécution du plan de migration. Les enregistrements d'initiateur sur le stockage source et la zone entre la zone source et la zone de destination sont supprimés.
+
+La figure suivante illustre le workflow de phase de vérification.
+
+image::../media/verify_phase_1.png[vérifier la phase 1]
+
+Les tâches de phase de vérification sont répertoriées dans le tableau suivant.
+
+[cols="2*"]
+|===
+| Composant | Tâches 
+
+
+ a| 
+Hôte
+ a| 
+Le client effectue les tests d'applications.
+
+
+
+ a| 
+Structure
+ a| 
+. Supprimez de l'hôte des zones de stockage source du zoneset.
+. Suppression du stockage source des zones de destination
+. Sauvegardez le nouveau zoneset.
+
+
+
+
+ a| 
+Système de stockage de destination
+ a| 
+. Vérifiez l'alignement des LUN.
+. Collectez les journaux d'importation FLI à partir du journal des événements.
+. Supprimez les copies Snapshot créées manuellement utilisées lors du processus de migration.
+. Supprimer la matrice source.
+. Consigner la configuration finale.
+
+
+
+
+ a| 
+Le stockage source
+ a| 
+. Supprimer les groupes initiateurs de stockage hôte.
+. Supprimer les groupes initiateurs de stockage de destination.
+
+
+|===

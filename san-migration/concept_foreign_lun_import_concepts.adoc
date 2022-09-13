@@ -1,0 +1,32 @@
+---
+permalink: san-migration/concept_foreign_lun_import_concepts.html 
+sidebar: sidebar 
+keywords: foreign, lun, import, concepts 
+summary: 'La compréhension des concepts de base de FLI permet de fonctionner correctement et réduit l"effort de configuration initial.' 
+---
+= Concepts relatifs à l'importation de LUN étrangères
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La compréhension des concepts de base de FLI permet de fonctionner correctement et réduit l'effort de configuration initial.
+
+* *Réseau étranger*
++
+Une matrice étrangère est un périphérique de stockage qui n'exécute pas ONTAP. On parle également de baie tierce ou de baie source. Dans le cas d'une transition de 7-mode vers ONTAP, la baie étrangère serait produite par NetApp exécutant ONTAP 7-mode.
+
+* *LUN étrangère*
++
+Une LUN étrangère est une LUN contenant des données utilisateur hébergées sur une baie tierce à l'aide du format de disque natif de cette baie.
+
+* *Relation FLI LUN*
++
+Une relation FLI LUN est une association persistante entre le stockage source et de destination en vue de l'importation des données. Les terminaux source et de destination sont des LUN.
+
+* *Importation de LUN*
++
+L'importation de LUN consiste à transférer les données d'une LUN étrangère depuis son format tiers vers un LUN au format natif NetApp.
+
+

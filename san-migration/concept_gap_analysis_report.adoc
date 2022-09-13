@@ -1,0 +1,24 @@
+---
+permalink: san-migration/concept_gap_analysis_report.html 
+sidebar: sidebar 
+keywords: gap, analysis, report 
+summary: 'L"analyse de l"écart est un rapport de l"environnement actuel et recommandé par NetApp du client. Il présente toutes les mises à niveau recommandées pour l"environnement du client qui devront avoir lieu après la migration.' 
+---
+= Rapport d'analyse de l'écart
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+L'analyse de l'écart est un rapport de l'environnement actuel et recommandé par NetApp du client. Il présente toutes les mises à niveau recommandées pour l'environnement du client qui devra avoir lieu après la migration.
+
+La configuration cible (post-migration) détaille chaque hôte (configuration du système d'exploitation, MPIO, détails sur les HBA, version du kit d'utilitaire hôte, etc.). Des informations sur les autres produits NetApp requis, tels que SnapDrive et SnapManager, sont également disponibles.
+
+Les modifications requises ne sont généralement pas effectuées avant l'événement de migration, car les fenêtres de maintenance sont habituellement requises. En général, toute modification apportée à la configuration MPIO avant la migration affecte également la prise en charge du stockage actuel.
+
+La section NetApp recommandée complétée dans la section hôtes de votre feuille de planification et d'enquête de site servira de rapport d'analyse des écarts. L'analyse de l'écart doit être réalisée pour chaque hôte inclus dans le projet de migration. Le rapport d'analyse de l'écart complété doit être revu avec le client.
+
+Voici un exemple de rapport d'analyse des écarts.
+
+image::../media/create_the_gap_analysis_report_1.png[créer le rapport d'analyse des écarts 1]

@@ -1,0 +1,71 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, storage groups tab 
+summary: Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant des informations sur vos groupes de stockage. 
+---
+= Feuille de travail étude du site et planification groupes de stockage
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant des informations sur vos groupes de stockage.
+
+Voici un exemple de configuration de l'onglet Storage Groups.
+
+|===
+4+| Groupes de stockage 
+
+
+ a| 
+Source
+ a| 
+Destination
+
+
+
+ a| 
+Nom d'hôte
+ a| 
+Groupe de stockage
+ a| 
+WWPN
+ a| 
+Commandes d'iGroup
+
+
+
+ a| 
+dm-rx200s6-21
+ a| 
+dm-rx200s6-21
+ a| 
+21:00:00:24:ff:30:14:c521:00:00:24:ff:30:14:c4
+ a| 
+`igroup create -ostype` répertoires de base `-protocol` fcp `-vserver` datag `-igroup` dm-rx200s6-21 `-initiator` 21:00:00:24:ff:30:14:c4,21:00:00:24:ff:30:14:c5
+
+
+
+ a| 
+dm-rx200s6-22
+ a| 
+dm-rx200s6-22
+ a| 
+21:00:00:24:ff:30:04:8521:00:00:24:ff:30:04:84
+ a| 
+`igroup create -ostype` linux `-protocol` fcp `-vserver` datag `-igroup` dm-rx200s6-22 `-initiator` 21:00:00:24:ff:30:04:85,21:00:00:24:ff:30:04:84
+
+
+
+ a| 
+dm-rx200s6-20
+ a| 
+dm-rx200s6-20
+ a| 
+21:00:00:24:ff:30:03:ea21:00:00:24:ff:30:03:eb
+ a| 
+`igroup create -ostype` vmware `-protocol` fcp `-vserver` datag -`igroup` dm-rx200s6-20 `-initiator` 21:00:00:24:ff:30:03:ea,21:00:00:24:ff:30:03:eb
+
+|===

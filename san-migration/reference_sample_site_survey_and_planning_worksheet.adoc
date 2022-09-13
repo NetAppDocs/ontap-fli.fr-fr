@@ -1,0 +1,33 @@
+---
+permalink: san-migration/reference_sample_site_survey_and_planning_worksheet.html 
+sidebar: sidebar 
+keywords: sample, site, survey and planning, worksheet 
+summary: 'Au cours des phases d"analyse et de planification de la méthodologie de migration, vous devez documenter votre configuration existante, vos configurations cibles, vos écarts et les plans de correction à l"aide d"une fiche d"étude de site et de planification.' 
+---
+= Exemple de feuille de travail d'étude et de planification du site
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Au cours des phases d'analyse et de planification de la méthodologie de migration, vous devez documenter votre configuration existante, vos configurations cibles, vos écarts et les plans de correction à l'aide d'une fiche d'étude de site et de planification.
+
+Cette section fournit des exemples de types d'information que la feuille de calcul Sondage sur le site et planification devrait contenir. Les onglets suivants sont recommandés :
+
+* Contactez
+* Questionnaire
+* Commutateurs
+* Périphériques de stockage (source)
+* Périphériques de stockage (destination)
+* Hôtes
+* HBA et informations de zone
+* LUN source
+* Groupes de stockage
+* Détails de la LUN
+* Mises en page des LUN NetApp
+* Planification de la migration
+* État de l'agrégat
+* Config. FAS
+* Scripts SDS CLI
+

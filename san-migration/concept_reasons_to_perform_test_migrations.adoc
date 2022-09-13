@@ -1,0 +1,29 @@
+---
+permalink: san-migration/concept_reasons_to_perform_test_migrations.html 
+sidebar: sidebar 
+keywords: reasons, perform, test, migrations 
+summary: NetApp recommande de tester toutes les configurations dans un environnement de test client avant la migration des données de production. 
+---
+= Raisons d'effectuer des migrations de tests
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp recommande de tester toutes les configurations dans un environnement de test client avant la migration des données de production.
+
+Avant d'effectuer la migration de production, nous vous conseillons d'effectuer plusieurs migrations de test de différentes tailles. Les tests de migration avant les migrations de production vous permettent de :
+
+* Vérifier la configuration du stockage et de la structure.
+* Estimer la durée et les performances de la migration.
++
+À l'aide des résultats des tests de migration, vous pouvez estimer la durée de votre migration de production et le débit attendu. Sinon, le nombre de variables qui entrent en compte dans la durée des migrations rend difficile une estimation précise.
+
+
+
+[NOTE]
+====
+Cette migration doit être effectuée au moins une semaine avant le début des migrations de données de production. Cela prendra suffisamment de temps pour résoudre d'éventuels problèmes, comme l'accès, la connectivité du stockage et les licences.
+
+====

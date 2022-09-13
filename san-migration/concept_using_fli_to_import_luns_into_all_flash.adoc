@@ -1,0 +1,20 @@
+---
+permalink: san-migration/concept_using_fli_to_import_luns_into_all_flash.html 
+sidebar: sidebar 
+keywords: use, foreign lun import, import luns, aff 
+summary: 'AFF ne prend pas en charge FlexArray dans toutes les versions du logiciel ONTAP. Dans ces versions, vous devez importer des LUN étrangères (FLI) vers une paire haute disponibilité (HA) non-AFF sur le même cluster avec la baie AFF.' 
+---
+= Importation de LUN étrangères pour importer des LUN dans AFF
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+AFF ne prend pas en charge FlexArray dans toutes les versions du logiciel ONTAP. Dans ces versions, vous devez importer des LUN étrangères (FLI) vers une paire haute disponibilité (HA) non-AFF sur le même cluster avec la baie AFF.
+
+À partir de ONTAP 9.1, AFF prend en charge FLI. Vous pouvez utiliser la fonction FKU pour importer des LUN à partir d'autres baies directement dans des clusters ONTAP.
+
+À partir de ONTAP 8.3.2, AFF peut prendre en charge FLI avec un PVR (Process variance Request) approuvé. Contactez l'équipe NetApp en charge de votre compte pour demander l'approbation du PVR. Lors de l'approbation, l'émetteur, généralement un ingénieur système NetApp, recevra une lettre d'approbation contenant des instructions pour l'activation de la fonctionnalité FLI.
+
+Pour les versions antérieures au logiciel ONTAP 8.3.2, AFF ne prend pas encore en charge FlexArray en raison de certaines optimisations d'écriture effectuées. Il faut ajouter des importations FLI vers une paire HA non AFF sur le même cluster avec la baie AFF. Une fois la migration terminée, vous pouvez utiliser la continuité de l'activité, comme le déplacement de volumes ou de LUN, pour déplacer les LUN migrés vers AFF. Si votre cluster AFF ne contient aucun nœud non AFF, contactez l'équipe chargée de votre compte pour savoir comment emprunter du matériel temporaire pour y parvenir.

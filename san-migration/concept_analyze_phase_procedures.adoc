@@ -1,0 +1,31 @@
+---
+permalink: san-migration/concept_analyze_phase_procedures.html 
+sidebar: sidebar 
+keywords: analyze, phase, imt, best practices 
+summary: 'La phase d"analyse se concentre sur les éléments à traiter avant de procéder aux activités de migration. Les informations sur la configuration de l"hôte doivent être comparées aux configurations prises en charge et documentées dans la matrice d"interopérabilité NetApp (IMT).' 
+---
+= Analyser les meilleures pratiques de phase IMT
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase d'analyse se concentre sur les éléments à traiter avant de procéder aux activités de migration. Les informations sur la configuration de l'hôte doivent être comparées aux configurations prises en charge et documentées dans la matrice d'interopérabilité NetApp (IMT).
+
+Le IMT est un utilitaire Web qui permet de rechercher des informations sur les configurations des produits NetApp compatibles avec des produits et composants tiers qualifiés par NetApp. Le système IMT contient à la fois des configurations NetApp prises en charge et certifiées. Les configurations prises en charge sont celles qualifiées par NetApp. Les configurations certifiées sont celles d'un fournisseur tiers qui ont obtenu la certification pour les composants NetApp.
+
+
+
+== Les meilleures pratiques pour IMT
+
+* Entrez les recommandations de NetApp IMT concernant les logiciels et les mises à niveau requises dans la section commutateurs et hôtes de votre fiche de planification.
+* Commencez par entrer des informations statiques, telles que le système d'exploitation ONTAP, le protocole et le mode CF, dans le IMT. Ensuite, en utilisant l'enquête de site comme guide de filtre, entrez les informations du système d'exploitation hôte, du gestionnaire de volumes et de la carte HBA.
+* Ne soyez pas si spécifique qu'aucun résultat n'a été renvoyé ; il est préférable de consulter plusieurs résultats renvoyés et de choisir le meilleur ajustement.
+* Les HBA hôtes sont parfois signalés sur la référence OEM et devront être référencés de manière croisée avant d'être saisis dans IMT.
+* Vérifiez la prise en charge de chaque hôte par rapport au IMT.
+
+
+*Informations connexes*
+
+https://mysupport.netapp.com/NOW/products/interoperability["Interopérabilité NetApp"]

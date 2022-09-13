@@ -1,0 +1,83 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, hosts tab 
+summary: 'Dans le cadre de votre feuille de travail étude et planification du site, vous devez configurer un onglet contenant les informations d"hôte du projet de migration.' 
+---
+= Onglet hôtes de la feuille de calcul étude et planification du site
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre feuille de travail étude et planification du site, vous devez configurer un onglet contenant les informations d'hôte du projet de migration.
+
+Voici un exemple de configuration de l'onglet hôtes.
+
+[cols="8*"]
+|===
+8+| Hôtes 
+
+
+ a| 
+*Courant*
+ a| 
+*NetApp recommandé*
+
+
+
+ a| 
+Nom d'hôte
+ a| 
+Conducteur
+ a| 
+Micrologiciel
+ a| 
+HUK
+ a| 
+MPIO
+ a| 
+SnapDrive
+ a| 
+SnapManager
+ a| 
+Correctifs
+
+
+
+ a| 
+dm-rx200s6-21
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+dm-rx200s6-22
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+dm-rx200s6-20
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===

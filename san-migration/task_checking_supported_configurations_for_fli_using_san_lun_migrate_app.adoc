@@ -1,0 +1,24 @@
+---
+permalink: san-migration/task_checking_supported_configurations_for_fli_using_san_lun_migrate_app.html 
+sidebar: sidebar 
+keywords: check, supported configurations, fli, using, san lun migrate app 
+summary: 'À partir de ONTAP 9.9.1, vous pouvez utiliser l"application SAN LUN Migrate pour qualifier une baie source étrangère pour FLI. L"application SAN LUN Migrate peut être utilisée lorsque la baie étrangère souhaitée n"est pas répertoriée dans FLI IMT.' 
+---
+= Vérification des configurations prises en charge pour FLI à l'aide de l'application SAN LUN Migrate
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+À partir de ONTAP 9.9.1, vous pouvez utiliser l'application SAN LUN Migrate pour qualifier une baie source étrangère pour FLI. L'application SAN LUN Migrate peut être utilisée lorsque la baie étrangère souhaitée n'est pas répertoriée dans FLI IMT.
+
+.Étapes
+. Accédez au site de support NetApp.
+. Sous *Filtrer par catégorie*, sélectionnez *migration*.
+. Sous *SAN LUN migration*, cliquez sur *Download App*.
+. Exécutez l'application à partir d'un hôte FC ou iSCSI Linux ayant un accès en bloc à la baie source.
++
+Si le tableau de sources étrangères peut être qualifié, une coche verte s'affiche. Si le tableau de sources étrangères ne peut pas être qualifié, un X rouge s'affiche.
+
+

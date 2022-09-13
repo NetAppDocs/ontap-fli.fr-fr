@@ -1,0 +1,54 @@
+---
+permalink: san-migration/task_fli_transition_importing_the_data.html 
+sidebar: sidebar 
+keywords: import, data, fli 7-mode, ontap 
+summary: 'Ces étapes décrivent l"importation des données d"un LUN source 7-mode vers un LUN de destination ONTAP à l"aide de FLI.' 
+---
+= Importation des données de FLI 7-mode vers ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ces étapes décrivent l'importation des données d'un LUN source 7-mode vers un LUN de destination ONTAP à l'aide de FLI.
+
+.Étapes
+. Démarrez l'importation de la migration.
++
+[listing]
+----
+cluster::*> lun import start -vserver fli_72C -path /vol/flivol/72Clun1
+----
+. Afficher l'état FLI.
++
+[listing]
+----
+cluster::*> lun import show -vserver fli_72C -path /vol/flivol/72Clun1
+vserver foreign-disk   path                operation admin operational percent
+                                         in progress state state       complete
+-------------------------------------------------------------------------------
+fli_72C D0i1E+G8Wg6m   /vol/flivol/72Clun1 import    started
+                                                           completed        100
+----
++
+Si vous voulez vous assurer que la LUN source reste cohérente une fois la migration terminée, vous devez :
+
++
+** Une fois que l'importation est terminée, arrêtez l'hôte.
+** Supprimer la relation LUN : `lun import delete -vserver fli_72C -path /vol/flivol/72Clun1`.
++
+[NOTE]
+====
+Rappelez-vous qu'une fois la relation LUN rompue, les LUN risquent de perdre rapidement la synchronisation, car les modifications sont apportées uniquement à la nouvelle LUN. Par conséquent, même s'il est avantageux de conserver un état cohérent dans le cas où vous souhaitez restaurer l'état d'origine, la nouvelle LUN ne sera probablement pas reflétée dans la LUN source.
+
+====
++
+[NOTE]
+====
+Une fois l'importation arrêtée, vous pouvez détruire la relation d'importation sauf si vous avez l'intention de vérifier l'importation.
+
+====
+
+
+

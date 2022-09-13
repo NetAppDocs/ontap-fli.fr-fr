@@ -1,0 +1,111 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, fas config tab 
+summary: 'Dans le cadre de votre fiche de planification et d"enquête sur le site, vous devez avoir un onglet contenant des informations sur votre configuration FAS.' 
+---
+= Fiche de planification et d'enquête de site onglet FAS Config
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre fiche de planification et d'enquête sur le site, vous devez avoir un onglet contenant des informations sur votre configuration FAS.
+
+Voici un exemple de configuration de l'onglet FAS Config.
+
+|===
+| Nom de cluster | Adresse IP de gestion du cluster | Informations d'identification de gestion du cluster disponibles 2+| Hôte ONTAP System Manager 
+
+
+|  |  |  | *Adresse IP* | *Informations d'identification disponibles* 
+
+
+|  |  |  |  |  
+|===
+|===
+6+| Ports réseau 
+
+
+| Nœud | Nom de l'interface | Type de port | Vitesse du port | Nom/ID du VLAN | IFGRP 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+| Nom du SVM | Type | Protocoles | Agrégat | Volume racine du SVM 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+| SVM | Volumétrie | Agrégat | Taille | SAN 
+
+
+|  |  |  | *Nom de LUN* | *Taille de LUN* 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+6+| Interfaces réseau SVM 
+
+
+| SVM | Nom de l'interface | Rôle d'interface | Adresse IP/masque réseau | Nœud de base/Port de base | Groupe de basculement 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+6+| Ports cibles FCP SVM 
+
+
+| SVM | Nom du port FCP | WWPN | WWNN | Nœud de départ | Port de départ 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+|===
+6+| Ports initiateurs FCP du nœud 
+
+
+| Nom du nœud | Nom du port FCP | WWPN | WWN | Nœud Homer | Port de départ 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===

@@ -1,0 +1,22 @@
+---
+permalink: san-migration/concept_plan_phase_procedures.html 
+sidebar: sidebar 
+keywords: plan, prepare, phase, procedures 
+summary: 'La phase de planification FLI se concentre sur les tâches nécessaires à la création de plans de migration détaillés et à la préparation de l"environnement du client pour la migration proprement dite. Une ou plusieurs migrations de tests sont effectuées au cours de cette phase afin de vérifier l"installation et la configuration de l"importation de LUN étrangères.' 
+---
+= Planifier et préparer les procédures de phase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase de planification FLI se concentre sur les tâches nécessaires à la création de plans de migration détaillés et à la préparation de l'environnement du client pour la migration proprement dite. Une ou plusieurs migrations de tests sont effectuées au cours de cette phase afin de vérifier l'installation et la configuration de l'importation de LUN étrangères.
+
+Les tâches suivantes doivent être effectuées au cours de la phase de planification :
+
+* Créez un mappage des LUN source et de destination en entrant les informations de mappage de stockage pour chaque baie de stockage dans la section LUN Details de votre feuille de travail de planification et d'enquête de site.
+* Intégrez le stockage source à la structure en fonction des informations de planification.
+* Configurer les zones de commutation.
+* Effectuer une ou plusieurs migrations de test pour vérifier l'installation et la configuration.
+

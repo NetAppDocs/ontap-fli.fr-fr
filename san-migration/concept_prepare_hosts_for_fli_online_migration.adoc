@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_prepare_hosts_for_fli_online_migration.html 
+sidebar: sidebar 
+keywords: prepare, hosts, fli, online, migration 
+summary: 'La phase d"exécution en ligne FLI comprend la préparation des hôtes de migration afin d"être dans une configuration prise en charge.' 
+---
+= Préparation des hôtes pour la migration FLI en ligne
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase d'exécution en ligne FLI comprend la préparation des hôtes de migration afin d'être dans une configuration prise en charge.
+
+Dans de nombreux cas, il peut être possible d'avoir effectué cette correction avant cette étape. Si ce n'est pas le cas, vous pouvez effectuer une correction des hôtes, par exemple installer des kits de liaison d'hôtes ou des modules de gestion des tâches. La phase d'analyse comprend une liste d'éléments à effectuer sur chaque hôte pour que cet hôte soit dans une configuration prise en charge à l'aide de ONTAP. En fonction du type de migration appliqué, il peut être résolu au niveau de l'hôte, puis redémarré ou simplement remédier aux problèmes.

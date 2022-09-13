@@ -1,0 +1,273 @@
+---
+permalink: san-migration/task_fli_transition_preparing_source_and_destination_arrays.html 
+sidebar: sidebar 
+keywords: prepare, source, destination, arrays, migration 
+summary: 'Pour préparer la migration FLI 7-mode vers ONTAP, vérifiez les chemins LUN hôte et source, ainsi que d"autres détails.' 
+---
+= Préparation des baies source et destination pour la migration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Pour préparer la migration FLI 7-mode vers ONTAP, vérifiez les chemins LUN hôte et source, ainsi que d'autres détails.
+
+.Étapes
+. Dans ONTAP, passez à `advanced` niveau de privilège.
++
+[listing]
+----
+cluster::> set adv
+
+Warning: These advanced commands are potentially dangerous; use them only when directed to do so by NetApp personnel.
+Do you want to continue? {y|n}: y
+
+cluster::*>
+----
+. Vérifiez que la matrice source est visible sur le contrôleur de destination.
++
+[listing]
+----
+cluster::*> storage array show
+Prefix                         Name   Vendor            Model Options
+-------- ---------------------------- -------- ---------------- ----------
+NET-1                    NETAPP_LUN_1   NETAPP              LUN
+
+cluster::*> storage array config show -array-name NETAPP_LUN_1
+             LUN   LUN
+Node         Group Count                   Array Name       Array Target Port Initiator
+------------ ----- ----- ---------------------------- ----------------------- ---------
+ontaptme-fc-cluster-01
+                 1     2                 NETAPP_LUN_1        500a0981880b813d        0d
+                                                             500a0981980b813d        0d
+ontaptme-fc-cluster-02
+                 1     2                 NETAPP_LUN_1        500a0981880b813d        0d
+                                                             500a0981980b813d        0d
+4 entries were displayed.
+
+Warning: Configuration errors were detected.  Use 'storage errors show' for detailed information.
+----
+. Afficher les détails de toutes les erreurs de stockage répertoriées. Certaines erreurs peuvent nécessiter une action avant de continuer. Toutefois, les erreurs indiquées dans l'exemple suivant « ce périphérique est une LUN ONTAP(R) » peuvent être ignorées en toute sécurité.
++
+[NOTE]
+====
+Le message d'erreur « ce périphérique est une LUN ONTAP\(R\) » s'affiche, car FLI s'appuie sur la technologie FlexArray qui ne prend pas en charge la virtualisation de cibles ONTAP ou ONTAP. FLI peut importer les LUN, mais FlexArray ne prend pas en charge leur virtualisation.
+
+====
++
+[listing]
+----
+cluster::*> storage errors show
+Disk: NET-1.1
+UID: 60A98000:44306931:452B4738:5767366B:00000000:00000000:00000000:00000000:00000000:00000000
+--------------------
+NET-1.1 (60a9800044306931452b47385767366b): This device is an ONTAP(R) LUN.
+
+Disk: NET-1.2
+UID: 60A98000:44306931:452B4738:5767366D:00000000:00000000:00000000:00000000:00000000:00000000
+--------------------
+NET-1.2 (60a9800044306931452b47385767366d): This device is an ONTAP(R) LUN.
+
+2 entries were displayed.
+----
+. Affiche les détails de la LUN source.
++
+[listing]
+----
+cluster::*> storage array config show -array-name NETAPP_LUN_1 -instance
+
+           Controller Name: ontaptme-fc-cluster-01
+                 LUN Group: 1
+        Array Target Ports: 500a0981880b813d
+                 Initiator: 0d
+                Array Name: NETAPP_LUN_1
+   Target Side Switch Port: stme-5010-4:2-6
+Initiator Side Switch Port: stme-5010-4:2-3
+      Number of array LUNs: 2
+
+           Controller Name: ontaptme-fc-cluster-01
+                 LUN Group: 1
+        Array Target Ports: 500a0981980b813d
+                 Initiator: 0d
+                Array Name: NETAPP_LUN_1
+   Target Side Switch Port: stme-5010-4:2-5
+Initiator Side Switch Port: stme-5010-4:2-3
+      Number of array LUNs: 2
+
+~~~~~~ Output truncated ~~~~~~~
+4 entries were displayed.
+
+Warning: Configuration errors were detected.  Use 'storage errors show' for detailed information.
+----
+. Vérifiez que la matrice source est détectée par tous les ports d'initiateur.
++
+[listing]
+----
+cluster::*> storage array config show -array-name NETAPP_LUN_1
+             LUN   LUN
+Node         Group Count                   Array Name       Array Target Port Initiator
+------------ ----- ----- ---------------------------- ----------------------- ---------
+ontaptme-fc-cluster-01
+                 1     2                 NETAPP_LUN_1        500a0981880b813d        0d
+                                                             500a0981980b813d        0d
+ontaptme-fc-cluster-02
+                 1     2                 NETAPP_LUN_1        500a0981880b813d        0d
+                                                             500a0981980b813d        0d
+4 entries were displayed.
+
+Warning: Configuration errors were detected.  Use 'storage errors show' for detailed information.
+----
+. Répertoriez les LUN mappées depuis le stockage 7-mode. Vérifiez les propriétés et les chemins du disque.
++
+[listing]
+----
+cluster::*> storage disk show -array-name NETAPP_LUN_1 -instance
+                  Disk: NET-1.1
+        Container Type: unassigned
+            Owner/Home: -  / -
+               DR Home: -
+    Stack ID/Shelf/Bay: -  / -  / -
+                   LUN: 0
+                 Array: NETAPP_LUN_1
+                Vendor: NETAPP
+                 Model: LUN
+         Serial Number: D0i1E+G8Wg6k
+                   UID: 60A98000:44306931:452B4738:5767366B:00000000:00000000:00000000:00000000:00000000:00000000
+                   BPS: 512
+         Physical Size: -
+              Position: present
+Checksum Compatibility: block
+             Aggregate: -
+                  Plex: -
+Paths:
+                                LUN  Initiator Side        Target Side                                                        Link
+Controller         Initiator     ID  Switch Port           Switch Port           Acc Use  Target Port                TPGN    Speed      I/O KB/s          IOPS
+------------------ ---------  -----  --------------------  --------------------  --- ---  -----------------------  ------  -------  ------------  ------------
+ontaptme-fc-cluster-02
+                   0d             0  stme-5010-4:2-4       stme-5010-4:2-6       ANO RDY  500a0981880b813d              1   4 Gb/S             0             0
+ontaptme-fc-cluster-02
+                   0d             0  stme-5010-4:2-4       stme-5010-4:2-5       AO  INU  500a0981980b813d              0   4 Gb/S             0             0
+ontaptme-fc-cluster-01
+                   0d             0  stme-5010-4:2-3       stme-5010-4:2-6       ANO RDY  500a0981880b813d              1   4 Gb/S             0             0
+ontaptme-fc-cluster-01
+                   0d             0  stme-5010-4:2-3       stme-5010-4:2-5       AO  INU  500a0981980b813d              0   4 Gb/S             0             0
+
+Errors:
+NET-1.1 (60a9800044306931452b47385767366b): This device is a ONTAP(R) LUN.
+~~~~~~ Output truncated ~~~~~~~
+2 entries were displayed.
+----
+. Vérifiez que la LUN source est marquée comme étant étrangère.
++
+[listing]
+----
+cluster::*> storage disk show -array-name NETAPP_LUN_1
+                     Usable           Disk    Container   Container
+Disk                   Size Shelf Bay Type    Type        Name      Owner
+---------------- ---------- ----- --- ------- ----------- --------- --------
+NET-1.1                   -     -   - LUN     unassigned  -         -
+NET-1.2                   -     -   - LUN     foreign     -         -
+2 entries were displayed.
+----
+. Les numéros de série sont utilisés dans les commandes d'importation FLI LUN. Répertoriez tous les LUN étrangers et leurs numéros de série.
++
+[listing]
+----
+cluster::*> storage disk show -container-type foreign -fields serial-number
+disk    serial-number
+------- --------------------------------
+NET-1.2 D0i1E+G8Wg6m
+----
+. Créer la LUN cible. Le `LUN create` La commande détecte la taille et l'alignement en fonction du décalage de la partition et crée le LUN en conséquence avec l'argument de disque étranger
++
+[listing]
+----
+cluster::*> vol create -vserver fli_72C -volume flivol -aggregate aggr1 -size 10G
+[Job 12523] Job succeeded: Successful
+----
+. Vérifiez le volume.
++
+[listing]
+----
+cluster::*> vol show -vserver fli_72C
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+fli_72C   flivol       aggr1        online     RW         10GB     9.50GB    5%
+fli_72C   rootvol      aggr1        online     RW          1GB    972.6MB    5%
+2 entries were displayed.
+----
+. Créer la LUN cible.
++
+[listing]
+----
+cluster::*> lun create -vserver fli_72C -path /vol/flivol/72Clun1 -ostype windows_2008 -foreign-disk D0i1E+G8Wg6m
+
+Created a LUN of size 3g (3224309760)
+----
+. Vérification du nouveau LUN.
++
+[listing]
+----
+cluster::*> lun show -vserver fli_72C
+Vserver   Path                            State   Mapped   Type        Size
+--------- ------------------------------- ------- -------- -------- --------
+fli_72C   /vol/flivol/72Clun1             online  unmapped windows_2008
+                                                                      3.00GB
+----
+. Créez un groupe initiateur de protocole FCP avec des initiateurs hôtes.
++
+[listing]
+----
+cluster::*> lun igroup create -vserver fli_72C -igroup 72C_g1 -protocol fcp -ostype windows –initiator 10:00:00:00:c9:e6:e2:79
+
+cluster::*> lun igroup show -vserver fli_72C -igroup 72C_g1
+          Vserver Name: fli_72C
+           Igroup Name: 72C_g1
+              Protocol: fcp
+               OS Type: windows
+Portset Binding Igroup: -
+           Igroup UUID: 7bc184b1-dcac-11e4-9a88-00a0981cc318
+                  ALUA: true
+            Initiators: 10:00:00:00:c9:e6:e2:79 (logged in)
+----
+. Mappez la LUN de test sur le groupe initiateur de test.
++
+[listing]
+----
+cluster::*> lun map -vserver fli_72C -path /vol/flivol/72Clun1 -igroup 72C_g1
+
+cluster::*> lun mapping show -vserver fli_72C
+Vserver    Path                                      Igroup   LUN ID  Protocol
+---------- ----------------------------------------  -------  ------  --------
+fli_72C    /vol/flivol/72Clun1                       72C_g1        0  fcp
+----
+. Hors ligne la LUN test.
++
+[listing]
+----
+cluster::*> lun offline -vserver fli_72C -path /vol/flivol/72Clun1
+
+Warning: This command will take LUN "/vol/flivol/72Clun1" in Vserver "fli_72C" offline.
+Do you want to continue? {y|n}: y
+
+cluster::*> lun show -vserver fli_72C
+Vserver   Path                            State   Mapped   Type        Size
+--------- ------------------------------- ------- -------- -------- --------
+fli_72C   /vol/flivol/72Clun1             offline mapped   windows_2008
+                                                                      3.00GB
+----
+. Créer une relation d'importation entre une nouvelle LUN et une LUN étrangère
++
+[listing]
+----
+cluster::*> lun import create -vserver fli_72C -path /vol/flivol/72Clun1 -foreign-disk D0i1E+G8Wg6m
+
+cluster::*> lun import show -vserver fli_72C -path /vol/flivol/72Clun1
+vserver foreign-disk   path                operation admin operational percent
+                                         in progress state state       complete
+-------------------------------------------------------------------------------
+fli_72C D0i1E+G8Wg6m   /vol/flivol/72Clun1 import    stopped
+                                                           stopped            0
+----
+

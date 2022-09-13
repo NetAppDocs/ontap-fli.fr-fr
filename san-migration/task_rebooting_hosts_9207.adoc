@@ -1,0 +1,23 @@
+---
+permalink: san-migration/task_rebooting_hosts_9207.html 
+sidebar: sidebar 
+keywords: reboot, hosts 
+summary: 'Vous avez la possibilité de redémarrer les hôtes avant de démarrer ce flux de travail afin de vérifier que l"hôte est dans un état correct connu.' 
+---
+= Redémarrage des hôtes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous avez la possibilité de redémarrer les hôtes avant de démarrer ce flux de travail afin de vérifier que l'hôte est dans un état correct connu.
+
+La copie Snapshot est également très rapide afin de faciliter le rétablissement de la version ultérieure, en cas de besoin. Pour vérifier que la configuration du serveur est persistante et intacte entre les redémarrages, procédez comme suit :
+
+.Étapes
+. Arrêtez toutes vos applications ouvertes.
+. Examinez les journaux pour détecter des erreurs.
+. Vérifiez que l'hôte voit tous ses chemins.
+. Redémarrez l'hôte.
+

@@ -1,0 +1,30 @@
+---
+permalink: san-migration/reference_host_remediation.html 
+sidebar: sidebar 
+keywords: host remediation 
+summary: 'Selon le type de migration, la correction des hôtes peut se faire à la volée lors de la migration (importation de LUN étrangères en ligne et 7-mode vers ONTAP) ou peut se produire une fois la migration terminée (importation de LUN étrangères hors ligne).' 
+---
+= Résolution des problèmes liés aux hôtes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Selon le type de migration, la correction des hôtes peut se faire à la volée lors de la migration (importation de LUN étrangères en ligne et 7-mode vers ONTAP) ou peut se produire une fois la migration terminée (importation de LUN étrangères hors ligne).
+
+Pour résoudre les différentes étapes de résolution des systèmes d'exploitation hôtes, utilisez le. Consultez l'analyse des écarts, procédez aux phases de planification et d'analyse, et la documentation NetApp et fournisseur appropriée pour connaître les étapes propres à votre migration.
+
+[NOTE]
+====
+FLI utilise les mêmes procédures de remédiation à l'utilisation de l'outil 7MTT. Par conséquent, il est logique d'exploiter le même document de correction plutôt que de documenter ces procédures plusieurs fois à des endroits différents.
+
+====
+[NOTE]
+====
+Pour résoudre les problèmes de CAW, utiliser le processus de correction VMware ESXi CAW/ATS.
+
+====
+*Informations connexes*
+
+https://docs.netapp.com/us-en/ontap-7mode-transition/san-host/index.html["Transition et résolution des problèmes liés aux hôtes SAN"]

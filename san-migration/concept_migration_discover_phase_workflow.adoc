@@ -1,0 +1,59 @@
+---
+permalink: san-migration/concept_migration_discover_phase_workflow.html 
+sidebar: sidebar 
+keywords: discover phase workflow 
+summary: La phase de découverte du processus de migration consiste à collecter les informations utilisées pour résoudre les problèmes liés aux hôtes et créer les plans de migration dans les étapes ultérieures. La collecte de la plupart des informations est automatisée grâce à un outil de collecte de données, tel que OneCollect. 
+---
+= Workflow de phase de découverte
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase de découverte du processus de migration consiste à collecter les informations utilisées pour résoudre les problèmes liés aux hôtes et créer les plans de migration dans les étapes ultérieures. La collecte de la plupart des informations est automatisée grâce à un outil de collecte de données, tel que OneCollect.
+
+La figure suivante illustre le workflow de phase de découverte.
+
+image::../media/discover_phase_1.png[découvrir la phase 1]
+
+Les tâches de phase de découverte sont répertoriées dans le tableau suivant.
+
+[cols="2*"]
+|===
+| Composant | Tâches 
+
+
+ a| 
+Hôte
+ a| 
+. Identification des WWPN des HBA (utilisés pour la création de zone)
+. Identifier les informations relatives aux LUN (taille, numéros de série, dispositions des partitions et décalages)
+. Identifier la configuration MPIO tierce, le système d'exploitation hôte, les modèles HBA/CNA et les micrologiciels, etc.
+
+
+
+
+ a| 
+Structure
+ a| 
+Identifiez l'hôte dans les zones de stockage source. (Ceux-ci sont supprimés après la migration).
+
+
+
+ a| 
+Système de stockage de destination
+ a| 
+Identifier les WWPN des ports qui seront utilisés pour l'utilisation de l'initiateur/de la cible.
+
+
+
+ a| 
+Le stockage source
+ a| 
+. Identifier les WWPN (utilisés pour la création de zones).
+. Identifiez les LUN mappées à l'hôte.
+. Identifier les enregistrements d'initiateur pour l'hôte.
+
+
+|===

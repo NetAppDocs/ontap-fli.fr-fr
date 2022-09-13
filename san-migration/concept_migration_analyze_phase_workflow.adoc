@@ -1,0 +1,40 @@
+---
+permalink: san-migration/concept_migration_analyze_phase_workflow.html 
+sidebar: sidebar 
+keywords: analyze, phase, workflow 
+summary: 'La phase d"analyse se concentre sur des éléments à aborder avant la planification de la migration. Vous devez identifier les spécificités relatives à la configuration des hôtes qui ne sont pas indiquées dans la matrice d"interopérabilité.' 
+---
+= Analyser le workflow de phase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase d'analyse se concentre sur des éléments à aborder avant la planification de la migration. Vous devez identifier les spécificités relatives à la configuration des hôtes qui ne sont pas indiquées dans la matrice d'interopérabilité.
+
+Pour chaque hôte, une configuration cible (post-migration) est identifiée et une analyse des écarts est réalisée pour identifier les composants spécifiques qui ne sont pas pris en charge. L'analyse de l'hôte doit être immédiatement examinée à la fin de l'étude. Les mises à jour requises peuvent rompre la compatibilité avec les applications exécutées sur chaque hôte.
+
+En général, les modifications d'hôte requises ne sont effectuées qu'en cas d'événement de migration. Cela est dû au besoin commun de planifier des fenêtres de maintenance, mais il est souvent moins risqué d'effectuer des modifications à l'hôte à l'avance, comme des correctifs système et des mises à jour de l'adaptateur de bus hôte (HBA). En outre, les mises à jour du système sont souvent effectuées en coordination avec les mises à jour des applications utilisant les mêmes opérations de maintenance. Généralement, toute modification apportée à la configuration MPIO (chemins d'accès E/S multiples) avant la migration affecte également la prise en charge du stockage actuel. Par exemple, si vous supprimez PowerPath d'un hôte et que vous le reconfigurez pour utiliser MPIO natif et ALUA (Asymmetric Logical Unit Access) sur Linux, il se peut que la configuration de stockage actuelle ne soit pas prise en charge.
+
+Le report de la reconfiguration MPIO jusqu'à après la migration simplifie le processus de restauration, le cas échéant.
+
+Les tâches de la phase de planification sont répertoriées dans le tableau suivant.
+
+[cols="2*"]
+|===
+| Composant | Tâches 
+
+
+ a| 
+Hôte
+ a| 
+. Effectuer une analyse de l'écart pour chaque hôte. Identifiez les correctifs et correctifs requis, les mises à jour du système d'exploitation, les pilotes HBA et les mises à niveau de firmware requis pour correspondre à la configuration cible sélectionnée sur le système NetApp IMT. En outre, les exigences relatives à l'installation d'autres logiciels NetApp sur cet hôte (SnapDrive®, SnapManager®) doivent être prises en compte.
+. Déterminez une configuration cible (après migration) pour chaque hôte (configuration du système d'exploitation, MPIO, détails sur HBA, version du kit d'utilitaire hôte).
+. Identification des autres exigences relatives aux produits NetApp (SnapDrive, SnapManager).
+
+
+|===
+*Informations connexes*
+
+https://mysupport.netapp.com/NOW/products/interoperability["Interopérabilité NetApp"]

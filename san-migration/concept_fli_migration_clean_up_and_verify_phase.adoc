@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_fli_migration_clean_up_and_verify_phase.html 
+sidebar: sidebar 
+keywords: fli, migration, cleanup, verify, phase 
+summary: 'Lors de la phase de nettoyage, vous collectez les journaux de migration FLI, supprimez la configuration de stockage source du stockage NetApp, et supprimez le groupe d"hôtes de stockage NetApp du stockage source. Supprimez également les zones source-destination. La vérification est le point où la précision de l"exécution du plan de migration est déterminée.' 
+---
+= Phase de nettoyage et de vérification de la migration FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Lors de la phase de nettoyage, vous collectez les journaux de migration FLI, supprimez la configuration de stockage source du stockage NetApp, et supprimez le groupe d'hôtes de stockage NetApp du stockage source. Supprimez également les zones source-destination. La vérification est le point où la précision de l'exécution du plan de migration est déterminée.
+
+Examinez les journaux pour détecter les erreurs, vérifiez les chemins d'accès et effectuez tous les tests d'application afin de vérifier que la migration s'est correctement réalisée.

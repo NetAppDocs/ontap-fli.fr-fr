@@ -1,0 +1,14 @@
+---
+permalink: san-migration/concept_data_migration_service_for_heterogenous_san_environments.html 
+sidebar: sidebar 
+keywords: data, migration, service, heterogeneous, san, environments 
+summary: Le service de migration de données pour environnements SAN hétérogènes constitue une solution complète de migration des données utilisant la technologie FLI. Le service de migration de données SAN propose des logiciels et des services qui réduisent les erreurs, augmentent la productivité et favorisent une livraison de données cohérente pour les services professionnels de NetApp et de ses partenaires. 
+---
+= Service de migration des données pour les environnements SAN hétérogènes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Le service de migration de données pour environnements SAN hétérogènes constitue une solution complète de migration des données utilisant la technologie FLI. Le service de migration de données SAN propose des logiciels et des services qui réduisent les erreurs, augmentent la productivité et favorisent une livraison de données cohérente pour les services professionnels de NetApp et de ses partenaires.

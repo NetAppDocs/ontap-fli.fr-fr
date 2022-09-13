@@ -1,0 +1,29 @@
+---
+permalink: san-migration/concept_variables_that_affect_foreign_lun_import_migration_performance.html 
+sidebar: sidebar 
+keywords: variables, affect, foreign lun import, migration, performance 
+summary: 'Un certain nombre de variables affectent la rapidité à laquelle une migration donnée s"effectue.' 
+---
+= Variables qui affectent les performances de la migration Foreign LUN Import
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un certain nombre de variables affectent la rapidité à laquelle une migration donnée s'effectue.
+
+Ces variables comprennent :
+
+* Nombre de migrations simultanées exécutées entre une source et une destination donnée
+* Capacités des baies sources
+* Charge de la matrice source
+* Capacités des baies de destination
+* Charge de la baie de destination
+* Combien d'E/S sont générées sur la LUN pendant la migration
+* Le type, la bande passante, ainsi que les « Fan-In » et « Fan-Out » des structures frontales
+
+
+Pour des performances optimales, n'utilisez pas plus de 16 migrations FLI simultanées par nœud.
+
+Étant donné le nombre de variables ayant un impact sur les performances de la migration, il est recommandé d'effectuer plusieurs migrations de test. En général, plus l'échantillon test est grand, plus la caractérisation sera grande. Nous recommandons donc d'effectuer plusieurs migrations de tests de tailles différentes afin d'obtenir un échantillonnage précis des performances de débit. Les données de performance issues de ces tests peuvent ensuite être exploitées pour extrapoler la synchronisation et la durée des migrations de production planifiées.

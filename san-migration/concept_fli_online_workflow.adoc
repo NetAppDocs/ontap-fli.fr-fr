@@ -1,0 +1,30 @@
+---
+permalink: san-migration/concept_fli_online_workflow.html 
+sidebar: sidebar 
+keywords: fli, online, workflow 
+summary: 'Il s"agit du second des quatre exemples de flux de travail FLI, qui traite ainsi la migration en ligne FLI.' 
+---
+= Workflow en ligne FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Il s'agit du second des quatre exemples de flux de travail FLI, qui traite ainsi la migration en ligne FLI.
+
+Dans cet exemple, la baie source est une baie EMC VNX5500. L'exemple fourni doit présenter en détail le processus FLI en ligne et est conçu pour fonctionner avec les informations et les processus communs abordés dans les parties précédentes de ce guide. Le workflow en ligne a les tâches suivantes :
+
+. Préparation du chemin de LUN
+. La mise en service s'effectue sans interruption
+. Importation des données de LUN source
+. Vérification des résultats de la migration
+. Nettoyage de la migration FLI en ligne
+. Tâches post-migration FLI en ligne
+
+
+[NOTE]
+====
+Si la destination du contrôleur NetApp est une MetroCluster, n'utilisez PAS le workflow en ligne. En cas de basculement de site lors d'une importation en ligne active, les transferts d'écriture vers la baie source peuvent échouer, ce qui entraînerait une échec de vérification et une perte potentielle de données. Si la destination est MetroCluster, utilisez le processus FLI hors ligne.
+
+====

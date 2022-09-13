@@ -1,0 +1,52 @@
+---
+permalink: san-migration/task_brocade_fabric_example.html 
+sidebar: sidebar 
+keywords: brocade, fabric, example 
+summary: 'Cette procédure indique la suppression du stockage source et de la zone hôte d"un groupe de structure Brocade.' 
+---
+= Exemple de structure Brocade
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cette procédure indique la suppression du stockage source et de la zone hôte d'un groupe de structure Brocade.
+
+[NOTE]
+====
+Le nom de la zone pour les exemples est _rx21_AMS2100_.
+
+====
+.Étapes
+. Supprimez la zone du zoneset dans la structure A.
++
+[listing]
+----
+cfgDelete "PROD_LEFT", "rx21_AMS2100"
+cfgDelete "PROD_LEFT", "rx22_AMS2100"
+cfgDelete "PROD_LEFT", "rx20_AMS2100"
+----
+. Activez le zoneset dans la structure A.
++
+[listing]
+----
+cfgEnable "PROD_LEFT"
+cfgSave
+----
+. Supprimez la zone du zoneset dans la structure B.
++
+[listing]
+----
+cfgDelete "PROD_RIGHT", "rx21_AMS2100"
+cfgDelete "PROD_RIGHT", "rx22_AMS2100"
+cfgDelete "PROD_RIGHT", "rx20_AMS2100"
+----
+. Activez le zoneset dans la structure B.
++
+[listing]
+----
+cfgEnable "PROD_RIGHT"
+cfgSave
+----
+

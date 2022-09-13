@@ -1,0 +1,25 @@
+---
+permalink: san-migration/concept_enablement_for_non_supported_luns_interoperability.html 
+redirect: ontap-fli/san-migration/task_importing_non_fc_luns.html 
+sidebar: sidebar 
+keywords: enablement, non-supported, luns 
+summary: 'Il est important de vérifier que le système d"exploitation hôte, les adaptateurs de bus hôte, les commutateurs et la baie ONTAP de votre baie source et de votre configuration finale sont tous répertoriés dans la matrice d"interopérabilité.' 
+---
+= Activation pour les LUN non prises en charge
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Il est important de vérifier que le système d'exploitation hôte, les adaptateurs de bus hôte, les commutateurs et la baie ONTAP de votre baie source et de votre configuration finale sont tous répertoriés dans la matrice d'interopérabilité.
+
+Les sections suivantes fournissent des informations sur ces utilisations :
+
+* Importation des LUN iSCSI en tant que LUN FC
+* Déplacement des LUN migrés vers des plateformes AFF
+
+
+*Informations connexes*
+
+https://mysupport.netapp.com/matrix["Matrice d'interopérabilité NetApp"]

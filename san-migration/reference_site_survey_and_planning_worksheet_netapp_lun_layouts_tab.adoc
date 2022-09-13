@@ -1,0 +1,77 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_netapp_lun_layouts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, netapp lun layouts tab 
+summary: Dans le cadre de votre feuille de travail étude et planification de site, vous devez configurer un onglet contenant des informations sur vos mises en page LUN. 
+---
+= Feuille de calcul étude et planification du site onglet mises en page des LUN NetApp
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre feuille de travail étude et planification de site, vous devez configurer un onglet contenant des informations sur vos mises en page LUN.
+
+Voici un exemple de configuration de l'onglet mises en page des LUN NetApp.
+
+|===
+7+| Informations sur les LUN NetApp 
+
+
+ a| 
+Contrôleur de stockage
+ a| 
+Agrégat
+ a| 
+Nom du volume
+ a| 
+Taille du volume
+ a| 
+Garantie de volume
+ a| 
+Réserve Snap
+ a| 
+Nom de LUN
+
+|===
+|===
+7+| Informations sur les LUN NetApp 
+
+
+ a| 
+N° DE SÉRIE
+ a| 
+Type de LUN
+ a| 
+Préfixe personnalisé
+ a| 
+Description de la LUN
+ a| 
+Taille en Go
+ a| 
+Réservation de LUN
+ a| 
+Réserve fractionnaire
+
+|===
+|===
+7+| Informations sur les LUN NetApp 
+
+
+ a| 
+Taille automatique du volume
+ a| 
+Supprimer automatiquement l'aimantation
+ a| 
+Groupe initiateur
+ a| 
+IDENTIFIANT DE LUN
+ a| 
+Type d'hôte
+ a| 
+Lettre de lecteur
+ a| 
+Hôte
+
+|===

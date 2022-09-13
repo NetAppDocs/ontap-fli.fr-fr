@@ -1,0 +1,39 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_migration_schedule_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, migration schedule tab 
+summary: Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant des informations sur votre planning de migration. 
+---
+= Feuille de travail de planification et d'étude du site onglet planification de la migration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant des informations sur votre planning de migration.
+
+Voici un exemple de configuration de l'onglet planification de la migration.
+
+|===
+8+| Planification de la migration 
+
+
+ a| 
+Date de migration
+ a| 
+Hôte
+ a| 
+OS
+ a| 
+Client supplémentaire
+ a| 
+Contrôleur de stockage
+ a| 
+UID DE LUN
+ a| 
+Taille de la LUN
+ a| 
+État
+
+|===

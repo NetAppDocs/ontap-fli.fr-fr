@@ -1,0 +1,23 @@
+---
+permalink: san-migration/concept_benchmarks_for_estimating_migration_durations.html 
+sidebar: sidebar 
+keywords: benchmarks, estimating, migration, durations 
+summary: À des fins de planification, certaines estimations peuvent être utilisées pour estimer le niveau de support et la durée des migrations de données. 
+---
+= Bancs d'essai pour estimer la durée des migrations
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+À des fins de planification, certaines estimations peuvent être utilisées pour estimer le niveau de support et la durée des migrations de données.
+
+Pour obtenir une estimation précise des performances de vos applications, nous vous recommandons d'exécuter plusieurs migrations de tests de tailles différentes afin d'obtenir des résultats précis en termes de performances de vos environnements spécifiques.
+
+[NOTE]
+====
+Les bancs d'essai suivants sont strictement destinés à la planification et il est peu probable qu'ils soient particulièrement précis dans des environnements spécifiques.
+
+====
+Hypothèses : cinq heures par migration hôte basées sur un hôte avec 8 LUN avec un total de 2 To de données. Ces paramètres fournissent un nombre de planification d'environ 400 Go par heure.

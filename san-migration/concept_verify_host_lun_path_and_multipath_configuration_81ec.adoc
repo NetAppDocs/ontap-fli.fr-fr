@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_verify_host_lun_path_and_multipath_configuration_81ec.html 
+sidebar: sidebar 
+keywords: verify, host lun path, multipath, configuration 
+summary: 'Avant toute migration, vérifiez que les chemins d"accès multiples sont correctement configurés et fonctionnent correctement.' 
+---
+= Vérifiez le chemin LUN hôte et la configuration des chemins d'accès multiples
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant toute migration, vérifiez que les chemins d'accès multiples sont correctement configurés et fonctionnent correctement.
+
+Tous les chemins disponibles vers les LUN doivent être actifs. Reportez-vous aux rubriques de vérification des chemins d'accès multiples de l'hôte SAN pour obtenir des exemples de vérification des chemins d'accès multiples sur les hôtes Windows, Linux et ESXi.

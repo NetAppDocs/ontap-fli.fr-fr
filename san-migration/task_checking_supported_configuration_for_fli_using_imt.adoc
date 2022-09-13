@@ -1,0 +1,32 @@
+---
+permalink: san-migration/task_checking_supported_configuration_for_fli_using_imt.html 
+sidebar: sidebar 
+keywords: check, supported configurations, fli using imt 
+summary: 'Vous devez utiliser la matrice d"interopérabilité (IMT) pour obtenir des informations sur les configurations des produits NetApp compatibles avec les produits et composants tiers qualifiés par NetApp.' 
+---
+= Vérification des configurations prises en charge pour FLI à l'aide de IMT
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous devez utiliser la matrice d'interopérabilité (IMT) pour obtenir des informations sur les configurations des produits NetApp compatibles avec les produits et composants tiers qualifiés par NetApp.
+
+[NOTE]
+====
+Depuis la version ONTAP 9.9.1, si votre baie n'est pas répertoriée comme étant prise en charge dans le IMT, vous pouvez utiliser l'application SAN LUN Migrate sur le site de support NetApp afin de déterminer si votre baie peut être prise en charge.
+
+====
+.Étapes
+. Accédez à la matrice d'interopérabilité.
+. Recherchez le modèle de matrice.
+. Sélectionnez la solution *Foreign LUN Import (FLI) interopérabilité back-end*.
+. Sélectionnez *FAS model* et *ONTAP version* pour déterminer les configurations prises en charge.
+. Pour les configurations hôte prises en charge en front-end, cliquez sur *générer en vue de bout en bout avec l'hôte SAN ONTAP*.
+. Pour les configurations prises en charge par un commutateur, cliquez sur *générer de bout en bout pour SAN-Switch* dans l'onglet *ONTAP SAN host*.
+
+
+*Informations connexes*
+
+https://mysupport.netapp.com/NOW/products/interoperability["Interopérabilité NetApp"]

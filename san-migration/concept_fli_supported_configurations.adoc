@@ -1,0 +1,24 @@
+---
+permalink: san-migration/concept_fli_supported_configurations.html 
+sidebar: sidebar 
+keywords: fli, supported, configurations 
+summary: 'L"environnement FLI doit être déployé de manière prise en charge afin d"assurer un fonctionnement et un support appropriés. La liste des configurations prises en charge change à mesure que le service technique qualifie de nouvelles configurations. Consultez la matrice d"interopérabilité NetApp pour vérifier la prise en charge de configurations spécifiques.' 
+---
+= Configurations compatibles avec FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+L'environnement FLI doit être déployé de manière prise en charge afin d'assurer un fonctionnement et un support appropriés. La liste des configurations prises en charge change à mesure que le service technique qualifie de nouvelles configurations. Consultez la matrice d'interopérabilité NetApp pour vérifier la prise en charge de configurations spécifiques.
+
+ONTAP 8.3 et les versions ultérieures sont les seuls systèmes de stockage de destination pris en charge. Les migrations vers des systèmes de stockage tiers ne sont pas prises en charge.
+
+Pour obtenir la liste des baies de stockage, des commutateurs et des firmwares source pris en charge, consultez la matrice d'interopérabilité. Le programme de migration des données fournira la prise en charge des configurations dans la matrice d'interopérabilité NetApp.
+
+Une fois l'importation terminée et toutes les LUN migrées vers les contrôleurs NetApp, vérifiez que toutes les configurations sont prises en charge.
+
+*Informations connexes*
+
+https://mysupport.netapp.com/matrix["Matrice d'interopérabilité NetApp"]

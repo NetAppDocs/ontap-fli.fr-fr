@@ -1,0 +1,20 @@
+---
+permalink: san-migration/task_presenting_source_luns_to_ontap_storage_during_offline_fli.html 
+sidebar: sidebar 
+keywords: present, source luns, ontap storage, fli 
+summary: Dans le cadre du processus FLI hors ligne, vous devez présenter vos LUN source à votre stockage ONTAP. 
+---
+= Présentation de LUN source à un stockage ONTAP lors de l'outil FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre du processus FLI hors ligne, vous devez présenter vos LUN source à votre stockage ONTAP.
+
+.Étapes
+. Connectez-vous à la matrice source.
+. Ajoutez les initiateurs NetApp au groupe hôte créé lors de la phase de planification.
+. Sélectionnez les LUN hôtes à migrer à partir des LUN logiques disponibles. Utilisez les noms de LUN pour chaque hôte mentionné dans la section LUN source de votre feuille de travail étude et planification de site.
+

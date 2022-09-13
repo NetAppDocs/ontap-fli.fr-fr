@@ -1,0 +1,18 @@
+---
+permalink: san-migration/concept_fli_offline_post_migration_tasks.html 
+sidebar: sidebar 
+keywords: fli, offline, post-migration, tasks 
+summary: Toute correction de serveur non effectuée précédemment est effectuée lors de la post-migration. 
+---
+= Tâches post-migration hors ligne FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Toute correction de serveur non effectuée précédemment est effectuée lors de la post-migration.
+
+Le logiciel tiers est supprimé, le logiciel NetApp est installé et configuré, puis l'hôte accède aux LUN sur NetApp. Reportez-vous à la rubrique _Host remédiation_ pour des exemples de correction post-migration pour des types d'hôtes spécifiques.
+
+Examinez les journaux pour détecter les erreurs, vérifiez les chemins d'accès, et effectuez tous les tests d'application pour vérifier que la migration s'est correctement terminée.

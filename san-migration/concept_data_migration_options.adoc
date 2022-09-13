@@ -1,0 +1,34 @@
+---
+permalink: san-migration/concept_data_migration_options.html 
+sidebar: sidebar 
+keywords: data, migration, options 
+summary: 'Les éléments à prendre en compte lors du choix d"une option de migration des données sont l"utilisation d"une appliance de transfert de données ou d"une migration basée sur les applications.' 
+---
+= Options de migration des données
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les éléments à prendre en compte lors du choix d'une option de migration des données sont l'utilisation d'une appliance de transfert de données ou d'une migration basée sur les applications.
+
+Alors que FLI peut être la meilleure solution pour la plupart des migrations, d'autres options peuvent être exécutées sans interruption et, par conséquent, il est préférable d'effectuer une migration à l'aide de FLI. Étudiez vos options et choisissez l'outil adapté à chaque migration. Tous ces outils peuvent être utilisés dans le cadre de vos migrations pour lesquelles ils sont le plus adaptés.
+
+* Utilisation d'un système de transfert de données
++
+Un DTA est une appliance NetApp connectée à la structure SAN, est fourni sous licence pour les données migrées par To et prend en charge les migrations hors ligne et en ligne.
+
+* Les migrations basées sur les systèmes d'exploitation hôtes ou les applications
++
+Il existe plusieurs systèmes d'exploitation hôtes ou options de migration des données basée sur les applications, notamment :
+
++
+** VMware Storage vMotion
+** Solutions basées sur LVM (Logical Volume Manager)
+** Des utilitaires tels que DD (Linux) et Robocopy (Windows)
+
+
+
+
+Indépendamment des procédures et des outils choisis, vous pouvez et devez utiliser la méthodologie de migration des données pour définir, planifier et documenter vos choix et vos tâches de migration.

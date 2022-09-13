@@ -1,0 +1,14 @@
+---
+permalink: san-migration/concept_how_to_configure_source_arrays.html 
+sidebar: sidebar 
+keywords: configure, source, arrays 
+summary: 'Consultez la documentation relative à la baie source pour ajouter une entrée d"hôte pour les ports d"initiateur (LUN masking, igroup in NetApp parlance). Ces informations peuvent être récupérées dans la section Storage Groups de votre feuille de travail d"étude et de planification du site.' 
+---
+= Comment configurer les matrices source
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Consultez la documentation relative à la baie source pour ajouter une entrée d'hôte pour les ports d'initiateur (LUN masking, igroup in NetApp parlance). Ces informations peuvent être récupérées dans la section Storage Groups de votre feuille de travail d'étude et de planification du site.

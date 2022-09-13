@@ -1,0 +1,90 @@
+---
+permalink: san-migration/task_unzoning_source_and_destination_array.html 
+sidebar: sidebar 
+keywords: unzone, source, destination, array 
+summary: Une fois les migrations, les transitions et les vérifications effectuées, il est possible de désegmenter les baies source et de destination. 
+---
+= Annuler la segmentation des matrices source et de destination
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Une fois les migrations, les transitions et les vérifications effectuées, il est possible de désegmenter les baies source et de destination.
+
+Pour dézones des baies source et cible, supprimez le stockage source vers la zone de destination des deux fabrics.
+
+Exemple de structure Brocade
+
+.Étapes
+. Supprimez la zone du zoneset dans la structure A.
++
+[listing]
+----
+cfgDelete "PROD_LEFT", "ZONE_AMS2100_cDOT_Initiator_fabA"
+zoneDelete "ZONE_AMS2100_cDOT_Initiator_fabA"
+----
+. Activer les zonesets dans la structure A.
++
+[listing]
+----
+cfgEnable "PROD_LEFT"
+cfgSave
+----
+. Supprimez la zone du zoneset dans la structure B.
++
+[listing]
+----
+cfgDelete "PROD_RIGHT", "ZONE_AMS2100_cDOT_Initiator_fabB"
+zoneDelete "ZONE_AMS2100_cDOT_Initiator_fabA"
+----
+. Activer les zonesets dans la structure B.
++
+[listing]
+----
+cfgEnable "PROD_RIGHT"
+cfgSave
+----
+
+
+Exemple de structure Cisco
+
+.Étapes
+. Supprimez la zone du zoneset dans la structure A.
++
+[listing]
+----
+conf t
+zoneset name PROD_LEFT vsan 10
+no member ZONE_AMS2100_cDOT_Initiator_fabA
+no zone name ZONE_AMS2100_cDOT_Initiator_fabA vsan 10
+exit
+----
+. Activer les zonesets dans la structure A.
++
+[listing]
+----
+zoneset activate name PROD_LEFT vsan 10
+end
+copy running-config startup-config
+----
+. Supprimez la zone du zoneset dans la structure B.
++
+[listing]
+----
+conf t
+zoneset name PROD_RIGHT vsan 10
+no member ZONE_AMS2100_cDOT_Initiator_fabB
+no zone name ZONE_AMS2100_cDOT_Initiator_fabB vsan 10
+exit
+----
+. Activer les zonesets dans la structure B.
++
+[listing]
+----
+zoneset activate name PROD_RIGHT vsan 10
+end
+Copy running-config startup-config
+----
+

@@ -1,0 +1,18 @@
+---
+permalink: san-migration/concept_migration_execute_phase_workflow.html 
+sidebar: sidebar 
+keywords: execute, phase, workflows 
+summary: 'La phase d"exécution se concentre sur les tâches de migration des LUN pour effectuer une migration FLI en ligne ou hors ligne.' 
+---
+= Exécuter des workflows de phase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase d'exécution se concentre sur les tâches de migration des LUN pour effectuer une migration FLI en ligne ou hors ligne.
+
+Les journaux d'événements des hôtes sont examinés afin de détecter et de corriger les problèmes et de réduire les risques. Les hôtes sont redémarrés pour s'assurer qu'aucun problème sous-jacent ne se produit avec les hôtes avant la reconfiguration principale.
+
+Une fois que les LUN source sont visibles sur le stockage de destination, des tâches de migration peuvent être créées et exécutées. Lorsque ces migrations sont terminées (FLI hors ligne) ou la relation FLI LUN établie (FLI en ligne), l'hôte est zoné vers le stockage de destination. Les nouvelles LUN sont mappées et la correction des problèmes liés à l'hôte peut commencer pour les pilotes, les logiciels multivoies et toute autre mise à jour identifiée lors de la phase d'analyse.

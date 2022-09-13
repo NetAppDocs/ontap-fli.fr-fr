@@ -1,0 +1,26 @@
+---
+permalink: san-migration/concept_foreign_lun_import_features.html 
+sidebar: sidebar 
+keywords: foreign, lun, import, features 
+summary: 'Les fonctionnalités FLI permettent de migrer des données d"un stockage SAN tiers vers des systèmes ONTAP. Les fonctionnalités de migration FLI prennent en charge plusieurs processus et systèmes.' 
+---
+= Fonctions d'importation de LUN étrangères
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les fonctionnalités FLI permettent de migrer des données d'un stockage SAN tiers vers des systèmes ONTAP. Les fonctionnalités de migration FLI prennent en charge plusieurs processus et systèmes.
+
+* Prise en charge des migrations en ligne et hors ligne.
+* Indépendance du système d'exploitation : la migration des données au niveau des blocs ne dépend pas des gestionnaires de volumes ou des utilitaires du système d'exploitation.
+* Indépendance de la structure Fibre Channel : l'outil FLI est entièrement compatible avec les structures Brocade et Cisco FC.
+* Prise en charge de la plupart des baies de stockage Fibre Channel. Pour obtenir la liste des baies prises en charge, consultez la matrice d'interopérabilité.
+* Prise en charge des chemins d'accès multiples natifs et de l'équilibrage de la charge.
+* Gestion basée sur l'interface de ligne de commandes.
+
+
+*Informations connexes*
+
+https://mysupport.netapp.com/matrix["Matrice d'interopérabilité NetApp"]

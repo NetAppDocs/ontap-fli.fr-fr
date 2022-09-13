@@ -1,0 +1,36 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_aggregate_status_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning, worksheet, aggregate status tab 
+summary: Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant des informations sur votre état global. 
+---
+= Feuille de calcul étude du site et planification - onglet État de l'agrégat
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant des informations sur votre état global.
+
+Voici un exemple de configuration de l'onglet agrégat Status.
+
+[cols="6*"]
+|===
+6+| Informations d'agrégat NetApp 
+
+
+ a| 
+Contrôleur
+ a| 
+Agrégat
+ a| 
+Taille totale (Go)
+ a| 
+Capacité utilisée (Go)
+ a| 
+Disponible (Go)
+ a| 
+Avant de créer
+
+|===

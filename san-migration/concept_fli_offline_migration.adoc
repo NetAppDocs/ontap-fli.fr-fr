@@ -1,0 +1,84 @@
+---
+permalink: san-migration/concept_fli_offline_migration.html 
+sidebar: sidebar 
+keywords: offline, migration, workflow 
+summary: 'Le flux de travail de la migration hors ligne s"effectue au cours de la phase d"exécution du processus de migration. Le diagramme des workflows hors ligne présente les tâches effectuées sur l"hôte, la structure, le stockage de destination et le stockage source.' 
+---
+= Flux de travail de migration hors ligne
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Le flux de travail de la migration hors ligne s'effectue au cours de la phase d'exécution du processus de migration. Le diagramme des workflows hors ligne présente les tâches effectuées sur l'hôte, la structure, le stockage de destination et le stockage source.
+
+image::../media/offline_migration_1.png[migration hors ligne 1]
+
+Les tâches de workflow hors ligne sont répertoriées dans le tableau suivant.
+
+[cols="2*"]
+|===
+| Composant | Tâches 
+
+
+ a| 
+Hôte
+ a| 
+. Redémarrez l'hôte et vérifiez que tous les systèmes de fichiers sont montés, que tous les chemins LUN sont disponibles et que les services démarrent.
+. Préparez et arrêtez l'hôte.
+. Une fois la migration terminée, mettez l'hôte sous tension.
+. Configurez le HBA pour qu'il utilise une nouvelle LUN de démarrage SAN (démarrage SAN uniquement).
+. Désinstaller MPIO tiers.
+. Installation du logiciel hôte NetApp et configuration des chemins d'accès multiples
+. Vérifiez que tous les chemins d'accès à la LUN de démarrage SAN sont en bon état (démarrage SAN uniquement).
+. Mettez à jour les fichiers système et la configuration pour refléter les nouveaux périphériques.
+. Vérifiez que tous les chemins vers toutes les LUN sont sains.
+. Réactivez tous les services et redémarrez l'hôte (vérifiez que l'hôte est remis en service, que tous les systèmes de fichiers sont montés, que tous les services démarrent).
+. Configurez le HBA avec le second chemin vers le nouveau LUN de démarrage SAN (démarrage SAN uniquement).
+
+
+
+
+ a| 
+Structure
+ a| 
+. Dézone l'hôte à partir du stockage source.
+. Créer un hôte vers la zone de stockage de destination.
+
+
+
+
+ a| 
+Système de stockage de destination
+ a| 
+. Découverte des baies source et des nouveaux LUN
+. Marquez les LUN source comme étant étrangères.
+. Création de LUN de destination à l'aide de LUN étrangères
+. Créer des groupes initiateurs hôtes et mapper des LUN de destination sur un groupe initiateur.migration copie Snapshot.
+. LUN de destination hors ligne.
+. Créer des relations d'importation et lancer des travaux d'importation.
+. Créer des tâches de vérification (facultatif).
+. Supprimer les relations d'importation.
+. Marquez l'attribut de LUN étrangère sur false.
+. LUN de destination en ligne.
+. Créez une copie Snapshot® pour activer la restauration de la LUN de destination.
+. Limitez la connectivité à un seul chemin (démarrage SAN uniquement).
+. Attribuez la LUN de démarrage SAN à l'hôte ; n'attribuez pas de LUN de données à ce stade (démarrage SAN uniquement).
+. Vérifiez que tous les ports hôtes sont connectés.
+. Créez des copies Snapshot périodiques afin d'activer la restauration de la LUN de démarrage SAN de destination (démarrage SAN uniquement).
+. Activez tous les chemins d'accès à la LUN de démarrage SAN (démarrage SAN uniquement).
+. Attribuez des LUN de données à l'hôte.
+. Créer une copie Snapshot finale.
+
+
+
+
+ a| 
+Le stockage source
+ a| 
+. Attribuez des LUN source au stockage de destination.
+. Supprimez les LUN source affectés au stockage de destination.
+
+
+|===

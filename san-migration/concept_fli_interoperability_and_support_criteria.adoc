@@ -1,0 +1,33 @@
+---
+permalink: san-migration/concept_fli_interoperability_and_support_criteria.html 
+sidebar: sidebar 
+keywords: fli, interoperability, support, criteria 
+summary: 'La matrice d"interopérabilité FLI (IMT) est très similaire à la matrice d"interopérabilité FlexArray IMT, mais elle a été ajoutée en tant qu"outil d"interopérabilité distinct afin de mieux prendre en charge les baies sources NetApp qualifiées qui travaillent avec FLI.' 
+---
+= Critères d'interopérabilité et de support de FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La matrice d'interopérabilité FLI (IMT) est très similaire à la matrice d'interopérabilité FlexArray IMT, mais elle a été ajoutée en tant qu'outil d'interopérabilité distinct afin de mieux prendre en charge les baies sources NetApp qualifiées qui travaillent avec FLI.
+
+Avant d'effectuer une importation de LUN étrangères, deux zones d'interopérabilité doivent être vérifiées :
+
+* Vérifier que FLI est pris en charge. Pour ce faire, consultez la section FLI IMT.
+* Vérifiez que la configuration complète de bout en bout, une fois les importations terminées, est prise en charge. Cette tâche est effectuée à partir des systèmes IMT FAS/AFF.
+
+
+En outre, vérifiez ces trois critères en fonction de la version ONTAP cible :
+
+* Le modèle de plate-forme de stockage source et la version du microcode.
+* Le modèle du commutateur SAN et la version du microcode.
+* Le contrôleur NetApp, l'environnement du client (commutateurs, adaptateurs de bus hôte, micrologiciel, matériel de serveur, etc.) et les clients connectés à SAN qui montent les LUN après la migration.
+
+
+Si l'un de ces trois composants n'est pas pris en charge, des corrections peuvent être nécessaires pour assurer une réussite totale et la prise en charge pendant et après le processus de migration.
+
+*Informations connexes*
+
+https://mysupport.netapp.com/NOW/products/interoperability["Interopérabilité NetApp"]

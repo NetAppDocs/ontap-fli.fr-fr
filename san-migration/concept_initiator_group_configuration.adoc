@@ -1,0 +1,37 @@
+---
+permalink: san-migration/concept_initiator_group_configuration.html 
+sidebar: sidebar 
+keywords: initiator, group, configuration 
+summary: 'Une configuration adéquate de masquage de LUN est essentielle au bon fonctionnement de l"environnement. Tous les ports initiateurs (sur les deux nœuds) de stockage ONTAP doivent résider sur le même groupe initiateur.' 
+---
+= Configuration du groupe initiateur
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Une configuration adéquate de masquage de LUN est essentielle au bon fonctionnement de l'environnement. Tous les ports initiateurs (sur les deux nœuds) de stockage ONTAP doivent résider sur le même groupe initiateur.
+
+La migration FLI requiert l'accès aux LUN de stockage source par un système NetApp. Pour permettre l'accès en dehors du zoning, la création de groupes initiateurs sur le stockage source via le WWPN (World port name) des ports initiateurs du stockage de destination est requis.
+
+
+NOTE: Les exemples de cette section utilisent une baie AMS Hitachi Data Systems (HDS). Par conséquent, les commandes de baie étrangère diffèrent selon la baie tierce à partir de laquelle vous effectuez la migration.
+
+Activez toujours l'ALUA (Asymmetric Logical Unit Access) sur les groupes d'initiateurs des baies NetApp.
+
+Les groupes initiateurs portent des noms différents en fonction du fournisseur et du produit. Par exemple :
+
+* Hitachi Data Systems (HDS) utilise le « groupe hôte ».
+* Les baies NetApp E-Series utilisent « l'entrée d'hôte ».
+* EMC utilise « enregistrement initiateur » ou « groupe de stockage ».
+* NetApp utilise « igroup ».
+
+
+Indépendamment de la nomenclature, l'objectif d'un groupe initiateur est d'identifier les initiateurs par les WWPN qui partagent les mêmes mappages de LUN.
+
+Pour définir des groupes initiateurs, consultez la documentation de votre baie pour savoir comment configurer le masquage des LUN (igroups/groupes d'hôtes/groupes de stockage, etc.). Vous pouvez également consulter le _guide d'implémentation de la virtualisation FlexArray pour le stockage tiers_ afin de connaître les exigences de configuration du stockage tiers.
+
+*Informations connexes*
+
+https://docs.netapp.com/us-en/ontap-flexarray/implement-third-party/index.html["Implémentation de la virtualisation FlexArray pour stockage tiers"]

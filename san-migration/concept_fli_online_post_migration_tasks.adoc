@@ -1,0 +1,18 @@
+---
+permalink: san-migration/concept_fli_online_post_migration_tasks.html 
+sidebar: sidebar 
+keywords: fli, online, post-migration, tasks 
+summary: Toute correction de serveur non effectuée avant la migration est effectuée au cours de la post-migration. 
+---
+= Tâches post-migration FLI en ligne
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Toute correction de serveur non effectuée avant la migration est effectuée au cours de la post-migration.
+
+Tout logiciel tiers est supprimé. Le logiciel NetApp est installé et configuré. Voir la correction des hôtes pour des exemples de correction post-migration pour des types d'hôtes spécifiques.
+
+Examinez les journaux pour détecter les erreurs, vérifiez les chemins d'accès, et effectuez tous les tests d'application pour vérifier que la migration s'est correctement terminée.

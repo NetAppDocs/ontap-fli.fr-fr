@@ -1,0 +1,30 @@
+---
+permalink: san-migration/concept_physical_wiring_requirements_for_fli.html 
+sidebar: sidebar 
+keywords: physical, wiring, requirements, fli 
+summary: FLI présente les mêmes exigences de câblage que NetApp FlexArray. Les ports initiateurs de stockage NetApp sont connectés à la structure où les ports cibles de stockage source sont connectés. Suivez les meilleures pratiques de FlexArray tout en connectant le stockage source au stockage NetApp. 
+---
+= Exigences en matière de câblage physique pour FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI présente les mêmes exigences de câblage que NetApp FlexArray. Les ports initiateurs de stockage NetApp sont connectés à la structure où les ports cibles de stockage source sont connectés. Suivez les meilleures pratiques de FlexArray tout en connectant le stockage source au stockage NetApp.
+
+Les baies de stockage utilisées lors de la migration doivent disposer d'un chemin d'accès principal depuis chaque contrôleur (en cours d'utilisation) présent dans les deux fabriques. Cela signifie que les nœuds de la baie source et des baies de destination vers lesquels la migration doit se trouver dans une zone commune sur les deux structures. Il n'est pas nécessaire d'ajouter d'autres contrôleurs au cluster NetApp, uniquement ceux qui importent/migrent des LUN. Même si vous pouvez utiliser des chemins indirects pour la migration, il est recommandé d'utiliser des chemins optimisés/actifs entre les baies source et de destination. La figure suivante montre les stockages HDS AMS2100 et NetApp ONTAP disposant d'un chemin (actif) principal dans les deux fabriques.
+
+Cette figure illustre un exemple de câblage de stockage pour les structures doubles.
+
+image::../media/physical_wiring_1.png[câblage physique 1]
+
+Suivez les bonnes pratiques de câblage suivantes :
+
+* Utilisez les meilleures pratiques FlexArray de NetApp en matière de câblage du stockage source et de destination, comme indiqué dans le _Guide de référence et les exigences d'installation de la virtualisation FlexArray_.
+* Le stockage ONTAP nécessite des ports d'initiateur libres pour se connecter à la structure. Configurez les ports d'initiateur si des ports libres n'existent pas.
+
+
+*Informations connexes*
+
+https://docs.netapp.com/us-en/ontap-flexarray/install/index.html["Conditions requises pour l'installation et référence de la virtualisation FlexArray"]

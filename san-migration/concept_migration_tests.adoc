@@ -1,0 +1,14 @@
+---
+permalink: san-migration/concept_migration_tests.html 
+sidebar: sidebar 
+keywords: migration, tests 
+summary: 'Vous devez effectuer une ou plusieurs migrations de test afin de vérifier que vos baies, commutateurs et hôtes sont correctement configurés et également afin d"obtenir plusieurs échantillons pouvant être extrapolés à partir de afin de déterminer les durées et les niveaux d"effort de migration.' 
+---
+= Tests de migration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vous devez effectuer une ou plusieurs migrations de test afin de vérifier que vos baies, commutateurs et hôtes sont correctement configurés et également afin d'obtenir plusieurs échantillons pouvant être extrapolés à partir de afin de déterminer les durées et les niveaux d'effort de migration.

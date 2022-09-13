@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_discover_phase_procedures.html 
+sidebar: sidebar 
+keywords: discover, phase, data, collection, procedures 
+summary: 'La phase de découverte collecte les informations sur l"environnement client nécessaires à la réussite de la planification et de l"exécution de la migration.' 
+---
+= Découvrir les procédures de collecte des données de phase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase de découverte collecte les informations sur l'environnement client nécessaires à la réussite de la planification et de l'exécution de la migration.
+
+Utiliser Active IQ OneCollect lors de la phase de collecte des données. Pour plus d'informations, consultez le Active IQ OneCollect https://mysupport.netapp.com/site/tools["documentation"].

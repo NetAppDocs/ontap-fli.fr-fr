@@ -1,0 +1,28 @@
+---
+permalink: san-migration/concept_migration_report.html 
+sidebar: sidebar 
+keywords: migration, report 
+summary: 'Les journaux d"importation sont stockés dans le fichier journal des événements du cluster. Vérifiez les journaux pour vous assurer que votre migration a réussi.' 
+---
+= Rapport de migration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les journaux d'importation sont stockés dans le fichier journal des événements du cluster. Vérifiez les journaux pour vous assurer que votre migration a réussi.
+
+Le rapport de migration doit apparaître comme suit :
+
+[listing]
+----
+DataMig-cmode::*> rows 0; event log show –nodes * –event fli*
+7/7/2014 18:37:21   DataMig-cmode-01 INFORMATIONAL fli.lun.verify.complete: Import verify of foreign LUN 83017542001E of size 42949672960 bytes from array model DF600F belonging to vendor HITACHI  with NetApp LUN QvChd+EUXoiS is successfully completed.
+~~~~~~ Output truncated ~~~~~~~
+----
+[NOTE]
+====
+Les étapes de vérification permettant de comparer les LUN source et de destination sont abordées lors de la phase de migration de l'exécution. Les étapes d'importation et de vérification de LUN sont traitées lors de la phase de migration d'exécution car elles sont liées à la tâche d'importation et à la LUN étrangère.
+
+====

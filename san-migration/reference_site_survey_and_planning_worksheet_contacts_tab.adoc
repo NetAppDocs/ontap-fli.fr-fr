@@ -1,0 +1,36 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_contacts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, contacts tab 
+summary: Dans le cadre de votre feuille de travail étude et planification du site, vous devez configurer un onglet contenant les coordonnées du projet de migration. 
+---
+= Enquête sur le site et fiche de planification onglet Contacts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre feuille de travail étude et planification du site, vous devez configurer un onglet contenant les coordonnées du projet de migration.
+
+Voici un exemple de configuration de votre onglet Contacts.
+
+[cols="6*"]
+|===
+6+| Informations sur le contact du projet de migration 
+
+
+ a| 
+Nom de la ressource
+ a| 
+Entreprise
+ a| 
+Rôle dans le projet
+ a| 
+Téléphone (bureau)
+ a| 
+Téléphone portable
+ a| 
+E-mail
+
+|===

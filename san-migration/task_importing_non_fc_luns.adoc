@@ -1,0 +1,31 @@
+---
+permalink: san-migration/task_importing_non_fc_luns.html 
+sidebar: sidebar 
+keywords: import, non-fc luns 
+summary: 'Comme Foreign LUN Import (FLI) exploite la technologie FlexArray pour monter des LUN étrangères, il ne peut se connecter qu"aux baies sources utilisant FCP. Seuls les LUN FC sont pris en charge par FLI. Toutefois, il existe une solution de contournement permettant d"importer des LUN iSCSI. Comme vous importez les LUN iSCSI en tant que LUN FC, contrairement aux autres LUN FLI en ligne 7-mode vers des flux de production ONTAP, la fenêtre d"interruption couvre l"ensemble du workflow :' 
+---
+= Importation de LUN non FC
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Comme Foreign LUN Import (FLI) exploite la technologie FlexArray pour monter des LUN étrangères, il ne peut se connecter qu'aux baies sources utilisant FCP. Seuls les LUN FC sont pris en charge par FLI. Toutefois, il existe une solution de contournement permettant d'importer des LUN iSCSI. Comme vous importez les LUN iSCSI en tant que LUN FC, contrairement aux autres LUN FLI en ligne 7-mode vers des flux de production ONTAP, la fenêtre d'interruption couvre l'ensemble du workflow :
+
+Comme vous importez les LUN iSCSI en tant que LUN FC, contrairement aux autres LUN FLI en ligne 7-mode vers des flux de production ONTAP, la fenêtre d'interruption couvre l'ensemble de ce workflow.
+
+.Étapes
+. Sur la baie source, vous devez annuler le mappage de la LUN iSCSI souhaitée à partir de son groupe initiateur iSCSI.
+. Sur la baie source, mappez la LUN sur un groupe initiateur FC, en veillant à ce que les WWPN de la baie de destination aient été ajoutés au groupe initiateur.
+. Importation de la LUN.
+. Une fois la LUN importée, vous pouvez créer un nouveau groupe initiateur iSCSI et ajouter les hôtes au groupe initiateur.
+. Sur les hôtes, nouvelle analyse des LUN.
++
+Reportez-vous à la matrice d'interopérabilité (IMT, Interoperability Matrix Tool) sur le site de support NetApp pour vous assurer que les versions de produits et de fonctionnalités mentionnées dans le présent document sont prises en charge par votre environnement. NetApp IMT définit les composants et versions de produits qu'il est possible d'utiliser pour créer des configurations prises en charge par NetApp. Les résultats dépendent des installations de chaque client et de leur conformité aux spécifications publiées.
+
+
+
+*Informations connexes*
+
+https://mysupport.netapp.com/matrix["Matrice d'interopérabilité NetApp"]

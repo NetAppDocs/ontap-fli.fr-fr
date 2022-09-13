@@ -1,0 +1,27 @@
+---
+permalink: san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html 
+sidebar: sidebar 
+keywords: fli, 7-mode, ontap, transition, workflow 
+summary: Cette section fournit un exemple de workflow de transition FLI 7-mode vers ONTAP. Le workflow de transition peut être exécuté en tant que flux de travail en ligne ou hors ligne. 
+---
+= Flux de travail de transition FLI 7-mode vers ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cette section fournit un exemple de workflow de transition FLI 7-mode vers ONTAP. Le workflow de transition peut être exécuté en tant que flux de travail en ligne ou hors ligne.
+
+La transition FLI est recommandée lorsque la LUN source est hébergée sur un agrégat de 32 bits et/ou lorsque la LUN est mal alignée. La transition FLI 7-mode vers ONTAP peut combiner la transition d'un LUN de 7-mode vers un ONTAP, ainsi que la correction de l'alignement des LUN et l'évolution d'un LUN depuis un agrégat 32-bit vers un agrégat 64-bit. Les autres méthodes permettant de transition vers la LUN, y compris l'outil 7-mode transition Tool (7MTT), peuvent nécessiter un alignement de la LUN et/ou la conversion d'un agrégat 32 bits en agrégat 64 bits avant la transition vers ONTAP.
+
+Le workflow de transition FLI 7-mode vers ONTAP peut être un workflow en ligne ou hors ligne. Ces flux de travail sont fonctionnellement identiques aux deux flux de travail de migration FLI hors ligne et en ligne correspondants, à l'exception de la baie source qui est une baie de stockage NetApp 7-mode. Les deux flux de travail partagent les mêmes règles et procédures que leurs équivalents de migration. Cela inclut la liste des systèmes d'exploitation hôtes de flux de travail en ligne FLI.
+
+Dans l'exemple fourni, vous devez passer en revue le processus FLI 7-mode vers ONTAP. Le flux de transition FLI 7-mode vers ONTAP comprend les tâches suivantes :
+
+. Préparation des matrices source et de destination
+. La mise en service s'effectue sans interruption
+. Importation des données
+. Vérification des résultats de la migration
+. Transition FLI : tâches post-migration
+

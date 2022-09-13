@@ -1,0 +1,32 @@
+---
+permalink: san-migration/concept_lun_requirements_and_limitations.html 
+sidebar: sidebar 
+keywords: lun, requirements, limitations 
+summary: Vos LUN doivent respecter les exigences suivantes avant de procéder à une migration FLI. 
+---
+= Exigences et limites des LUN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vos LUN doivent respecter les exigences suivantes avant de procéder à une migration FLI.
+
+* FLI requiert au moins un port FC sur chaque contrôleur et fait MIGRER LES LUN directement en mode initiateur.
+* Les LUN étrangères doivent être marqués comme étrangères sur la baie de destination pour éviter toute affectation à partir de ONTAP.
+* Les LUN étrangères doivent figurer dans une relation d'importation avant de démarrer l'importation.
+* La LUN doit être de même taille que le LUN étranger et doit avoir la même taille de bloc de disque. Ces deux exigences sont prises en charge au cours de la procédure de création de LUN.
+* La LUN ne doit pas être étendue ou sous-traitance.
+* La LUN doit être mappée sur au moins un groupe initiateur.
+* La LUN NetApp doit être mise hors ligne avant de créer une relation. Toutefois, une fois la relation LUN créée, elle peut être remise en ligne en cas de FLI en ligne.
+
+
+
+
+== Limites
+
+* Toutes les migrations se font au niveau des LUN.
+* FLI prend uniquement en charge les connexions Fibre Channel (FC).
+* FLI ne prend pas en charge les connexions iSCSI directement. Pour que les LUN iSCSI puissent être migrées à l'aide de FLI, le type de LUN doit être modifié en FC. Une fois la migration terminée, le type de LUN est revenir à iSCSI.
+

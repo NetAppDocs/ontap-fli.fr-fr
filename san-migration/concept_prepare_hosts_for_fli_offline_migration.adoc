@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_prepare_hosts_for_fli_offline_migration.html 
+sidebar: sidebar 
+keywords: prepare, hosts, fli, offline, migration 
+summary: 'La phase d"exécution FLI hors ligne inclut la préparation des hôtes de migration.' 
+---
+= Préparation des hôtes pour la migration FLI hors ligne
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase d'exécution FLI hors ligne inclut la préparation des hôtes de migration.
+
+Dans de nombreux cas, il peut être possible d'avoir effectué cette correction avant cette étape. Si ce n'est pas le cas, vous pouvez effectuer une correction des hôtes, par exemple installer des kits de liaison d'hôtes ou des modules de gestion des tâches. La phase d'analyse comprend une liste d'éléments à effectuer sur chaque hôte pour que cet hôte soit dans une configuration prise en charge à l'aide de ONTAP. Selon le type de migration, il peut être résolu(e) à corriger l'hôte puis à redémarrer (en ligne FLI/7-mode à ONTAP FLI), ou à corriger la coupure dans l'attente de la fin du processus de migration (FLI hors ligne).

@@ -1,0 +1,177 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_questionnaire_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, questionnaire tab 
+summary: Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant les informations sur le projet de migration à partir de votre questionnaire de migration initial. 
+---
+= Feuille de questionnaire de planification et de sondage sur le site
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant les informations sur le projet de migration à partir de votre questionnaire de migration initial.
+
+Voici un exemple de configuration de l'onglet questionnaire.
+
+|===
+3+| Informations sur le projet de migration 
+
+
+ a| 
+Type de projet
+ a| 
+☐ migration des données
+
+☐ autre
+ a| 
+
+
+
+ a| 
+Objectifs de la migration des données
+ a| 
+&#91;objectifs et#93;
+ a| 
+
+
+
+ a| 
+Périphériques source
+ a| 
+Stockage : [type de stockage]
+
+Non Nombre d'appareils : [non de baies]
+
+Provisionnement fin : ☐ Oui ☐ non
+ a| 
+Énumérer tous les périphériques
+
+
+
+ a| 
+Périphériques clients
+ a| 
+Système d'exploitation : [version OS]
+
+DÉMARRAGE SAN : ☐ Oui ☐ non
+
+MPIO : [version MPIO]
+
+HBA : [fournisseur, modèle, micrologiciel]
+ a| 
+
+
+
+ a| 
+Commutateurs de structure
+ a| 
+Fournisseur :
+
+Modèle :
+
+Micrologiciel :
+
+Non Nombre de ports :
+ a| 
+
+
+
+ a| 
+Protocoles actuels
+ a| 
+☐ FCP
+
+☐ iSCSI
+ a| 
+
+
+
+ a| 
+Gestionnaire de volumes
+ a| 
+Fournisseur :
+
+Produit :
+
+Version :
+ a| 
+
+
+
+ a| 
+Périphériques de destination (stockage)
+ a| 
+Stockage [stockage]
+
+Non [Numéro]
+
+Provisionnement fin : ☐ Oui ☐ non
+ a| 
+Pour ce service, filers NetApp uniquement
+
+
+
+ a| 
+Quantité de données à migrer (en To)
+ a| 
+&#91;quantité de données&#93;
+ a| 
+Résumé et détails (chaque périphérique source)
+
+
+
+ a| 
+Nombre de LUN
+ a| 
+&#91;nombre de LUN et#93 ;
+ a| 
+Résumé et détails (chaque périphérique source)
+
+
+
+ a| 
+Réorganisation des données
+ a| 
+☐ Oui☐ non
+ a| 
+Le client souhaite-t-il déplacer des volumes/répertoires/dossiers/fichiers vers différentes structures de données dans le cadre de la migration ?
+
+
+
+ a| 
+Attentes en matière de pannes
+ a| 
+Fenêtre d'interruption
+
+☐ pré-défini ☐ flexible
+
+Règles de la fenêtre de maintenance standard : [Info]
+ a| 
+Nombre et durée des pannes pouvant être exploitées. Veuillez indiquer les fenêtres de maintenance, le cas échéant.
+
+
+
+ a| 
+Délai souhaité pour la réalisation
+ a| 
+&#91;délai souhaité pour achèvement&#93;&#91;sensibilité temporelle&#93;
+ a| 
+
+
+
+ a| 
+Autres informations pertinentes
+ a| 
+&#91;autres informations pertinentes&#93;
+ a| 
+
+
+
+ a| 
+Nom et emplacement de l'organisation du client (ville et État)
+ a| 
+ a| 
+
+|===

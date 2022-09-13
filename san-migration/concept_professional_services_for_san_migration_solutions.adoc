@@ -1,0 +1,18 @@
+---
+permalink: san-migration/concept_professional_services_for_san_migration_solutions.html 
+sidebar: sidebar 
+keywords: professional, services, san, migration, solutions 
+summary: Les services professionnels de NetApp et de ses partenaires utilisent une méthodologie éprouvée pour mener à bien les migrations SAN à travers toutes les phases principales. 
+---
+= Services professionnels pour les solutions de migration SAN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les services professionnels de NetApp et de ses partenaires utilisent une méthodologie éprouvée pour mener à bien les migrations SAN à travers toutes les phases principales.
+
+La technologie NetApp FLI, et le logiciel de migration de données tiers, ont mis en place des compétences dans la migration des données qui permettent aux services professionnels d'exécuter des projets de migration de données SAN avec succès dans le monde entier. En faisant appel aux services professionnels de NetApp et de ses partenaires, les clients libèrent leurs ressources internes, réduisent les interruptions et absent les risques.
+
+Avec ONTAP, il n'est plus nécessaire de réaliser une migration d'exécution par des services professionnels. Toutefois, NetApp recommande toujours une mission de services professionnels ou de services professionnels partenaires afin de définir et de planifier la migration et de former le personnel du client sur la façon d'effectuer la migration des données à l'aide de FLI.

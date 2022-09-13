@@ -1,0 +1,218 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_sds_cli_scripts_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, sds cli scripts tab 
+summary: Dans le cadre de votre feuille de travail étude et planification de site, vous devez avoir un onglet contenant des informations sur vos scripts de CLI de SDS. 
+---
+= Feuille de travail étude et planification du site onglet scripts CLI du SDS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre feuille de travail étude et planification de site, vous devez avoir un onglet contenant des informations sur vos scripts de CLI de SDS.
+
+Voici un exemple de configuration de l'onglet scripts de la CLI SDS.
+
+|===
+| Contrôleur 1 | Contrôleur 2 
+
+
+ a| 
+vol size vol0 aggr0 108g
+ a| 
+
+
+
+ a| 
+snap reserve bootcampvol 0
+ a| 
+
+
+
+ a| 
+réserve snap vol0 20
+ a| 
+
+
+
+ a| 
+snap autodelete bootcampvol activé
+ a| 
+
+
+
+ a| 
+snap autodelete bootcampvol engagement essai
+ a| 
+
+
+
+ a| 
+snap autodelete bootcampvol volume de déclenchement
+ a| 
+
+
+
+ a| 
+snap autodelete bootcampvol target_free_space 20
+ a| 
+
+
+
+ a| 
+snap autodelete bootcampvol deap_delete user_created
+ a| 
+
+
+
+ a| 
+aimanter la suppression automatique vol0 sur
+ a| 
+
+
+
+ a| 
+snap auto delete vol0 tentative d'engagement
+ a| 
+
+
+
+ a| 
+snap autodelete vol0 volume déclencheur
+ a| 
+
+
+
+ a| 
+snap autodelete vol0 target_free_space 20
+ a| 
+
+
+
+ a| 
+snap autodelete vol0 dereport_delete user_created
+ a| 
+
+
+
+ a| 
+vol autosize bootcamvol. activé
+ a| 
+
+
+
+ a| 
+vol autosize vol0 activé
+ a| 
+
+
+
+ a| 
+vol options bootcamvol try_first volume_grow
+ a| 
+
+
+
+ a| 
+vol options bootcampvol fractional_reserve 100
+ a| 
+
+
+
+ a| 
+vol options vol0 try_first volume_grow
+ a| 
+
+
+
+ a| 
+vol options vol0 fractional_reserve 100
+ a| 
+
+
+
+ a| 
+qtree security /vol/bootcampvol unix
+ a| 
+
+
+
+ a| 
+sécurité qtree /vol/vol0 ntfs
+ a| 
+
+
+
+ a| 
+snap sched bootcampvol 0 0 0
+ a| 
+
+
+
+ a| 
+snap sched vol0 0 2 6@8,12,16,20
+ a| 
+
+
+
+ a| 
+Mappage #LUN ignoré pour /vol/qavol_narayan/testlun car LUN n'est pas mappé à un iGroup.
+ a| 
+
+
+
+ a| 
+Le mappage #LUN est ignoré pour /vol/bootcamvol/dm25_boot_lun car LUN n'est pas mappé à un iGroup.
+ a| 
+
+
+
+ a| 
+Le mappage #LUN est ignoré pour /vol/bootcamvol/dm25_data1_lun car LUN n'est pas mappé à un iGroup.
+ a| 
+
+
+
+ a| 
+Le mappage #LUN est ignoré pour /vol/bootcamvol/dm25_data2_lun car LUN n'est pas mappé à un iGroup.
+ a| 
+
+
+
+ a| 
+Le mappage #LUN est ignoré pour /vol/bootcampvol/dm26_boot_lun car LUN n'est pas mappé à un iGroup.
+ a| 
+
+
+
+ a| 
+Le mappage #LUN est ignoré pour /vol/bootcampvol/dm26_data1_lun car LUN n'est pas mappé à un iGroup.
+ a| 
+
+
+
+ a| 
+Le mappage #LUN est ignoré pour /vol/bootcampvol/dm26_data2_lun car LUN n'est pas mappé à un iGroup.
+ a| 
+
+
+
+ a| 
+Le mappage #LUN est ignoré pour /vol/bootcampvol/dm27_boot_lun car LUN n'est pas mappé à un iGroup.
+ a| 
+
+
+
+ a| 
+#LUN mapping ignoré pour /vol/bootcampvol/dm27_data1_lun car LUN n'est pas mappée à un iGroup.
+ a| 
+
+
+
+ a| 
+#LUN mapping ignoré pour /vol/bootcampvol/dm27_data2_lun car LUN n'est pas mappée à un iGroup.
+ a| 
+
+|===

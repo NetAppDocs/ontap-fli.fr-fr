@@ -1,0 +1,164 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_destination_storage_devices_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, destination storage devices tab 
+summary: Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant des informations sur vos périphériques de stockage de destination. 
+---
+= Feuille de travail étude du site et planification périphériques de stockage de destination
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant des informations sur vos périphériques de stockage de destination.
+
+[cols="6*"]
+|===
+6+| Systèmes de stockage 
+
+
+ a| 
+Nom de cluster
+ a| 
+Adresse IP
+ a| 
+Mode matrice
+ a| 
+ONTAP
+ a| 
+un vserver
+ a| 
+Type de port
+
+
+
+ a| 
+Data Mig-cdot
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+datag
+ a| 
+Cible
+
+
+
+ a| 
+Data Mig-cdot
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+datag
+ a| 
+Cible
+
+
+
+ a| 
+Data Mig-cdot
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+Data Mig-01
+ a| 
+Initiateur
+
+
+
+ a| 
+Data Mig-cdot
+ a| 
+10.x.x.x
+ a| 
+FAS8080
+ a| 
+8.3.1
+ a| 
+Data Mig-01
+ a| 
+Initiateur
+
+|===
+[cols="5*"]
+|===
+5+| Systèmes de stockage 
+
+
+ a| 
+Nom du port
+ a| 
+Nom de LIF
+ a| 
+WWPN
+ a| 
+Nom de la structure
+ a| 
+Type cible
+
+
+
+ a| 
+0 °c.
+ a| 
+migra1
+ a| 
+20:01:00:a0:98:2f:xx:xx
+ a| 
+Prod. A
+ a| 
+Cible
+
+
+
+ a| 
+0d
+ a| 
+migli2
+ a| 
+20:01:00:a0:98:2f:xx:xx
+ a| 
+Prod. B
+ a| 
+Cible
+
+
+
+ a| 
+0a
+ a| 
+s/o
+ a| 
+50:0a:09:81:00:xx:xx
+ a| 
+Prod. A
+ a| 
+Cible
+
+
+
+ a| 
+0b
+ a| 
+s/o
+ a| 
+50:0a:09:81:00:xx:xx
+ a| 
+Prod. B
+ a| 
+Cible
+
+|===
+Voici un exemple de configuration de l'onglet périphériques de stockage de destination.

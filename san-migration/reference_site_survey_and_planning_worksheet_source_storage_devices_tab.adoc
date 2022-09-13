@@ -1,0 +1,153 @@
+---
+permalink: san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html 
+sidebar: sidebar 
+keywords: site, survey and planning worksheet, source storage devices tab 
+summary: Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant des informations sur vos périphériques de stockage source de migration. 
+---
+= Feuille de travail étude et planification du site onglet périphériques de stockage source
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans le cadre de votre feuille de travail étude et planification du site, vous devez avoir un onglet contenant des informations sur vos périphériques de stockage source de migration.
+
+Voici un exemple de configuration de l'onglet périphériques de stockage source.
+
+|===
+5+| Systèmes de stockage 
+
+
+ a| 
+Nom de la baie
+ a| 
+Adresse IP
+ a| 
+Fournisseur
+ a| 
+Modèle de baie
+ a| 
+Microcode FW/ONTAP
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+
+
+ a| 
+AMS2100
+ a| 
+10.x.x.x
+ a| 
+Hitachi
+ a| 
+AMS 2100
+ a| 
+0893/B-X
+
+|===
+|===
+5+| Systèmes de stockage 
+
+
+ a| 
+Contrôleur/nœud
+ a| 
+Nom du port
+ a| 
+WWPN
+ a| 
+Nom de la structure
+ a| 
+Type cible
+
+
+
+ a| 
+Contrôleur 0
+ a| 
+0a
+ a| 
+50060E80xxxxxxxx
+ a| 
+Fabric de production A
+ a| 
+Source
+
+
+
+ a| 
+Contrôleur 0
+ a| 
+0e
+ a| 
+50060E80xxxxxxxx
+ a| 
+Structure de production B
+ a| 
+Source
+
+
+
+ a| 
+Contrôleur 1
+ a| 
+1 a.
+ a| 
+50060E80xxxxxxxx
+ a| 
+Fabric de production A
+ a| 
+Source
+
+
+
+ a| 
+Contrôleur 1
+ a| 
+1e
+ a| 
+50060E80xxxxxxxx
+ a| 
+Fabric de production A
+ a| 
+Source
+
+|===

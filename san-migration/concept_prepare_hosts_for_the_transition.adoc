@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_prepare_hosts_for_the_transition.html 
+sidebar: sidebar 
+keywords: prepare, hosts, transition 
+summary: 'La phase d"exécution comprend la préparation des hôtes de migration.' 
+---
+= Préparation des hôtes à la transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase d'exécution comprend la préparation des hôtes de migration.
+
+Dans de nombreux cas, il peut être possible d'avoir effectué la correction avant cette étape. Si ce n'est pas le cas, vous pouvez effectuer une correction des hôtes, par exemple installer des kits de liaison d'hôtes ou des modules de gestion des tâches. La phase d'analyse comprend une liste d'éléments à réaliser sur chaque hôte pour que cet hôte soit dans une configuration prise en charge à l'aide de NetApp ONTAP. En fonction du type de migration concerné, les problèmes liés à l'hôte sont résolus et celui-ci est redémarré (FLI 7-mode vers ONTAP en ligne) ou les hôtes sont redémarrés, résolus et arrêtés (FLI 7-mode vers ONTAP hors ligne).

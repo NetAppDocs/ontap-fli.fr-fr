@@ -1,0 +1,33 @@
+---
+permalink: san-migration/task_removing_source_luns_from_ontap_storage.html 
+sidebar: sidebar 
+keywords: remove, source, luns, ontap, storage 
+summary: La procédure suivante décrit la suppression des LUN source de votre système de stockage ONTAP une fois la migration terminée. 
+---
+= Suppression des LUN source du stockage ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La procédure suivante décrit la suppression des LUN source de votre système de stockage ONTAP une fois la migration terminée.
+
+
+NOTE: Cette tâche utilise un tableau _HDS AMS2100_ dans les exemples. Vos tâches peuvent être différentes si vous utilisez un tableau différent ou une version différente de l'interface graphique de la baie.
+
+.Étapes
+. Connectez-vous à Hitachi Storage Navigator modulaire.
+. Sélectionnez le groupe d'hôtes ONTAP créé pendant la phase de planification et sélectionnez *Modifier le groupe d'hôtes*.
++
+image::../media/remove_source_luns_from_ontap_storage_1.png[Groupes d'hôtes]
+
+. Sélectionnez *ports* et sélectionnez *Forced Set* sur tous les ports sélectionnés.
++
+image::../media/remove_source_luns_from_ontap_storage_2.png[Modifier des groupes d'hôtes]
+
+. Sélectionnez les LUN hôtes qui sont migrés à partir des LUN logiques attribués. Utilisez les noms de LUN pour chaque hôte mentionné dans la fiche LUN source. Sélectionnez ici les LUN des hôtes Windows 2012, RHEL 5.10 et ESXi 5.5 et sélectionnez *Remove*.
++
+image::../media/remove_source_luns_from_ontap_storage_3.png[suppression des lun source du stockage ONTAP 3]
+
+

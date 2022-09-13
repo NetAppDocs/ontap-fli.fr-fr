@@ -1,0 +1,60 @@
+---
+permalink: san-migration/task_cisco_fabric_example.html 
+sidebar: sidebar 
+keywords: cisco, fabric, example 
+summary: 'Cette procédure indique la suppression du stockage source et de la zone hôte d"un zoneset de structure Cisco.' 
+---
+= Exemple de structure Cisco
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cette procédure indique la suppression du stockage source et de la zone hôte d'un zoneset de structure Cisco.
+
+[NOTE]
+====
+Le nom de la zone pour les exemples est _rx21_AMS2100_.
+
+====
+.Étapes
+. Supprimez la zone du zoneset dans la structure A.
++
+[listing]
+----
+conf t
+zoneset name PROD_LEFT vsan 10
+no member rx21_AMS2100
+no member rx22_AMS2100
+no member rx20_AMS2100
+exit
+----
+. Activez le zoneset dans la structure A.
++
+[listing]
+----
+zoneset activate name PROD_LEFT vsan 10
+end
+copy running-config startup-config
+----
+. Supprimez la zone du zoneset dans la structure B.
++
+[listing]
+----
+conf t
+zoneset name PROD_RIGHT vsan 10
+no member rx21_AMS2100
+no member rx22_AMS2100
+no member rx20_AMS2100
+exit
+----
+. Activez le zoneset dans la structure B.
++
+[listing]
+----
+zoneset activate name PROD_RIGHT vsan 10
+end
+copy running-config startup-config
+----
+

@@ -1,0 +1,24 @@
+---
+permalink: san-migration/concept_migration_types_supported_by_foreign_lun_import.html 
+sidebar: sidebar 
+keywords: migration, types, supported, foreign, lun, import 
+summary: 'FLI prend en charge quatre principaux types de workflows de migration : en ligne, hors ligne, transition et automatisation. Le choix du workflow à utiliser dépend de votre configuration et d"autres facteurs.' 
+---
+= Types de migration pris en charge par Foreign LUN Import
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+FLI prend en charge quatre principaux types de workflows de migration : en ligne, hors ligne, transition et automatisation. Le choix du workflow à utiliser dépend de votre configuration et d'autres facteurs.
+
+* Dans le cadre d'une migration en ligne, FLI des baies tierces permet au système client de rester en ligne pendant la migration (nécessite un système d'exploitation hôte Windows, Linux ou ESXi).
+* Dans une migration hors ligne, FLI des baies tierces met le système client hors ligne et copie les données vers la nouvelle LUN avant de la remettre en ligne.
+* Dans le cadre d'une migration de transition, l'outil FLI effectue la transition vers des baies ONTAP 7-mode vers ONTAP. Ce processus est fonctionnellement le même, sauf que la baie source est ONTAP. Le workflow de transition est disponible en mode en ligne ou hors ligne.
+* Dans le cadre d'une migration automatisée, l'outil FLI utilise le logiciel Workflow Automation (WFA) pour automatiser certaines parties du processus de migration. FLI avec WFA est disponible en mode en ligne ou hors ligne.
+
+
+Les trois migrations et le flux de production de transition sont assez similaires du point de vue de l'architecture. Ces quatre avantages reposent sur la technologie FlexArray de NetApp, permettant à votre contrôleur ONTAP de faire office d'initiateur devant une baie source et de l'utiliser pour copier les LUN de bloc depuis la source vers un LUN sur la baie ONTAP de destination.
+
+Les différences entre les workflows doivent être prises en compte lors des conversions, de la durée de la fenêtre d'interruption, de l'utilisation de l'automatisation, ou si la baie source est une baie NetApp exécutant ONTAP 7-mode ou une baie tierce.

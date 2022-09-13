@@ -1,0 +1,16 @@
+---
+permalink: san-migration/concept_data_migration_challenges.html 
+sidebar: sidebar 
+keywords: data, migration, challenges 
+summary: 'Les interruptions, les risques potentiels, les ressources limitées et l"expertise inadéquate constituent des défis posés par la migration des données.' 
+---
+= Défis liés à la migration des données
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Les interruptions, les risques potentiels, les ressources limitées et l'expertise inadéquate constituent des défis posés par la migration des données.
+
+Les besoins en matière de disponibilité des données se sont de plus en plus élevés, et les temps d'indisponibilité inacceptables. C'est pourquoi les opérations d'entreprise sont en cours de migration des données. Des facteurs de risque, tels que l'impact sur les performances des systèmes de production, la corruption potentielle des données et la perte, sont un sujet préoccupation lors du processus de migration des données.

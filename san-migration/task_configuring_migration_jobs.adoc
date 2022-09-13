@@ -1,0 +1,194 @@
+---
+permalink: san-migration/task_configuring_migration_jobs.html 
+sidebar: sidebar 
+keywords: configure, migration, jobs 
+summary: Le workflow FLI hors ligne nécessite la configuration des LUN source et de destination. 
+---
+= Configuration des tâches de migration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Le workflow FLI hors ligne nécessite la configuration des LUN source et de destination.
+
+.Étapes
+. Pour la migration FLI, la LUN source doit être marquée comme étant étrangère. Marquez les LUN source comme étrangères à l'aide du numéro de série.
++
+[listing]
+----
+
+DataMig-cmode::*> storage disk set-foreign-lun { -serial-number 83017542001E }
+                   -is-foreign true
+DataMig-cmode::*> storage disk set-foreign-lun { -serial-number 83017542000E }
+                   -is-foreign true
+DataMig-cmode::*> storage disk set-foreign-lun { -serial-number 83017542000F }
+                   -is-foreign true
+----
+. Vérifiez que la LUN source est marquée comme étant étrangère.
++
+[listing]
+----
+DataMig-cmode::*> storage disk show -array-name HITACHI_DF600F_1 -fields disk, serial-number, container-type, owner,import-in-progress, is-foreign
+disk     owner is-foreign container-type import-in-progress serial-number
+-------- ----- ---------- -------------- ------------------ -------------
+HIT-1.2  -     true       foreign        false              83017542001E
+HIT-1.3  -     true       foreign        false              83017542000E
+HIT-1.4  -     true       foreign        false              83017542000F
+3 entries were displayed.
+----
+. Créer des volumes de destination
++
+[listing]
+----
+DataMig-cmode::*> vol create -vserver datamig winvol aggr1 -size 100g
+[Job 5606] Job succeeded: Successful
+----
+. Désactiver la règle Snapshot par défaut sur chaque volume. Si des copies Snapshot par défaut existent avant la migration FLI, le volume doit disposer d'un espace supplémentaire pour stocker les données modifiées.
++
+[listing]
+----
+DataMig-cmode::> volume modify -vserver datamig -volume winvol -snapshot-policy none
+
+Warning: You are changing the Snapshot policy on volume winvol to none.  Any Snapshot copies on this volume from the previous policy will not be deleted by
+         this new Snapshot policy.
+Do you want to continue? {y|n}: y
+Volume modify successful on volume winvol of Vserver datamig.
+----
+. Réglez `fraction_reserveoption` pour chaque volume à `0` Et définissez la règle Snapshot sur `none`.
++
+[listing]
+----
+DataMig-cmode::> vol modify -vserver datamig -volume * -fractional-reserve 0 –snapshot-policy none
+Volume modify successful on volume winvol of Vserver datamig.
+----
+. Vérifiez vos paramètres de volume.
++
+[listing]
+----
+DataMig-cmode::> vol show -vserver datamig -volume * -fields fractional-reserve,snapshot-policy
+vservervolumesnapshot-policyfractional-reserve
+-----------------------------------------------
+datamig datamig_rootnone0%
+datamigwinvolnone0%
+Volume modify successful on volume winvol of Vserver datamig.
+----
+. Supprimez toutes les copies Snapshot existantes.
++
+[listing]
+----
+DataMig-cmode::> set advanced; snap delete –vserver datamig –vol winvol –snapshot * -force true
+1 entry was acted on.
+----
++
+[NOTE]
+====
+La migration FLI modifie chaque bloc de la LUN cible. Si des copies Snapshot par défaut ou d'autres copies Snapshot existent sur un volume avant la migration FLI, le volume est plein. Vous devez modifier la règle et supprimer toutes les copies Snapshot existantes avant la migration FLI. La règle Snapshot peut être de nouveau définie après la migration.
+
+====
++
+[NOTE]
+====
+La commande LUN create détecte la taille et l'alignement en fonction du décalage de la partition et crée le LUN en conséquence avec l'option de disque étranger. Pour en savoir plus, consultez l'article de la base de connaissances NetApp *qu'est-ce qu'une E/S non alignée ?* notez également que certaines E/S apparaîtront toujours partiellement dans les écritures et seront donc mal alignées. Les journaux de base de données en sont quelques exemples.
+
+====
++
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_is_an_unaligned_I%2F%2FO%3F["Qu'est-ce qu'une E/S non alignée ?"]
+
+. Création de LUN de destination à l'aide d'un LUN étranger.
++
+[listing]
+----
+DataMig-cmode::*> lun create -vserver datamig -path /vol/winvol/bootlun -ostype windows_2008 -foreign-disk 83017542001E
+
+Created a LUN of size 40g (42949672960)
+
+Created a LUN of size 20g (21474836480)
+DataMig-cmode::*> lun create -vserver datamig -path /vol/linuxvol/lvmlun1 -ostype linux -foreign-disk 830175420011
+
+Created a LUN of size 2g (2147483648)
+DataMig-cmode::*> lun create -vserver datamig -path /vol/esxvol/bootlun -ostype vmware -foreign-disk 830175420014
+
+Created a LUN of size 20g (21474836480)
+----
+. Répertoriez les LUN de destination et vérifiez leur taille avec la LUN source.
++
+[listing]
+----
+DataMig-cmode::*> lun show -vserver datamig
+Vserver   Path                            State   Mapped   Type        Size
+--------- ------------------------------- ------- -------- -------- --------
+datamig   /vol/esxvol/bootlun             online  unmapped vmware       20GB
+datamig   /vol/esxvol/linuxrdmvlun        online  unmapped linux         2GB
+datamig   /vol/esxvol/solrdmplun          online  unmapped solaris       2GB
+datamig   /vol/winvol/gdrive              online  unmapped windows_2008  3GB
+4 entries were displayed.
+
+DataMig-cmode::*>
+----
++
+[NOTE]
+====
+Pour une migration FLI hors ligne, la LUN doit être mappée sur le groupe initiateur, puis mise hors ligne avant de créer la relation d'importation de LUN.
+
+====
+. Créez un groupe initiateur hôte du protocole FCP et ajoutez des initiateurs. Recherchez les WWPN des initiateurs dans la section Storage Groups de votre fiche de planification de l'enquête sur site.
++
+[listing]
+----
+DataMig-cmode::*> lun igroup create -ostype windows -protocol fcp -vserver datamig -igroup dm-rx200s6-21 -initiator 21:00:00:24:ff:30:14:c4,21:00:00:24:ff:30:14:c5
+
+DataMig-cmode::*> lun igroup create -ostype linux -protocol fcp -vserver datamig  -igroup dm-rx200s6-22 -initiator 21:00:00:24:ff:30:04:85,21:00:00:24:ff:30:04:84
+
+DataMig-cmode::*> lun igroup create -ostype vmware -protocol fcp -vserver datamig -igroup dm-rx200s6-20 -initiator 21:00:00:24:ff:30:03:ea,21:00:00:24:ff:30:03:eb
+----
++
+[NOTE]
+====
+Utiliser le même ID de LUN que la source. Consultez la section LUN source de votre fiche de planification de l'enquête sur site.
+
+====
+. Mappez les LUN de destination sur le groupe initiateur.
++
+[listing]
+----
+DataMig-cmode::*> lun map -vserver datamig -path /vol/winvol/bootlun -igroup dm-rx200s6-21 -lun-id 0
+DataMig-cmode::*> lun map -vserver datamig -path /vol/linuxvol/bootlun -igroup dm-rx200s6-22 -lun-id 0
+DataMig-cmode::*> lun map -vserver datamig -path /vol/esxvol/bootlun -igroup dm-rx200s6-20 -lun-id 0
+----
+. Hors ligne les LUN de destination.
++
+[listing]
+----
+DataMig-cmode::*> lun offline -vserver datamig -path /vol/esxvol/bootlun
+DataMig-cmode::*> lun offline -vserver datamig -path /vol/esxvol/linuxrdmvlun
+DataMig-cmode::*> lun offline -vserver datamig -path /vol/esxvol/solrdmplun
+----
+. Créer une relation d'importation avec le LUN de destination et le LUN source
++
+[listing]
+----
+DataMig-cmode::*> lun import create -vserver datamig -path /vol/winvol/bootlun -foreign-disk 83017542001E
+DataMig-cmode::*> lun import create -vserver datamig -path /vol/linuxvol/ext3lun -foreign-disk 830175420013
+DataMig-cmode::*> lun import create -vserver datamig -path /vol/esxvol/linuxrdmvlun -foreign-disk 830175420018
+DataMig-cmode::*> lun import create -vserver datamig -path /vol/esxvol/solrdmplun -foreign-disk 830175420019
+----
+. Vérifiez la création du travail d'importation.
++
+[listing]
+----
+DataMig-cmode::*> lun import show -vserver datamig
+vserver foreign-disk   path                operation admin operational percent
+                                         in progress state state       complete
+-------------------------------------------------------------------------------
+datamig 83017542000E   /vol/winvol/fdrive  import    stopped
+                                                           stopped            0
+datamig 83017542000F   /vol/winvol/gdrive  import    stopped
+                                                           stopped            0
+datamig 830175420010   /vol/linuxvol/bootlun
+                                           import    stopped
+                                                           stopped            0
+3 entries were displayed.
+----
+
