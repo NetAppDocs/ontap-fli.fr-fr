@@ -2,7 +2,7 @@
 permalink: san-migration/concept_intended_audience.html 
 sidebar: sidebar 
 keywords: intended, audience 
-summary: 'Ce guide est destiné aux clients NetApp qui souhaitent migrer des données d"une baie étrangère vers ONTAP ou qui souhaitent migrer des LUN de baies NetApp 7-mode vers ONTAP.' 
+summary: 'Vous pouvez l"utiliser pour migrer des données d"une baie étrangère à un système ONTAP ou pour effectuer la transition de LUN des baies NetApp 7-mode vers ONTAP.' 
 ---
 = Public visé
 :allow-uri-read: 
@@ -11,16 +11,6 @@ summary: 'Ce guide est destiné aux clients NetApp qui souhaitent migrer des don
 
 
 [role="lead"]
-Ce guide est destiné aux clients NetApp qui souhaitent migrer des données d'une baie étrangère vers ONTAP ou qui souhaitent migrer des LUN de baies NetApp 7-mode vers ONTAP.
+Vous pouvez l'utiliser pour migrer des données d'une baie étrangère à un système ONTAP ou pour effectuer la transition de LUN des baies NetApp 7-mode vers ONTAP.
 
-Vous trouverez ci-dessous les autres publics consultés dans ce guide :
-
-* Clients du service de migration HSAN (Storage Area Network) hétérogène de NetApp
-* Ingénieurs commerciaux NetApp (se)
-* Ingénieurs commerciaux de conseil (SRE)
-* Ingénieurs de services professionnels (PSE)
-* Consultants en services professionnels
-* Ingénieurs partenaires revendeurs
-
-
-Les lecteurs de ce guide doivent connaître les concepts et processus SAN courants, tels que le zoning, le masquage de LUN, les systèmes d'exploitation hôtes dont les LUN doivent être migrées, ONTAP et la baie tierce source.
+Vous devez connaître les concepts et processus SAN courants, tels que le zoning, le masquage de LUN, les systèmes d'exploitation hôtes dont les LUN doivent être migrées, ONTAP et la baie tierce source.

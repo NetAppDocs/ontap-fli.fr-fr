@@ -11,9 +11,9 @@ summary: 'Il s"agit du second des quatre exemples de flux de travail FLI, qui tr
 
 
 [role="lead"]
-Il s'agit du second des quatre exemples de flux de travail FLI, qui traite ainsi la migration en ligne FLI.
+Il s'agit du second des quatre exemples de flux de travail FLI, qui traite ainsi la migration en ligne FLI. Dans cet exemple, la baie source est une baie EMC VNX5500.
 
-Dans cet exemple, la baie source est une baie EMC VNX5500. L'exemple fourni doit présenter en détail le processus FLI en ligne et est conçu pour fonctionner avec les informations et les processus communs abordés dans les parties précédentes de ce guide. Le workflow en ligne a les tâches suivantes :
+le workflow en ligne a les tâches suivantes :
 
 . Préparation du chemin de LUN
 . La mise en service s'effectue sans interruption

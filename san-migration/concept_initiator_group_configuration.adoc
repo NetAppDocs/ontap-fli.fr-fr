@@ -30,8 +30,4 @@ Les groupes initiateurs portent des noms différents en fonction du fournisseur 
 
 Indépendamment de la nomenclature, l'objectif d'un groupe initiateur est d'identifier les initiateurs par les WWPN qui partagent les mêmes mappages de LUN.
 
-Pour définir des groupes initiateurs, consultez la documentation de votre baie pour savoir comment configurer le masquage des LUN (igroups/groupes d'hôtes/groupes de stockage, etc.). Vous pouvez également consulter le _guide d'implémentation de la virtualisation FlexArray pour le stockage tiers_ afin de connaître les exigences de configuration du stockage tiers.
-
-*Informations connexes*
-
-https://docs.netapp.com/us-en/ontap-flexarray/implement-third-party/index.html["Implémentation de la virtualisation FlexArray pour stockage tiers"]
+Pour définir des groupes initiateurs, consultez la documentation de votre baie pour savoir comment configurer le masquage des LUN (igroups/groupes d'hôtes/groupes de stockage, etc.). Vous pouvez également consulter le https://docs.netapp.com/us-en/ontap-flexarray/implement-third-party/index.html["Implémentation de la virtualisation FlexArray pour stockage tiers"] pour les besoins de configuration du stockage tiers.

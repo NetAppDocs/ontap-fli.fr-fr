@@ -13,7 +13,7 @@ summary: 'La fonctionnalité FLI (Foreign LUN Import) est une fonctionnalité in
 [role="lead"]
 La fonctionnalité FLI (Foreign LUN Import) est une fonctionnalité intégrée dans ONTAP qui permet aux utilisateurs d'importer de manière simple et efficace des données depuis des LUN de baie étrangères vers des LUN NetApp.
 
-Toutes les migrations FLI s'effectuent au niveau des LUN. FLI est un outil basé sur des blocs et qui ne prend donc pas en charge les migrations basées sur des fichiers, des enregistrements, NFS et CIFS. Pour plus d'informations sur les autres méthodologies de migration pour les protocoles de niveau fichier, tels que NFS et CIFS/SMB, consultez le _Data migration Tools Quick Reference Guide_.
+Toutes les migrations FLI s'effectuent au niveau des LUN. FLI est un outil basé sur des blocs et qui ne prend donc pas en charge les migrations basées sur des fichiers, des enregistrements, NFS et CIFS. Pour connaître les autres méthodologies de migration des protocoles de niveau fichier, telles que NFS et CIFS/SMB, consultez la https://library.netapp.com/ecm/ecm_get_file/ECMP12363719["Référence rapide des outils de migration de données"].
 
 FLI exploite la technologie NetApp FlexArray® pour découvrir les LUN de baies RAID étrangères et en extraire les données. FlexArray permet à un contrôleur NetApp ONTAP de jouer le rôle d'initiateur en amont d'une ou de plusieurs baies tierces. FlexArray peut monter des LUN à partir de ces baies comme stockage interne, puis présenter l'espace depuis ces LUN en tant que stockage unifié NetApp (permettant un accès aux protocoles FCP, FCoE, iSCSI, NFS et CIFS/SMB) vers des hôtes dans votre environnement SAN ou NAS.
 
@@ -30,7 +30,7 @@ De plus, la procédure de transition de 7-mode vers ONTAP peut être effectuée 
 
 FLI permet au système de stockage NetApp de détecter les LUN à importer pour la migration des données. Les LUN étrangères sont affichées sous la forme de disques sur le stockage NetApp et n'ont pas de propriété leur attribuer automatiquement pour que les données utilisateur ne soient pas écrasées par erreur. Les disques qui contiennent des LUN de matrice étrangère doivent être marqués comme étant étrangers. Les règles de configuration des LUN de baies étrangères doivent être scrupuleusement respectées afin d'utiliser FLI pour le stockage NetApp. Voir la rubrique, xref:concept_lun_requirements_and_limitations.adoc[Exigences et limites des LUN].
 
-FLI requiert au moins un port FC physique sur chaque contrôleur et doit migrer les LUN directement en mode initiateur. Deux ports, un pour chaque fabric, sont préférés, mais un seul port peut être utilisé. Ces ports sont utilisés pour se connecter à la baie source. Ils doivent être zonés et masqués afin de pouvoir voir et monter les LUN source. Si vous devez modifier un port de la cible à l'initiateur, reportez-vous au _Guide d'installation et de référence de virtualisation de FlexArray_ pour connaître le processus de conversion d'un port FC de la cible à l'initiateur.
+FLI requiert au moins un port FC physique sur chaque contrôleur et doit migrer les LUN directement en mode initiateur. Deux ports, un pour chaque fabric, sont préférés, mais un seul port peut être utilisé. Ces ports sont utilisés pour se connecter à la baie source. Ils doivent être zonés et masqués afin de pouvoir voir et monter les LUN source. Si vous devez modifier un port de la cible vers l'initiateur, reportez-vous à la section https://docs.netapp.com/us-en/ontap-flexarray/install/index.html["Conditions requises pour l'installation et référence de la virtualisation FlexArray"] Pour en savoir plus sur le processus de conversion d'un port FC de la cible à l'initiateur.
 
 Les migrations FLI peuvent être effectuées hors ligne, ce qui perturbe les opérations pendant la durée de l'importation ou en ligne, ce qui est principalement sans interruption.
 
@@ -41,9 +41,3 @@ image::../media/foreign_lun_import_overview_1.png[Présentation de la migration 
 Cette figure illustre une migration des données en ligne FLI. L'hôte est connecté au contrôleur NetApp sur lequel le nouveau LUN est désormais hébergé. L'opération de l'hôte peut ensuite reprendre et continuer pendant l'importation.
 
 image::../media/foreign_lun_import_overview_2.png[Présentation de la migration des données FLI]
-
-*Informations connexes*
-
-https://library.netapp.com/ecm/ecm_get_file/ECMP12363719["Guide de référence rapide sur les outils de migration de données"]
-
-https://docs.netapp.com/us-en/ontap-flexarray/install/index.html["Conditions requises pour l'installation et référence de la virtualisation FlexArray"]
