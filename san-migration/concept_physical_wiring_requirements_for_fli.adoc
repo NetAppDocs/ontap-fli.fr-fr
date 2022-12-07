@@ -21,6 +21,6 @@ image::../media/physical_wiring_1.png[câblage physique 1]
 
 Suivez les bonnes pratiques de câblage suivantes :
 
-* Utilisez les meilleures pratiques FlexArray de NetApp en matière de câblage entre les systèmes de stockage source et de destination, comme indiqué dans la https://docs.netapp.com/us-en/ontap-flexarray/install/index.html["Conditions requises pour l'installation de la virtualisation FlexArray"].
+* Utilisez les meilleures pratiques FlexArray de NetApp en matière de câblage entre les systèmes de stockage source et de destination, comme indiqué dans la https://docs.netapp.com/us-en/ontap-flexarray/install/index.html["Conditions requises pour l'installation et référence de la virtualisation FlexArray"].
 * Le stockage ONTAP nécessite des ports d'initiateur libres pour se connecter à la structure. Configurez les ports d'initiateur si des ports libres n'existent pas.
 
