@@ -14,18 +14,6 @@ sidebar:
   - section: san-migration
   - title: Mentions légales
     url: "/reference_legal_notices.html"
-homepage:
-  tiles:
-  - title: Workflows FLI
-    links:
-    - title: Workflow hors ligne
-      url: "/san-migration/concept_fli_offline_workflow.html"
-    - title: Flux de travail en ligne
-      url: "/san-migration/concept_fli_online_workflow.html"
-    - title: Flux de travail de transition FLI 7-mode vers ONTAP
-      url: "/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html"
-    - title: FLI avec l'automatisation des flux de travail (WFA)
-      url: "/san-migration/concept_fli_using_workflow_automation_wfa.html"
 product-family:
   name: ONTAP
   repo: ontap-family
