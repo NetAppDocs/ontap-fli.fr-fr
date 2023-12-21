@@ -1,0 +1,3016 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head class="at-element-marker">
+  <title>Outils recommandés pour la migration des données</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Outils recommandés pour la migration des données" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/fr-fr/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+	<meta property="og:description" content="Les outils de services fournissent une méthode standardisée pour effectuer des fonctions utiles telles que la collecte de données à distance, la configuratio..." />
+  <meta property="og:image" content="https://docs.netapp.com/fr-fr/ontap-fli/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="Les outils de services fournissent une méthode standardisée pour effectuer des fonctions utiles telles que la collecte de données à distance, la configuratio...">
+  <meta name="keywords" content=" recommended, tools, data, migration"><!-- Icons -->
+  <link rel="icon" href="/fr-fr/ontap-fli/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+
+  <!-- Combined CSS -->
+  <link rel="stylesheet" type="text/css" href="/fr-fr/ontap-fli/css/ie-netappdocs.css">
+
+  
+  <link rel="stylesheet" href="/fr-fr/ontap-fli/css/ie-landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/fr-fr/ontap-fli/css/ie-tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel="canonical" href="https://docs.netapp.com/fr-fr/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.netapp.com/us-en/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <link rel="alternate" hreflang="fr" href="https://docs.netapp.com/fr-fr/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <link rel="alternate" hreflang="en" href="https://docs.netapp.com/us-en/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <link rel="alternate" hreflang="ja" href="https://docs.netapp.com/ja-jp/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <link rel="alternate" hreflang="ko" href="https://docs.netapp.com/ko-kr/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://docs.netapp.com/zh-cn/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <link rel="alternate" hreflang="zh-Hant" href="https://docs.netapp.com/zh-tw/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <link rel="alternate" hreflang="de" href="https://docs.netapp.com/de-de/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <link rel="alternate" hreflang="es" href="https://docs.netapp.com/es-es/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <link rel="alternate" hreflang="it" href="https://docs.netapp.com/it-it/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html" />
+  <!-- Top level site integrations -->
+<script type="text/javascript" src="https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js"></script>
+    <script type="text/javascript" src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" charset="UTF-8" data-document-language="true" data-domain-script="72570c5c-fe30-465f-b0e0-b77f7fb4ae34"></script>
+    <script type="text/javascript">function OptanonWrapper() { }</script>
+    <script type="text/plain" class="optanon-category-C0002" src="https://assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js"></script>
+    <script class="optanon-category-C0001">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.setAttributeNode(d.createAttribute('data-ot-ignore'));j.setAttribute('class','optanon-category-C0001');j.async=true;
+        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MD73T9M');</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      const MASTHEAD_OFFSET = 65;
+      const SECTIONS = $("main h2, main h3");
+      // PAGE NAV - Init
+      if (SECTIONS.length == 0) {
+        // remove if there is no elements
+        /*
+        $("#ie-right-navbar").remove();
+        $("#ie-right-navbar-collapse").remove();
+        */
+      } else {
+        $(".page-nav-title").css('display', 'block');
+        for (var i = 0; i < SECTIONS.length; i++) {
+          var sectionId = $(SECTIONS[i]).attr('id');
+          var sectionName = $(SECTIONS[i]).text();
+          var subClass = $(SECTIONS[i]).is("h3") ? ' page-nav__sublink' : '';
+          $("#page-menu").append('<li class="page-nav-item"><a href="#' + sectionId + '" class="page-nav__link' + subClass + '">' + sectionName + '</a></li>');
+        }
+      }
+    });
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/fr-fr/ontap-fli/js/na-search.js'></script><script src='/fr-fr/ontap-fli/js/ie-clouddocs.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script>
+    /*
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+      */
+  </script>
+  <script src='/fr-fr/ontap-fli/js/custom-dropdown.js'></script>
+  <script src='/fr-fr/ontap-fli/js/FileSaver.min.js'></script>
+  <script src='/fr-fr/ontap-fli/js/jszip-utils.min.js'></script>
+  <script src='/fr-fr/ontap-fli/js/jszip.min.js'></script><script src='/fr-fr/ontap-fli/js/ie-pdf-ux.js'></script></head>
+
+
+  <body class role="document" data-flavor="">
+    <div class="skip-to-main">
+      <a href="#main" >Skip to main content</a>
+    </div><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MD73T9M"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><div id="page" class="">
+      <div id="ie-phone-menu" class=""></div>
+      <div id="ie-content-wrap" class="">
+        <nav id="ie-new-header">
+    <ul>
+        <li id="ie-phone-menu-button">
+            <a href="#">
+                <image id="" src="/fr-fr/ontap-fli/images/hamburger.svg" alt="menu" />
+            </a>
+        </li>
+
+        <li>
+            <a href="https://www.netapp.com/fr">
+                <image id="ie-header-logo" src="/fr-fr/ontap-fli/images/netapp_logo.svg" alt="netapp" />
+            </a>
+        </li>
+        <li id="ie-header-docs">
+            <a href="https://www.netapp.com/fr/support-and-training/documentation/">Documents</a>
+        </li>
+
+        <!-- Empty container to push header left with or without lang selector -->
+        <li id="empty-container" style="margin-left: auto">
+        </li>
+        <!-- Start Language Selector --><li id="ie-language-dropdown">
+            <div id="language-dropdown" class="custom-dropdown custom-dropdown-lang">
+                <div class="custom-dropdown-select custom-dropdown-select-lang">
+                    <img src="/fr-fr/ontap-fli/images/language_white_24dp.svg" class="n-globe__icon" />
+                    <span class="lang-name">Français</span>
+                    <img src="/fr-fr/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/fr-fr/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu"><li>
+                        <a href="https://docs.netapp.com/fr-fr/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html"
+                            target="_self"><span translate="no" class="notranslate">Français</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/us-en/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html"
+                            target="_self"><span translate="no" class="notranslate">English</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ja-jp/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html"
+                            target="_self"><span translate="no" class="notranslate">日本語</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/ko-kr/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html"
+                            target="_self"><span translate="no" class="notranslate">한국어</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-cn/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html"
+                            target="_self"><span translate="no" class="notranslate">简体中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/zh-tw/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html"
+                            target="_self"><span translate="no" class="notranslate">繁體中文</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/de-de/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html"
+                            target="_self"><span translate="no" class="notranslate">Deutsch</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/es-es/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html"
+                            target="_self"><span translate="no" class="notranslate">Español</span></a>
+                    </li><li>
+                        <a href="https://docs.netapp.com/it-it/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html"
+                            target="_self"><span translate="no" class="notranslate">Italiano</span></a>
+                    </li></ul>
+            </div>
+            </li>
+        <!-- End Language Selector -->
+
+
+        <li id="ie-allnetapp">
+            <div id="allnetapp-dropdown" class="custom-dropdown custom-dropdown-allnetapp">
+                <div class="custom-dropdown-select custom-dropdown-select-allnetapp">
+                    <img src="/fr-fr/ontap-fli/images/apps_white_24dp.svg" alt="" class="allnetapp-icon" />
+                    <span class="allnetapp-name">Tout NetApp</span>
+                    <img src="/fr-fr/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown header invisible" />
+                    <img src="/fr-fr/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup header" />
+                    </button>
+                </div>
+
+                <ul class="custom-dropdown-menu allnetapp-dropdown">
+                    <li>
+                        <a href="https://bluexp.netapp.com/fr/"
+                            target="_self"><span translate="no" class="notranslate">BlueXP</span></a>
+                    </li>
+                    <li>
+                        <a href="https://mysupport.netapp.com/site/"
+                            target="_self"><span translate="no" class="notranslate">Support</span></a>
+                    </li>
+                    <li>
+                        <a href="https://kb.netapp.com/"
+                            target="_self"><span translate="no" class="notranslate">Base de connaissances</span></a>
+                    </li>
+                    <li>
+                        <a href="https://www.netapp.com/fr/support-and-training/netapp-learning-services/"
+                            target="_self"><span translate="no" class="notranslate">Formation</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+    </ul>
+</nav>
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+
+<div id="ie-new-sidebar-collapse" style="display: none">
+    <img id="sidebar-expand" class="ie-searchbox-icon" src="/fr-fr/ontap-fli/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-new-sidebar">
+    <div id="ie-product-identity-lockup">
+        <div id="sidebar-collapse" class="">
+            <img src="/fr-fr/ontap-fli/images/double_arrow.svg" alt="" />
+        </div>
+        <div id="ie-breadcrumb" class="">
+  <ul class="ie-breadcrumb">
+    <li class="">
+      <a href="https://docs.netapp.com">Tous les documents</a>
+    </li>
+    
+    
+
+    
+    <li class="">
+      <a href="https://docs.netapp.com/fr-fr/ontap-family/">
+        ONTAP
+      </a>
+    </li>
+    
+  </ul>
+  
+  <div class="ie-product-name" >
+    <!--<a href="/fr-fr/ontap-fli/">-->
+      ONTAP FLI
+    <!--</a>-->
+  </div>
+</div>
+
+            
+
+        
+        
+
+<div id="ie-searchbox" class="ie-searchbox-sidebar ">
+    <img class="ie-searchbox-icon" src="/fr-fr/ontap-fli/images/loupe.svg" alt=""/>
+    <div id="react-search" 
+        data-search-html="/fr-fr/ontap-fli/search.html" 
+        data-type="widget"
+        data-placeholder="Rechercher dans la documentation"
+        data-no-results-found="Aucun résultat trouvé pour : {query}"
+        data-did-you-mean="Rechercher {suggestion}."
+        data-no-results-found-did-you-mean="Aucun résultat n'a été trouvé pour {query}. Voulez-vous dire {suggestion} ?"
+        data-results-found="{hitCount} résultats"
+        data-error-message="Une erreur s'est produite. Merci de réessayer."
+        data-error-reset="Réinitialiser la recherche"
+        data-sk-es-pf-indexes="" 
+        data-flavor="">
+    </div>
+</div>
+        
+    </div>
+    <div id="ie-new-toc"><script>
+  let sidebarAccordion = true;
+
+  /* specific css rules for Mac */
+  if(navigator.platform.match('Mac') !== null) {
+    document.body.setAttribute('class', 'OSX');
+  }
+
+</script>
+
+<div id="ie-sidebar-container">
+  <ul id="ie-sidebar-list" ><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="ONTAP FLI Docs"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/index.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/fr-fr/ontap-fli/index.html">
+        ONTAP FLI Docs
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Migration SAN avec FLI"
+      data-li-level="1" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-1  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Migration SAN avec FLI</div>-->
+         Migration SAN avec FLI
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation du programme de migration des données"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Présentation du programme de migration des données</div>-->
+         Présentation du programme de migration des données
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_data_migration_program_overview.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_data_migration_program_overview.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Public visé"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_intended_audience.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_intended_audience.html">
+        Public visé
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Types de migration pris en charge par Foreign LUN Import"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_migration_types_supported_by_foreign_lun_import.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_migration_types_supported_by_foreign_lun_import.html">
+        Types de migration pris en charge par Foreign LUN Import
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Concepts relatifs à l'importation de LUN étrangères"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_foreign_lun_import_concepts.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_foreign_lun_import_concepts.html">
+        Concepts relatifs à l'importation de LUN étrangères
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Défis liés à la migration des données"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_data_migration_challenges.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_data_migration_challenges.html">
+        Défis liés à la migration des données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Services professionnels pour les solutions de migration SAN"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Services professionnels pour les solutions de migration SAN</div>-->
+         Services professionnels pour les solutions de migration SAN
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_professional_services_for_san_migration_solutions.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_professional_services_for_san_migration_solutions.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Service de migration des données pour les environnements SAN hétérogènes"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_data_migration_service_for_heterogenous_san_environments.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_data_migration_service_for_heterogenous_san_environments.html">
+        Service de migration des données pour les environnements SAN hétérogènes
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Méthodologie de migration de données"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_data_migration_methodology.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_data_migration_methodology.html">
+        Méthodologie de migration de données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Options de migration des données"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_data_migration_options.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_data_migration_options.html">
+        Options de migration des données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Outils recommandés pour la migration des données"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Outils recommandés pour la migration des données</div>-->
+         Outils recommandés pour la migration des données
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="4#" 
+      class="  ie-sidebar-selected    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Bancs d'essai pour estimer la durée des migrations"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_benchmarks_for_estimating_migration_durations.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_benchmarks_for_estimating_migration_durations.html">
+        Bancs d'essai pour estimer la durée des migrations
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation de LUN étrangères"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Importation de LUN étrangères</div>-->
+         Importation de LUN étrangères
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_foreign_lun_import_overview.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_foreign_lun_import_overview.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Fonctions d'importation de LUN étrangères"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_foreign_lun_import_features.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_foreign_lun_import_features.html">
+        Fonctions d'importation de LUN étrangères
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Avantages d'une solution FLI"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_benefits_of_an_fli_solution.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_benefits_of_an_fli_solution.html">
+        Avantages d'une solution FLI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exigences et limites des LUN"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_lun_requirements_and_limitations.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_lun_requirements_and_limitations.html">
+        Exigences et limites des LUN
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurations compatibles avec FLI"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_supported_configurations.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_fli_supported_configurations.html">
+        Configurations compatibles avec FLI
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Principes de base de l'implémentation pour la migration des données"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Principes de base de l'implémentation pour la migration des données</div>-->
+         Principes de base de l'implémentation pour la migration des données
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_implementation_basics_for_data_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_implementation_basics_for_data_migration.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exigences en matière de câblage physique pour FLI"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_physical_wiring_requirements_for_fli.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_physical_wiring_requirements_for_fli.html">
+        Exigences en matière de câblage physique pour FLI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Segmentation du port cible et initiateur"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_target_and_initiator_port_zoning.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_target_and_initiator_port_zoning.html">
+        Segmentation du port cible et initiateur
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exigences de segmentation FLI"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_zoning_requirements.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_zoning_requirements.html">
+        Exigences de segmentation FLI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration du groupe initiateur"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_initiator_group_configuration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_initiator_group_configuration.html">
+        Configuration du groupe initiateur
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Raisons d'effectuer des migrations de tests"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_reasons_to_perform_test_migrations.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_reasons_to_perform_test_migrations.html">
+        Raisons d'effectuer des migrations de tests
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation du processus de migration"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Présentation du processus de migration</div>-->
+         Présentation du processus de migration
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_migration_process_overview.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_migration_process_overview.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Workflow de phase de découverte"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_migration_discover_phase_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_migration_discover_phase_workflow.html">
+        Workflow de phase de découverte
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Analyser le workflow de phase"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_migration_analyze_phase_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_migration_analyze_phase_workflow.html">
+        Analyser le workflow de phase
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Workflow de phase de planification"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_migration_plan_phase_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_migration_plan_phase_workflow.html">
+        Workflow de phase de planification
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurations compatibles avec FLI"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_supported_configurations.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_supported_configurations.html">
+        Configurations compatibles avec FLI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exécuter des workflows de phase"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_migration_execute_phase_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_migration_execute_phase_workflow.html">
+        Exécuter des workflows de phase
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Flux de travail de migration hors ligne"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_offline_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_offline_migration.html">
+        Flux de travail de migration hors ligne
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Flux de travail de migration en ligne"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_online_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_online_migration.html">
+        Flux de travail de migration en ligne
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérifier le workflow de phase"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_migration_verify_phase_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_migration_verify_phase_workflow.html">
+        Vérifier le workflow de phase
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Découvrir les procédures de collecte des données de phase"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_discover_phase_procedures.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_discover_phase_procedures.html">
+        Découvrir les procédures de collecte des données de phase
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Analyser les meilleures pratiques de phase IMT"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Analyser les meilleures pratiques de phase IMT</div>-->
+         Analyser les meilleures pratiques de phase IMT
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_analyze_phase_procedures.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_analyze_phase_procedures.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Critères d'interopérabilité et de support de FLI"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_interoperability_and_support_criteria.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_fli_interoperability_and_support_criteria.html">
+        Critères d'interopérabilité et de support de FLI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérification des configurations prises en charge pour FLI à l'aide de IMT"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_checking_supported_configuration_for_fli_using_imt.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_checking_supported_configuration_for_fli_using_imt.html">
+        Vérification des configurations prises en charge pour FLI à l'aide de IMT
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérification des configurations prises en charge pour FLI à l'aide de l'application SAN LUN Migrate"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_checking_supported_configurations_for_fli_using_san_lun_migrate_app.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_checking_supported_configurations_for_fli_using_san_lun_migrate_app.html">
+        Vérification des configurations prises en charge pour FLI à l'aide de l'application SAN LUN Migrate
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Activation pour les LUN non prises en charge"
+      data-li-level="4" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-4  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Activation pour les LUN non prises en charge</div>-->
+         Activation pour les LUN non prises en charge
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Avant de commencer"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_enablement_for_non_supported_luns_interoperability.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/fr-fr/ontap-fli/san-migration/concept_enablement_for_non_supported_luns_interoperability.html">
+        Avant de commencer
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation de LUN non FC"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_importing_non_fc_luns.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/fr-fr/ontap-fli/san-migration/task_importing_non_fc_luns.html">
+        Importation de LUN non FC
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation de LUN étrangères pour importer des LUN dans AFF"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_using_fli_to_import_luns_into_all_flash.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/fr-fr/ontap-fli/san-migration/concept_using_fli_to_import_luns_into_all_flash.html">
+        Importation de LUN étrangères pour importer des LUN dans AFF
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Rapport d'analyse de l'écart"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_gap_analysis_report.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_gap_analysis_report.html">
+        Rapport d'analyse de l'écart
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Planifier et préparer les procédures de phase"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Planifier et préparer les procédures de phase</div>-->
+         Planifier et préparer les procédures de phase
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_plan_phase_procedures.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_plan_phase_procedures.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Meilleures pratiques de câblage pour la migration FLI"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_wiring_best_practices_for_fli.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_wiring_best_practices_for_fli.html">
+        Meilleures pratiques de câblage pour la migration FLI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des zones de commutation"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_configuring_switch_zones.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_configuring_switch_zones.html">
+        Configuration des zones de commutation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Comment configurer les matrices source"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_how_to_configure_source_arrays.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_how_to_configure_source_arrays.html">
+        Comment configurer les matrices source
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tests de migration"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_migration_tests.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_migration_tests.html">
+        Tests de migration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple de test de migration avec Hitachi AMS2100"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_test_migration_example_using_hitachi_ams2100.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_test_migration_example_using_hitachi_ams2100.html">
+        Exemple de test de migration avec Hitachi AMS2100
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Workflow FLI hors ligne"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Workflow FLI hors ligne</div>-->
+         Workflow FLI hors ligne
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_offline_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_offline_workflow.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI hors ligne : préparation de la mise en service"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> FLI hors ligne : préparation de la mise en service</div>-->
+         FLI hors ligne : préparation de la mise en service
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_offline_preparation_for_cutover.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_fli_offline_preparation_for_cutover.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Redémarrage de l'hôte pour valider l'état du système"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_rebooting_the_host_to_validate_system_state.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_rebooting_the_host_to_validate_system_state.html">
+        Redémarrage de l'hôte pour valider l'état du système
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérification du chemin LUN hôte et de la configuration du chemin multivoie"
+      data-li-level="4" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-4  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Vérification du chemin LUN hôte et de la configuration du chemin multivoie</div>-->
+         Vérification du chemin LUN hôte et de la configuration du chemin multivoie
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_verifying_host_lun_path_and_multipath_configuration.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/fr-fr/ontap-fli/san-migration/concept_verifying_host_lun_path_and_multipath_configuration.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérification multivoie pour les hôtes Windows"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_multipath_verification_for_windows_hosts.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/fr-fr/ontap-fli/san-migration/task_multipath_verification_for_windows_hosts.html">
+        Vérification multivoie pour les hôtes Windows
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérification multivoie pour les hôtes Linux"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_multipath_verification_for_linux_hosts.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/fr-fr/ontap-fli/san-migration/task_multipath_verification_for_linux_hosts.html">
+        Vérification multivoie pour les hôtes Linux
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérification des chemins d'accès multiples pour les hôtes ESXi"
+      data-li-level="5#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_multipath_verification_for_esxi_hosts.html" 
+    ><a class="ie-sidebar-menuitem-5 " href="/fr-fr/ontap-fli/san-migration/task_multipath_verification_for_esxi_hosts.html">
+        Vérification des chemins d'accès multiples pour les hôtes ESXi
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Préparation des hôtes pour la migration FLI hors ligne"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_prepare_hosts_for_fli_offline_migration.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_prepare_hosts_for_fli_offline_migration.html">
+        Préparation des hôtes pour la migration FLI hors ligne
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation de LUN source à un stockage ONTAP lors de l'outil FLI"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_presenting_source_luns_to_ontap_storage_during_offline_fli.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_presenting_source_luns_to_ontap_storage_during_offline_fli.html">
+        Présentation de LUN source à un stockage ONTAP lors de l'outil FLI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérification des LUN source sur un système de stockage de destination pour une disponibilité FLI hors ligne"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_verifying_source_luns_on_destination_storage_for_offline_foreign_lun_import.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_verifying_source_luns_on_destination_storage_for_offline_foreign_lun_import.html">
+        Vérification des LUN source sur un système de stockage de destination pour une disponibilité FLI hors ligne
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configuration des tâches de migration"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_configuring_migration_jobs.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_configuring_migration_jobs.html">
+        Configuration des tâches de migration
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI hors ligne : importation des données"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_offline_importing_the_data.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_offline_importing_the_data.html">
+        FLI hors ligne : importation des données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI hors ligne : vérification des résultats de la migration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_offline_verifying_migration_results.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_offline_verifying_migration_results.html">
+        FLI hors ligne : vérification des résultats de la migration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tâches post-migration hors ligne FLI"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_offline_post_migration_tasks.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_offline_post_migration_tasks.html">
+        Tâches post-migration hors ligne FLI
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Workflow en ligne FLI"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Workflow en ligne FLI</div>-->
+         Workflow en ligne FLI
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_online_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_online_workflow.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Redémarrage des hôtes"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_rebooting_hosts_f0f8.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_rebooting_hosts_f0f8.html">
+        Redémarrage des hôtes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Systèmes d'exploitation hôtes pris en charge pour FLI en ligne"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_supported_host_operating_systems_for_fli_online.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_supported_host_operating_systems_for_fli_online.html">
+        Systèmes d'exploitation hôtes pris en charge pour FLI en ligne
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérifiez le chemin LUN hôte et la configuration des chemins d'accès multiples"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_verify_host_lun_path_and_multipath_configuration_fa1e.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_verify_host_lun_path_and_multipath_configuration_fa1e.html">
+        Vérifiez le chemin LUN hôte et la configuration des chemins d'accès multiples
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Préparation des hôtes pour la migration FLI en ligne"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_prepare_hosts_for_fli_online_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_prepare_hosts_for_fli_online_migration.html">
+        Préparation des hôtes pour la migration FLI en ligne
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI en ligne : préparation du chemin de LUN"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_online_preparing_the_lun_path.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_online_preparing_the_lun_path.html">
+        FLI en ligne : préparation du chemin de LUN
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI en ligne : interruption de la mise en service"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_online_performing_a_disruptive_cutover.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_online_performing_a_disruptive_cutover.html">
+        FLI en ligne : interruption de la mise en service
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI en ligne : importation des données"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_online_importing_the_data.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_online_importing_the_data.html">
+        FLI en ligne : importation des données
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI en ligne : vérification des résultats de la migration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_online_verifying_migration_results.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_online_verifying_migration_results.html">
+        FLI en ligne : vérification des résultats de la migration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Nettoyage de la migration FLI en ligne"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_online_cleanup.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_online_cleanup.html">
+        Nettoyage de la migration FLI en ligne
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Tâches post-migration FLI en ligne"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_online_post_migration_tasks.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_online_post_migration_tasks.html">
+        Tâches post-migration FLI en ligne
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Flux de travail de transition FLI 7-mode vers ONTAP"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Flux de travail de transition FLI 7-mode vers ONTAP</div>-->
+         Flux de travail de transition FLI 7-mode vers ONTAP
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_7_mode_to_ontap_transition_workflow.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Configurations prises en charge par 7-mode vers ONTAP FLI"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_7_mode_to_ontap_supported_configurations.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_7_mode_to_ontap_supported_configurations.html">
+        Configurations prises en charge par 7-mode vers ONTAP FLI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Redémarrage des hôtes"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_rebooting_hosts_9207.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_rebooting_hosts_9207.html">
+        Redémarrage des hôtes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérifiez le chemin LUN hôte et la configuration des chemins d'accès multiples"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_verify_host_lun_path_and_multipath_configuration_81ec.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_verify_host_lun_path_and_multipath_configuration_81ec.html">
+        Vérifiez le chemin LUN hôte et la configuration des chemins d'accès multiples
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Préparation des hôtes à la transition"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_prepare_hosts_for_the_transition.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_prepare_hosts_for_the_transition.html">
+        Préparation des hôtes à la transition
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Préparation des baies source et destination pour la migration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_transition_preparing_source_and_destination_arrays.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_transition_preparing_source_and_destination_arrays.html">
+        Préparation des baies source et destination pour la migration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Effectuer la mise en service disruptive de FLI 7-mode vers ONTAP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_transition_performing_a_disruptive_cutover.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_transition_performing_a_disruptive_cutover.html">
+        Effectuer la mise en service disruptive de FLI 7-mode vers ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Importation des données de FLI 7-mode vers ONTAP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_transition_importing_the_data.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_transition_importing_the_data.html">
+        Importation des données de FLI 7-mode vers ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Vérification des résultats de la migration FLI 7-mode vers ONTAP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_fli_transition_verifying_fli_7_mode_to_ontap_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_fli_transition_verifying_fli_7_mode_to_ontap_migration.html">
+        Vérification des résultats de la migration FLI 7-mode vers ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Flux de production de transition FLI : tâches post-migration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_transition_post_migration_tasks.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_transition_post_migration_tasks.html">
+        Flux de production de transition FLI : tâches post-migration
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="FLI avec l'automatisation des flux de travail (WFA)"
+      data-li-level="2#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_using_workflow_automation_wfa.html" 
+    ><a class="ie-sidebar-menuitem-2 " href="/fr-fr/ontap-fli/san-migration/concept_fli_using_workflow_automation_wfa.html">
+        FLI avec l'automatisation des flux de travail (WFA)
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Procédures de post-migration FLI"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Procédures de post-migration FLI</div>-->
+         Procédures de post-migration FLI
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_post_migration_procedures_all_workflows.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_post_migration_procedures_all_workflows.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Suppression des LUN source du stockage ONTAP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_removing_source_luns_from_ontap_storage.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_removing_source_luns_from_ontap_storage.html">
+        Suppression des LUN source du stockage ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Suppression des LUN source des hôtes"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_removing_source_luns_from_host.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_removing_source_luns_from_host.html">
+        Suppression des LUN source des hôtes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Suppression du stockage source et de la zone hôte du zoneset"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Suppression du stockage source et de la zone hôte du zoneset</div>-->
+         Suppression du stockage source et de la zone hôte du zoneset
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple de structure Brocade"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_brocade_fabric_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_brocade_fabric_example.html">
+        Exemple de structure Brocade
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple de structure Cisco"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_cisco_fabric_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_cisco_fabric_example.html">
+        Exemple de structure Cisco
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création de copies Snapshot après migration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_create_a_post_migration_snapshot_copy.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_create_a_post_migration_snapshot_copy.html">
+        Création de copies Snapshot après migration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Phase de nettoyage et de vérification de la migration FLI"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_fli_migration_clean_up_and_verify_phase.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_fli_migration_clean_up_and_verify_phase.html">
+        Phase de nettoyage et de vérification de la migration FLI
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Rapport de migration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_migration_report.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_migration_report.html">
+        Rapport de migration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Annuler la segmentation des matrices source et de destination"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_unzoning_source_and_destination_array.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_unzoning_source_and_destination_array.html">
+        Annuler la segmentation des matrices source et de destination
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Retrait de la matrice source de ONTAP"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_removing_the_source_array_from_ontap.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_removing_the_source_array_from_ontap.html">
+        Retrait de la matrice source de ONTAP
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Suppression de la configuration de la matrice de destination"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_removing_destination_array_configuration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_removing_destination_array_configuration.html">
+        Suppression de la configuration de la matrice de destination
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Documentation de l'environnement récemment migré"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_document_customer_environment.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/task_document_customer_environment.html">
+        Documentation de l'environnement récemment migré
+      </a></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Performances d'importation de LUN étrangères"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Performances d'importation de LUN étrangères</div>-->
+         Performances d'importation de LUN étrangères
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_performance.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_performance.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Améliorations des performances dans ONTAP 8.3.1"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_performance_enhancements_in_clustered_data_ontap_8_3_1.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_performance_enhancements_in_clustered_data_ontap_8_3_1.html">
+        Améliorations des performances dans ONTAP 8.3.1
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Variables qui affectent les performances de la migration Foreign LUN Import"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_variables_that_affect_foreign_lun_import_migration_performance.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_variables_that_affect_foreign_lun_import_migration_performance.html">
+        Variables qui affectent les performances de la migration Foreign LUN Import
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Bancs d'essai pour estimer la durée des migrations"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_benchmarks_for_estimating_migration_durations.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_benchmarks_for_estimating_migration_durations.html">
+        Bancs d'essai pour estimer la durée des migrations
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Meilleures pratiques pour la migration d'importation de LUN étrangères"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_best_practices_for_fli_migration.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/concept_best_practices_for_fli_migration.html">
+        Meilleures pratiques pour la migration d'importation de LUN étrangères
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Correction CAW/ATS ESXi"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_esxi_caw_ats_remediation.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_esxi_caw_ats_remediation.html">
+        Correction CAW/ATS ESXi
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Résolution des problèmes liés aux hôtes"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_host_remediation.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_host_remediation.html">
+        Résolution des problèmes liés aux hôtes
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Désactivation des réservations persistantes SCSI-3"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_clearing_scsi_3_persistent_reservations.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_clearing_scsi_3_persistent_reservations.html">
+        Désactivation des réservations persistantes SCSI-3
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Création des zones hôte vers destination"
+      data-li-level="3" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-3  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Création des zones hôte vers destination</div>-->
+         Création des zones hôte vers destination
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/concept_creating_the_host_to_destination_zones.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/concept_creating_the_host_to_destination_zones.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple d'une structure Brocade dans une fabrique de production"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_brocade_fabric_in_production_fabric_a_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_brocade_fabric_in_production_fabric_a_example.html">
+        Exemple d'une structure Brocade dans une fabrique de production
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple de structure Brocade dans le fabric de production B"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_brocade_fabric_in_production_fabric_b_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_brocade_fabric_in_production_fabric_b_example.html">
+        Exemple de structure Brocade dans le fabric de production B
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple d'une structure Cisco dans une fabrique de production"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_cisco_fabric_in_production_fabric_a_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_cisco_fabric_in_production_fabric_a_example.html">
+        Exemple d'une structure Cisco dans une fabrique de production
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple de structure Cisco dans la structure de production B"
+      data-li-level="4#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/task_cisco_fabric_in_production_fabric_b_example.html" 
+    ><a class="ie-sidebar-menuitem-4 " href="/fr-fr/ontap-fli/san-migration/task_cisco_fabric_in_production_fabric_b_example.html">
+        Exemple de structure Cisco dans la structure de production B
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Exemple de feuille de travail d'étude et de planification du site"
+      data-li-level="2" 
+      class=" sidebar-folder    "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="" 
+    ><a class="ie-sidebar-menuitem-2  ie-sidebar-button " href="#">
+        <img class="ie-sidebar-icon ie-sidebar-button open" src="/fr-fr/ontap-fli/images/link_expand.svg" alt="" />
+        <img class="ie-sidebar-icon ie-sidebar-button close" src="/fr-fr/ontap-fli/images/link_collapse.svg" alt="" />
+        <!--<div class="" style="display: inline;"> Exemple de feuille de travail d'étude et de planification du site</div>-->
+         Exemple de feuille de travail d'étude et de planification du site
+      </a>
+      <ul class="">
+        <li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Présentation"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_sample_site_survey_and_planning_worksheet.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_sample_site_survey_and_planning_worksheet.html">
+        Présentation
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Enquête sur le site et fiche de planification onglet Contacts"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_contacts_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_contacts_tab.html">
+        Enquête sur le site et fiche de planification onglet Contacts
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Feuille de questionnaire de planification et de sondage sur le site"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_questionnaire_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_questionnaire_tab.html">
+        Feuille de questionnaire de planification et de sondage sur le site
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Onglet commutateurs de la fiche de travail étude et planification du site"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_switches_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_switches_tab.html">
+        Onglet commutateurs de la fiche de travail étude et planification du site
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Feuille de travail étude et planification du site onglet périphériques de stockage source"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html">
+        Feuille de travail étude et planification du site onglet périphériques de stockage source
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Feuille de travail étude du site et planification périphériques de stockage de destination"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_destination_storage_devices_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_destination_storage_devices_tab.html">
+        Feuille de travail étude du site et planification périphériques de stockage de destination
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Onglet hôtes de la feuille de calcul étude et planification du site"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html">
+        Onglet hôtes de la feuille de calcul étude et planification du site
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Fiche de planification et d'enquête sur le site, onglet HBA et informations sur la zone"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html">
+        Fiche de planification et d'enquête sur le site, onglet HBA et informations sur la zone
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Feuille de travail étude de site et planification onglet LUN source"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_source_luns_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_source_luns_tab.html">
+        Feuille de travail étude de site et planification onglet LUN source
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Feuille de travail étude du site et planification groupes de stockage"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html">
+        Feuille de travail étude du site et planification groupes de stockage
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Feuille de travail étude du site et planification onglet LUN Details"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_lun_details_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_lun_details_tab.html">
+        Feuille de travail étude du site et planification onglet LUN Details
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Feuille de calcul étude et planification du site onglet mises en page des LUN NetApp"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_netapp_lun_layouts_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_netapp_lun_layouts_tab.html">
+        Feuille de calcul étude et planification du site onglet mises en page des LUN NetApp
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Feuille de travail de planification et d'étude du site onglet planification de la migration"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_migration_schedule_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_migration_schedule_tab.html">
+        Feuille de travail de planification et d'étude du site onglet planification de la migration
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Feuille de calcul étude du site et planification - onglet État de l'agrégat"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_aggregate_status_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_aggregate_status_tab.html">
+        Feuille de calcul étude du site et planification - onglet État de l'agrégat
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Fiche de planification et d'enquête de site onglet FAS Config"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html">
+        Fiche de planification et d'enquête de site onglet FAS Config
+      </a></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Feuille de travail étude et planification du site onglet scripts CLI du SDS"
+      data-li-level="3#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/san-migration/reference_site_survey_and_planning_worksheet_sds_cli_scripts_tab.html" 
+    ><a class="ie-sidebar-menuitem-3 " href="/fr-fr/ontap-fli/san-migration/reference_site_survey_and_planning_worksheet_sds_cli_scripts_tab.html">
+        Feuille de travail étude et planification du site onglet scripts CLI du SDS
+      </a></li></ul></li></ul></li><li 
+      data-pdf-exists="true" 
+      data-pdf-filename="Mentions légales"
+      data-li-level="1#" 
+      class="   "
+      dale-page-url="/san-migration/concept_recommended_tools_for_data_migration.html" 
+      dale-entry-url="/reference_legal_notices.html" 
+    ><a class="ie-sidebar-menuitem-1 " href="/fr-fr/ontap-fli/reference_legal_notices.html">
+        Mentions légales
+      </a></li></ul>
+</div>
+<script>
+
+  $(".ie-sidebar-button").click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    expandedLI = $('li.ie-sidebar-expand')
+
+    const li = $(this).closest("li");
+
+    const parentsLI = $(li).parents('li');
+
+    expandedLI.map(element => {
+      if (sidebarAccordion && !li.hasClass('ie-sidebar-expand') && jQuery.inArray(expandedLI[element], parentsLI) == -1) {
+        $(expandedLI[element]).toggleClass('ie-sidebar-expand');
+        $(expandedLI[element]).children("ul").animate({ height: 'toggle' }, 400, function () {
+          $(li).children("ul").toggleClass('ie-sidebar-open');
+
+        })
+      }
+
+    })
+
+    $(li).toggleClass('ie-sidebar-expand');
+    $(li).children("ul").animate({ height: 'toggle' }, 400, function () {
+      $(li).children("ul").toggleClass('ie-sidebar-open');
+    })
+  });
+
+
+  
+    $("li.ie-sidebar-selected").parents('ul').toggleClass("ie-sidebar-open");
+    $("li.ie-sidebar-selected").toggleClass("ie-sidebar-expand")
+    $("ul.ie-sidebar-open").parent().toggleClass("ie-sidebar-expand");
+    $("li.ie-sidebar-selected").children('ul').toggleClass("ie-sidebar-open")
+  
+  
+</script>
+    </div>
+</div>
+<script>
+
+    
+    let sidebarScrollTopPosition = 0;
+    $("#ie-new-toc").on("scroll", function () {
+        if (sidebarScrollTopPosition == 0) {
+            $.cookie("sidebarScroll", $("#ie-new-toc").scrollTop(), {
+                path: "/fr-fr/ontap-fli"
+            });
+        }
+
+        if ($("#ie-new-toc").scrollTop() > 0) {
+            $('#ie-product-identity-lockup').addClass('ie-addShadow');
+        } else {
+            $('#ie-product-identity-lockup').removeClass('ie-addShadow');
+        }
+    });
+
+    $(function () {
+        if ($.cookie("sidebarScroll")) {
+            $("#ie-new-toc").scrollTop($.cookie("sidebarScroll"));
+        }
+    });
+
+    function setSidebarBottom() {
+        const footerGap = PXinViewport($(".n-footer"));
+        document.getElementById("ie-new-sidebar").style.bottom = Math.max(0, footerGap) + "px";
+    }
+
+    window.onscroll = () => {
+        setSidebarBottom();
+    };
+
+    $("#sidebar-collapse").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        if ($.cookie("sidebarScroll")) {
+            sidebarScrollTopPosition = $.cookie("sidebarScroll");
+        }
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 350, function () {
+            $("#ie-new-sidebar-collapse").show();
+            $("#ie-new-sidebar").removeClass("open")
+            $("#ie-new-sidebar").addClass("close")
+            $("#ie-new-sidebar").removeAttr("style")
+        });
+        $(".ie-content-pane").animate({ width: (width + sidebarWidth), marginLeft: (marginLeft - sidebarWidth) }, 350, function () {
+            resizeContent()
+        })
+
+    });
+    $("#sidebar-expand").click(function (e) {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        e.preventDefault();
+        const width = $(".ie-content-pane").width();
+        const marginLeft = parseInt($(".ie-content-pane").css('marginLeft'));
+
+        $("#ie-new-sidebar").animate({ width: 'toggle' }, 250, function () {
+            $('#ie-new-sidebar').css('display', 'flex');
+            $("#ie-new-sidebar-collapse").hide();
+            $("#ie-new-sidebar").removeClass("close")
+            $("#ie-new-sidebar").addClass("open")
+            setSidebarBottom();
+
+            if (sidebarScrollTopPosition != 0) {
+                $.cookie("sidebarScroll", sidebarScrollTopPosition, {
+                    path: "/fr-fr/ontap-fli"
+                })
+                $("#ie-new-toc").scrollTop(sidebarScrollTopPosition);
+                sidebarScrollTopPosition = 0;
+            }
+        });
+        $(".ie-content-pane").animate({ width: (width - sidebarWidth), 'marginLeft': (marginLeft + sidebarWidth) }, 250, function () {
+            resizeContent()
+        })
+    });
+    function resizeContent() {
+        const sidebarWidth = $("#ie-new-sidebar").width() - $("#ie-new-sidebar-collapse").width();
+        const rightNavbarVisible =  $("#ie-right-navbar").css('display') && $("#ie-right-navbar").css('display') != 'none';
+        const sidebarVisible = $("#ie-new-sidebar").css('display') != 'none';
+        const rightNavbarWidth = $("#ie-right-navbar").width();
+        const rightNavbarCollapseWidth = $("#ie-right-navbar-collapse").width();
+        const rightNavbarCollapseVisible = $("#ie-right-navbar-collapse").css('display') && $("#ie-right-navbar-collapse").css('display') != 'none';
+        
+        if (rightNavbarVisible && sidebarVisible) {
+            $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarWidth}px)`)
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+        } else if (sidebarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${sidebarWidth}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${sidebarWidth + rightNavbarCollapseWidth}px)`)
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar").width()}px)`)
+            }
+
+        } else if (rightNavbarVisible) {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            $(".ie-content-pane").width(`calc(100% - ${rightNavbarWidth}px)`)
+        } else {
+            $(".ie-content-pane").css('marginLeft', `${$("#ie-new-sidebar-collapse").width()}px`)
+            if (rightNavbarCollapseVisible) {
+                $(".ie-content-pane").width(`calc(100% - ${rightNavbarCollapseWidth}px)`);
+            } else {
+                $(".ie-content-pane").width(`calc(100% - ${$("#ie-new-sidebar-collapse").width()}px) `);
+            }
+            
+        }
+    }
+    $(window).on("resize load", function () {
+        setSidebarBottom();
+        resizeContent()
+    });
+
+
+</script>
+
+<div class="ie-content-pane ie-component-detail-content ie-component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content" id="main">
+      <!-- include utility.html -->
+      <div class="ie-info-disclaimer">
+    <span>
+      <div class="ie-info-disclaimer-container">
+        <div class="ie-info-disclaimer-icon">
+          <img src="/fr-fr/ontap-fli/images/notification-icons.svg" class="luci-icon" alt="" />
+        </div>
+        <div class="ie-info-disclaimer-content">
+          <span> La version française est une traduction automatique. La version anglaise prévaut sur la française en cas de divergence. </span>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+    </span>
+  </div><div class="ie-component-detail-heading-wrap">
+  <h1 class="ie-component-detail-heading">Outils recommandés pour la migration des données</h1>
+</div>
+
+<div id="ie-byline">
+  
+<div class="page-details">
+    
+        
+            <time datetime="2022-11-14 20:38:30 +0000">11/14/2022</time>
+        
+    
+    
+        <span>Contributeurs
+        </span>
+    
+    
+</div>
+<div class="page-controls">
+    <div id="contribute-dropdown" class="custom-dropdown custom-dropdown-contrib" >
+        <div class="custom-dropdown-select custom-dropdown-select-contrib">
+        <span class="contrib-name"><img src="/fr-fr/ontap-fli/images/discuss-sm.svg" alt="" class="github-icon" />Suggérer des modifications</span>
+        <img src="/fr-fr/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevrondown invisible" />
+        <img src="/fr-fr/ontap-fli/images/dropdown-arrow.svg" alt="" class="custom-icon chevronup" />
+        </div>
+        <ul class="custom-dropdown-menu suggested-changes-dropdown"><li>
+                <a target="_blank" href="https://github.com/NetAppDocs/ontap-fli.fr-fr/issues/new?template=new-from-page.yml&page-url=https://docs.netapp.com/fr-fr/ontap-fli/san-migration/concept_recommended_tools_for_data_migration.html&page-title=Outils recommandés pour la migration des données" class="page-nav-contribute-link" role="button">Demander des modifications de la documentation</a>
+            </li><li> 
+                <a target="_blank" href="https://github.com/NetAppDocs/ontap-fli/blob/main/san-migration/concept_recommended_tools_for_data_migration.adoc" class="page-nav-contribute-link" role="button">Modifier cette page</a>
+            </li><li><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  >En savoir plus sur les contributions</a></li>
+        </ul>
+    </div>
+    <div id="pdf-control-container">
+        <div class="n-pdf-header">
+            <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+                <img class="adobe-icon" src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>PDF<img src="/fr-fr/ontap-fli/images/dropdown-arrow.svg" class="custom-icon" alt="" />
+            </a>
+        </div>
+        <div class="n-pdf-body-container">
+            <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+                    
+                    
+                    
+                    <a target="_blank" class="pdf-download-link" href="/fr-fr/ontap-fli/pdfs/fullsite-sidebar/Documentation_relative_à_l_importation_de_LUN_étrangères_de_ONTAP.pdf" >
+                    <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>Un fichier PDF de toute la documentation</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Migration_SAN_avec_FLI.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Migration SAN avec FLI
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Présentation_du_programme_de_migration_des_données.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Présentation du programme de migration des données
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Services_professionnels_pour_les_solutions_de_migration_SAN.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Services professionnels pour les solutions de migration SAN
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Outils_recommandés_pour_la_migration_des_données.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Outils recommandés pour la migration des données
+          </a>
+          
+    <ul class="subfolders" id="pdf-remove" style="display:none;"><li class="active"></li></ul>
+  
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Importation_de_LUN_étrangères.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Importation de LUN étrangères
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Principes_de_base_de_l_implémentation_pour_la_migration_des_données.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Principes de base de l'implémentation pour la migration des données
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Présentation_du_processus_de_migration.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Présentation du processus de migration
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Analyser_les_meilleures_pratiques_de_phase_IMT.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Analyser les meilleures pratiques de phase IMT
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Activation_pour_les_LUN_non_prises_en_charge.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Activation pour les LUN non prises en charge
+          </a>
+          
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Planifier_et_préparer_les_procédures_de_phase.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Planifier et préparer les procédures de phase
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Workflow_FLI_hors_ligne.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Workflow FLI hors ligne
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/FLI_hors_ligne___préparation_de_la_mise_en_service.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            FLI hors ligne : préparation de la mise en service
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Vérification_du_chemin_LUN_hôte_et_de_la_configuration_du_chemin_multivoie.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Vérification du chemin LUN hôte et de la configuration du chemin multivoie
+          </a>
+          
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Workflow_en_ligne_FLI.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Workflow en ligne FLI
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Flux_de_travail_de_transition_FLI_7_mode_vers_ONTAP.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Flux de travail de transition FLI 7-mode vers ONTAP
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Procédures_de_post_migration_FLI.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Procédures de post-migration FLI
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Suppression_du_stockage_source_et_de_la_zone_hôte_du_zoneset.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Suppression du stockage source et de la zone hôte du zoneset
+          </a>
+          
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Performances_d_importation_de_LUN_étrangères.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Performances d'importation de LUN étrangères
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Création_des_zones_hôte_vers_destination.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Création des zones hôte vers destination
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" class="pdf-download-link"
+            
+              href="/fr-fr/ontap-fli/pdfs/sidebar/Exemple_de_feuille_de_travail_d_étude_et_de_planification_du_site.pdf" 
+            
+          >
+            <img src="/fr-fr/ontap-fli/images/pdf-icon.png" alt="" width="16" height="16"/>
+            Exemple de feuille de travail d'étude et de planification du site
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+        </li>
+      </ul>
+    
+
+  
+
+
+
+</li></ul>
+            <div class="zip-pdf-link-container" style="display: none;">   
+                <a href="#" id="zipPdf">
+                <img src="/fr-fr/ontap-fli/images/pdf-zip.png" alt="" width="16" height="16"/>
+                <pre>Plusieurs fichiers PDF<span class="zip-size"></span></pre>
+                </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+        </div>
+    </div>        
+<script>
+$("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+$("#toggleButtonPdf").on('click', function(e){ 
+    e.stopPropagation();
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+});
+
+//hide is by clicking outside pdfcontainer
+$(document).on('click', function (e) {
+    if ($('#toggleContainerPdf').is(':visible') && !$('.n-pdf-body-container').is(e.target) && !$('.n-pdf-body-container').has(e.target).length)  {
+        
+        $("#toggleContainerPdf").toggle('display');
+        $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+        $("#toggleButtonPdf").removeClass("active");
+    }
+});
+</script>
+<script>
+    function getPdfLocation() {
+        const pdfLocation = window.scrollX + document.querySelector('#pdf-control-container').getBoundingClientRect().left
+        if (pdfLocation < 450) {
+            $(".n-pdf-body-container").addClass("block")
+        } else {
+            $(".n-pdf-body-container").removeClass("block")
+        }
+    
+    }
+    $( window ).on( "resize", function() {
+        getPdfLocation()
+} );
+</script>
+<script>
+    const pdfButtonWidth =  $(".n-pdf-header").width();
+    const pdfMenuWidth = $(".n-pdf-body-container").width();
+    $(".n-pdf-body-container").css('margin-left', `calc(${pdfButtonWidth - pdfMenuWidth}px)`);
+</script>
+</div>
+
+    
+
+</div>
+
+
+
+
+<div class="content-to-index">
+<div class="paragraph lead">
+<p>Les outils de services fournissent une méthode standardisée pour effectuer des fonctions utiles telles que la collecte de données à distance, la configuration et les tâches de gestion du stockage.</p>
+</div>
+<div class="paragraph">
+<p>Les outils de maintenance suivants sont utilisés pour collecter et analyser les données :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OneCollect</strong></p>
+<div class="paragraph">
+<p>NetApp Active IQ OneCollect, disponible avec une interface utilisateur Web ou l'interface de ligne de commandes, vous permet de collecter des données à partir d'hôtes, de structures et de commutateurs dans des environnements SAN et NAS. Les données collectées sont utilisées pour la résolution des problèmes, la validation des solutions, la migration des données et les évaluations de mise à niveau. Le contenu de diagnostic lié à votre environnement peut être envoyé à NetApp pour une analyse plus approfondie ou analysé sur site.</p>
+</div>
+</li>
+<li>
+<p><strong>Migration de données NetApp Solaris Relabeler</strong></p>
+<div class="paragraph">
+<p>Solaris Relabeler est un utilitaire de ligne de commande qui permet de mettre à jour l'étiquette ASCII sur les disques de table des matières (VTOC) après la migration.</p>
+</div>
+<div class="paragraph">
+<p>Au cours des routines initiales d'initialisation du disque VTOC, la commande Solaris format effectue une requête SCSI sur le disque et écrit les informations propres au fournisseur (fabricant, produit et révision) sur l'étiquette du disque. Toutes les autres questions sont adressées à l'étiquette du disque et non au périphérique réel. La migration au niveau des blocs copie cette étiquette de disque vers le nouveau disque, et les anciennes données de demande SCSI sont toujours visibles dans les outils et les journaux du système. L'outil de relabeler met à jour les disques après la migration en y intégrant de nouvelles données de demande.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ces outils et utilitaires sont également utiles dans les projets de migration FLI :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Matrice d'interopérabilité</strong></p>
+<div class="paragraph">
+<p>La matrice d'interopérabilité (IMT) est un utilitaire Web NetApp utilisé pour vérifier l'interopérabilité des composants NetApp, FlexArray et logiciels tiers.</p>
+</div>
+</li>
+<li>
+<p><strong>Gestionnaire système ONTAP</strong></p>
+<div class="paragraph">
+<p>ONTAP System Manager assure la gestion à distance du stockage des systèmes FAS de NetApp à l'aide d'une interface graphique.</p>
+</div>
+</li>
+<li>
+<p><strong>OnCommand Workflow Automation</strong></p>
+<div class="paragraph">
+<p>WFA est une solution logicielle qui vous permet de créer des flux de travail du stockage et d'automatiser des tâches de gestion du stockage, telles que le provisionnement, la migration, la désaffectation et le clonage.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Informations connexes</strong></p>
+</div>
+<div class="paragraph">
+<p><a href="https://mysupport.netapp.com/site/tools">"Outils NetApp"</a></p>
+</div>
+<div class="paragraph">
+<p><a href="http://mysupport.netapp.com/NOW/download/tools/ndcp/">"Outils NetApp : planificateur Data Center"</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://mysupport.netapp.com/matrix">"Matrice d'interopérabilité NetApp"</a></p>
+</div>
+<div class="paragraph">
+<p><a href="http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61372">"Documentation NetApp : OnCommand System Manager (versions actuelles)"</a></p>
+</div>
+<div class="paragraph">
+<p><a href="http://mysupport.netapp.com/documentation/productlibrary/index.html?productID=61550">"Documentation NetApp : OnCommand Workflow Automation (versions actuelles)"</a></p>
+</div>
+</div>
+
+
+
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  
+  <!-- Start Page Toolbar -->
+<div id="ie-right-navbar-collapse" class="close">
+  <img id="navbar-expand" class="ie-searchbox-icon" src="/fr-fr/ontap-fli/images/double_arrow.svg" alt="" />
+</div>
+<div id="ie-right-navbar" class="open">
+  <div id="right-navbar-collapse">
+    <img src="/fr-fr/ontap-fli/images/double_arrow.svg" alt="" />
+  </div>
+  <div class="page-nav-container">
+    <nav class="page-nav-fixed">
+      <div class="page-nav-title">Sur cette page</div>
+      <div class="page-nav-links">
+        <ul class="page-nav-inner" id="page-menu"></ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+<script>
+  resizeContent();
+  function setRightBarHeight() {
+    var h = 0;
+
+    // header 1
+    h += PXinViewport($('.n-footer'));
+    h += PXinViewport($('#ie-new-header'));
+
+    if ($('#ie-right-navbar').length) {
+      $('#ie-right-navbar').css({ height: `calc(100vh - ${h}px)` });
+    }
+    if ($('.page-nav-links').length) {
+      h += 98;
+      $('.page-nav-links').css({ height: `calc(100vh - ${h}px)` });
+    }
+  }
+
+  $(document).ready(function () {
+    // PAGE NAV - Click
+    const MASTHEAD_OFFSET = 65;
+    const SECTIONS = $("main h2, main h3");
+    let calculateActiveSection = false;
+    setTimeout(() => {
+      calculateActiveSection = true;
+    }, 100)
+
+    $(".page-nav__link").click(function (event) {
+      calculateActiveSection = false;
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      var target = $(event.target);
+      target.addClass('page-nav__link--active');
+      location.hash = event.target.hash;
+      setTimeout(() => {
+        calculateActiveSection = true;
+      }, 100)
+
+    });
+
+    // PAGE NAV - Scroll
+    $(window).on('resize scroll', function () {
+      if (calculateActiveSection) {
+        var activeSection = getActiveSection(SECTIONS, MASTHEAD_OFFSET);
+        if (activeSection) {
+          var activeHref = $(activeSection).attr('id');
+          $(".page-nav__link").removeClass('page-nav__link--active');
+          $("#page-menu a[href=#" + activeHref + "]").addClass('page-nav__link--active');
+          if (location.hash != "#" + activeHref) {
+            if (history.replaceState) {
+              history.replaceState(null, null, "#" + activeHref);
+            }
+          }
+        }
+      }
+    });
+
+    $(".n-pdf-button").click(function () {
+      $(this).toggleClass("active");
+    });
+
+    $.fn.isVisibleAndInViewport = function () {
+      var elementTop = $(this).offset().top;
+      var elementBottom = elementTop + $(this).outerHeight();
+
+      var viewportTop = $(window).scrollTop();
+      var viewportBottom = viewportTop + $(window).height();
+
+      return elementBottom > viewportTop && elementTop < viewportBottom && $(this).is(":visible");
+    };
+
+
+    $(window).on('resize scroll', function () {
+      setRightBarHeight();
+    });
+
+    $(window).trigger('resize');
+
+
+  });
+
+  $("#right-navbar-collapse").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 350, function () {
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+    });
+    $(".ie-content-pane").animate({ width: (width + rightNavbarWidth) }, 350, function () {
+      resizeContent()
+      setSidebarBottom();
+    })
+
+  });
+  $("#navbar-expand").click(function (e) {
+    const rightNavbarWidth = $("#ie-right-navbar").width() - $("#ie-right-navbar-collapse").width();
+    e.preventDefault();
+    const width = $(".ie-content-pane").width();
+    $("#ie-right-navbar").animate({ width: 'toggle' }, 250, function () {
+      $("#ie-right-navbar-collapse").removeClass("open")
+      $("#ie-right-navbar-collapse").addClass("close")
+      $("#ie-right-navbar").removeClass("close")
+      $("#ie-right-navbar").addClass("open")
+      setRightBarHeight();
+      setSidebarBottom();
+    });
+    $(".ie-content-pane").animate({ width: (width - rightNavbarWidth) }, 250, function () {
+      resizeContent()
+    })
+  });
+
+  function navbarResize() {
+    const rightNavbarResized = $("#ie-right-navbar-collapse").hasClass('resized');
+    if (window.innerWidth < 1024) {
+      $("#ie-right-navbar").removeClass("open")
+      $("#ie-right-navbar").addClass("close")
+      $("#ie-right-navbar").removeAttr("style")
+      $("#ie-right-navbar-collapse").removeClass("close")
+      $("#ie-right-navbar-collapse").addClass("open")
+      $("#ie-right-navbar-collapse").addClass("resized")
+    } else {
+      if (rightNavbarResized) {
+        $('#ie-right-navbar').removeClass('close');
+        $('#ie-right-navbar').addClass('open');
+        $("#ie-right-navbar-collapse").removeClass("resized")
+        $("#ie-right-navbar-collapse").removeClass("open")
+        $("#ie-right-navbar-collapse").addClass("close")
+      }
+    }
+    resizeContent()
+  }
+  navbarResize();
+  $(window).on('resize load', function () {
+    navbarResize()
+  });
+
+  function getActiveSection(sections, offset) {
+    var scrollPosition = $(window).scrollTop() + offset + 5;
+    var activeSection;
+    for (var i = 0; i < sections.length; i++) {
+      var el = $(sections[i]);
+      var activePosition = el.offset().top;
+      if (activePosition > scrollPosition) {
+        break;
+      }
+
+      activeSection = sections[i];
+    }
+
+    return activeSection;
+  }
+
+  $("a[href*=#]:not([href=#])").click(function () {
+    setTimeout(() => {
+      $(window).trigger('scroll');
+    }, 105)
+  })
+
+  const hashOnLoad = location.href.split("#")[1];
+  setTimeout(function () {
+    if (hashOnLoad) {
+      $(".page-nav__link").removeClass('page-nav__link--active');
+      $("#page-menu a[href=#" + hashOnLoad + "]").addClass('page-nav__link--active');
+    }
+  }, 100)
+
+</script>
+
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+        <div class="n-footer__left">
+          <li class="n-footer__copyright-link">
+                    <a href="https://www.netapp.com/company/legal/copyright/">© 2023 NetApp, Inc.</a>
+          </li>
+        </div>
+        <div class="n-footer__center">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">Conditions d'utilisation</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">Déclaration de confidentialité</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">Déclaration sur les cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">Paramètres des cookies</a>
+            </li>
+          </ul>
+       </div>
+        <div class="n-footer__right">
+              <li class="n-footer__copyright-link">
+                <a target="_self" href="javascript:netapp_mailto()">Envoyer des commentaires à propos de cette page</a>
+              </li>
+        </div>
+     </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/fr-fr/ontap-fli/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/fr-fr/ontap-fli/js/prism.js'></script>
+      <script type="text/javascript" src='/fr-fr/ontap-fli/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/fr-fr/ontap-fli/js/ie-tabbed-blocks.js'></script>
+    <script src='/fr-fr/ontap-fli/js/ie-sidebar.js'></script>
+  </body>
+
+</html>
