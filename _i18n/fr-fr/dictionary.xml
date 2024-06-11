@@ -1131,17 +1131,6 @@
   <block id="347017fd1e37a22faf91875981bc4fb3" category="paragraph">0b</block>
   <block id="e3be5aecfb0260579fe80049e1c8a50c" category="paragraph">Voici un exemple de configuration de l'onglet périphériques de stockage de destination.</block>
   <block id="ee39d65a1817160f3851b1ca24746c37" category="doc">Vérification multivoie pour les hôtes Windows</block>
-  <block id="a4354633cd0119e1314f471d610ea422" category="paragraph">Procédez comme suit pour les hôtes Windows.</block>
-  <block id="7ae3521b4795a0df6960b48844b8bede" category="list-text">Ouvrez Disk Management.</block>
-  <block id="36a890df783d05afe153f32ada876698" category="list-text">Sur le bureau Windows, cliquez sur *Démarrer*.</block>
-  <block id="d0148f5ec81506fa10252eb7af3017af" category="list-text">Dans le champ Rechercher, saisissez<block ref="4e82a7dc10ee59a598844d332d4e8a33" prefix=" " category="inline-code"></block>.</block>
-  <block id="39ddfcd62e9a6f642a082e4825c6ff4f" category="list-text">Dans la liste programmes, cliquez sur<block ref="f8827b586c4fe9767c1a63059b33344b" prefix=" " category="inline-code"></block>.</block>
-  <block id="8b103231da97e357c81333af4cc4b45e" category="list-text">Cliquez avec le bouton droit de la souris sur chaque disque pour lequel vous souhaitez vérifier les chemins d'accès multiples, puis cliquez sur *Propriétés*.</block>
-  <block id="c0829f1bd784906bc2260964e7df8fcc" category="list-text">Dans l'onglet MPIO, dans la liste Sélectionner la stratégie MPIO, cliquez sur tous les chemins d'accès actifs.</block>
-  <block id="08531ca1dfb960884b4522ff558a0b0d" category="image-alt">Propriétés Windows MPIO</block>
-  <block id="ef7d878aad6a3854d597cac990e1eb38" category="paragraph">Pour vérifier les chemins d'accès multiples à l'aide de la ligne de commande, procédez comme suit :</block>
-  <block id="411ebc979cd3a229976869daa9547a33" category="list-text">Ouvrez l'invite de commande Windows.</block>
-  <block id="d4680a9ea0a2cb04b104f631e80d8264" category="list-text">Exécutez mpclaim.exe --v c:\multipathconfig.txt pour capturer la configuration des chemins d'accès multiples.</block>
   <block id="8c0b0439d6366451bf78824af79d5085" category="summary">La phase de planification FLI se concentre sur les tâches nécessaires à la création de plans de migration détaillés et à la préparation de l'environnement du client pour la migration proprement dite. Une ou plusieurs migrations de tests sont effectuées au cours de cette phase afin de vérifier l'installation et la configuration de l'importation de LUN étrangères.</block>
   <block id="1710e939bc78370d1721b65cfede5318" category="doc">Planifier et préparer les procédures de phase</block>
   <block id="4f7f184473b2f286bdfb0f5c8ccc0ba7" category="paragraph">Les tâches suivantes doivent être effectuées au cours de la phase de planification :</block>
@@ -1319,10 +1308,6 @@
   <block id="5db028f960e19ec42098e3252e4fb1e3" category="paragraph">Voir les informations importantes concernant le contenu localisé à l'adresse <block ref="7e89bb7928e951b6f80ad1dab5c58475" category="inline-link-macro-rx"></block></block>
   <block id="9273826bb0d876c78b121ff252c71f0e" category="sidebar">ONTAP FLI Docs</block>
   <block id="d648f2a68a54fd1b3329efc3cf24d29c" category="sidebar">Mentions légales</block>
-  <block id="9a4c1be88c2720ce2a1f8a5fd2b27a5c" category="sidebar">Workflows FLI</block>
-  <block id="9661e4f0a38203cee0d0ec82dcba896f" category="sidebar">Workflow hors ligne</block>
-  <block id="afec4ed45e968a4fe6c00ed1c1e83691" category="sidebar">Flux de travail en ligne</block>
-  <block id="d1b92a4930d50c6ed1038655db0d2684" category="sidebar">Toute la documentation sur les produits ONTAP</block>
   <block id="88f3f903d8cfd4ec8cf08ee64f86504b" category="sidebar">Migration SAN avec FLI</block>
   <block id="3b878279a04dc47d60932cb294d96259" category="sidebar">Présentation</block>
   <block id="8d98bee06f527b9e9c395ead1ae98be3" category="sidebar">Importation de LUN étrangères</block>
@@ -1339,4 +1324,6 @@
   <block id="b107b92b08e1507c6d61c65a86b28086" category="paragraph">le workflow en ligne a les tâches suivantes :</block>
   <block id="d65237d15ed3f23354581867591cc773" category="list-text">Utilisez les meilleures pratiques FlexArray de NetApp en matière de câblage entre les systèmes de stockage source et de destination, comme indiqué dans la<block ref="66f8c243fef55cbf3f49d4ec76027b8d" category="inline-link-rx"></block>.</block>
   <block id="6c98897f95672b5dde701dffbd4b05a0" category="paragraph">Pour définir des groupes initiateurs, consultez la documentation de votre baie pour savoir comment configurer le masquage des LUN (igroups/groupes d'hôtes/groupes de stockage, etc.). Vous pouvez également consulter<block ref="737823659babb212ffbc8948b616644f" category="inline-link-rx"></block> pour les besoins de configuration du stockage tiers.</block>
+  <block id="29b512fbc4379581cd2fd8694ca529c4" category="inline-link-macro">Utilisation de Windows Server 2022 avec ONTAP</block>
+  <block id="82e292bca3bfc1c57dd6f3dc796412a0" category="paragraph">Vous trouverez des instructions détaillées pour les hôtes Windows dans la section chemins d'accès multiples de <block ref="cce832a1ed6f79df8eb06042aeeb6d79" category="inline-link-macro-rx"></block>.</block>
 </blocks>

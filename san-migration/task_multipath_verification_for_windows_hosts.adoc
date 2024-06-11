@@ -13,24 +13,4 @@ summary: 'Dans le cadre du processus Foreign LUN Import (FLI), vérifiez que les
 [role="lead"]
 Dans le cadre du processus Foreign LUN Import (FLI), vérifiez que les chemins d'accès multiples sont configurés et fonctionnent correctement sur vos hôtes.
 
-Procédez comme suit pour les hôtes Windows.
-
-.Étapes
-. Ouvrez Disk Management.
-+
-.. Sur le bureau Windows, cliquez sur *Démarrer*.
-.. Dans le champ Rechercher, saisissez `diskmgmt.msc`.
-.. Dans la liste programmes, cliquez sur `diskmgmt`.
-
-
-. Cliquez avec le bouton droit de la souris sur chaque disque pour lequel vous souhaitez vérifier les chemins d'accès multiples, puis cliquez sur *Propriétés*.
-. Dans l'onglet MPIO, dans la liste Sélectionner la stratégie MPIO, cliquez sur tous les chemins d'accès actifs.
-+
-image::../media/windows_host_1.png[Propriétés Windows MPIO]
-
-+
-Pour vérifier les chemins d'accès multiples à l'aide de la ligne de commande, procédez comme suit :
-
-. Ouvrez l'invite de commande Windows.
-. Exécutez mpclaim.exe --v c:\multipathconfig.txt pour capturer la configuration des chemins d'accès multiples.
-
+Vous trouverez des instructions détaillées pour les hôtes Windows dans la section chemins d'accès multiples de link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#multipathing["Utilisation de Windows Server 2022 avec ONTAP"^].
