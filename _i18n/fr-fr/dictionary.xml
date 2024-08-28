@@ -1326,4 +1326,7 @@
   <block id="6c98897f95672b5dde701dffbd4b05a0" category="paragraph">Pour définir des groupes initiateurs, consultez la documentation de votre baie pour savoir comment configurer le masquage des LUN (igroups/groupes d'hôtes/groupes de stockage, etc.). Vous pouvez également consulter<block ref="737823659babb212ffbc8948b616644f" category="inline-link-rx"></block> pour les besoins de configuration du stockage tiers.</block>
   <block id="29b512fbc4379581cd2fd8694ca529c4" category="inline-link-macro">Utilisation de Windows Server 2022 avec ONTAP</block>
   <block id="82e292bca3bfc1c57dd6f3dc796412a0" category="paragraph">Vous trouverez des instructions détaillées pour les hôtes Windows dans la section chemins d'accès multiples de <block ref="cce832a1ed6f79df8eb06042aeeb6d79" category="inline-link-macro-rx"></block>.</block>
+  <block id="9a4c1be88c2720ce2a1f8a5fd2b27a5c" category="sidebar">Workflows FLI</block>
+  <block id="9661e4f0a38203cee0d0ec82dcba896f" category="sidebar">Workflow hors ligne</block>
+  <block id="afec4ed45e968a4fe6c00ed1c1e83691" category="sidebar">Flux de travail en ligne</block>
 </blocks>
