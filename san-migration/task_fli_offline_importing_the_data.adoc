@@ -1,34 +1,58 @@
 ---
 permalink: san-migration/task_fli_offline_importing_the_data.html 
 sidebar: sidebar 
-keywords: fli offline, import data 
-summary: 'Cette procédure décrit l"importation des données à partir du LUN source vers le LUN de destination.' 
+keywords: fli offline, import data, migration 
+summary: 'Une fois que vous avez créé la relation d"importation LUN entre les LUN source et de destination pour une migration hors ligne FLI, vous pouvez importer les données de la baie étrangère vers le système de stockage ONTAP .' 
 ---
-= FLI hors ligne : importation des données
+= Importer des données à partir d'une baie étrangère à l'aide de la migration hors ligne ONTAP FLI
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Cette procédure décrit l'importation des données à partir du LUN source vers le LUN de destination.
+Une fois que vous avez créé la relation d'importation LUN entre les LUN source et de destination pour une migration hors ligne FLI, vous pouvez importer les données de la baie étrangère vers le système de stockage ONTAP .
+
+Depuis ONTAP 9.17.1, la migration des données des LUN étrangers via la migration hors ligne FLI est prise en charge par les systèmes ASA r2. L'implémentation de la couche de stockage des systèmes ASA r2 diffère des autres systèmes ONTAP (ASA, AFF et FAS). Dans les systèmes ASA r2, les volumes sont automatiquement créés lors de la création d'une unité de stockage (LUN ou espace de noms). Chaque volume ne contient qu'une seule unité de stockage. Par conséquent, pour les systèmes ASA r2, il n'est pas nécessaire d'inclure le nom du volume dans la  `-path` option lors de la création du LUN ; vous devez plutôt inclure le chemin de l'unité de stockage.
+
+En savoir plus sur link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Systèmes ASA r2"^] .
 
 .Étapes
-. Démarrez l'importation de la migration.
+. Démarrez l'importation des données des LUN étrangers vers les LUN ONTAP .
++
+[source, cli]
+----
+lun import start –vserver <SVM_name> –path <volume_path|storage_unit_path>
+----
++
+Cet exemple montre la commande permettant de démarrer l'importation de données pour les LUN nommés *bootlun*, *fdrive* et *gdrive* dans le volume *winvol* et le SVM *datamig*.
+
 +
 [listing]
 ----
-DataMig-cmode::*> lun import start –vserver datamig –path /vol/winvol/bootlun
+DataMig-ontap::*> lun import start –vserver datamig –path /vol/winvol/bootlun
 
-DataMig-cmode::*> lun import start –vserver datamig –path /vol/winvol/fdrive
+DataMig-ontap::*> lun import start –vserver datamig –path /vol/winvol/fdrive
 
-DataMig-cmode::*> lun import start –vserver datamig –path /vol/winvol/gdrive
+DataMig-ontap::*> lun import start –vserver datamig –path /vol/winvol/gdrive
 ----
-. Surveiller la progression de l'importation. Vous pouvez comparer votre progression ici avec les estimations des performances de la migration que vous avez développées après avoir effectué vos migrations de tests.
+. Surveiller la progression de l'importation.
++
+[source, cli]
+----
+lun import show –vserver <SVM_name> –fields vserver, foreign-disk, path, admin-state, operational-state, percent-complete, imported-blocks, total-blocks, estimated-remaining-duration
+----
++
+Vous pouvez comparer la progression que vous voyez ici avec les estimations de performances de migration que vous avez développées après avoir effectué vos migrations de test.
+
++
+Cet exemple montre la commande permettant de surveiller la progression de l'importation pour le SVM *datamig*.
+
 +
 [listing]
 ----
-DataMig-cmode::*> lun import show –vserver datamig –fields vserver, foreign-disk, path, admin-state, operational-state, percent-complete, imported-blocks, total-blocks, , estimated-remaining-duration
+DataMig-ontap::*> lun import show –vserver datamig –fields vserver, foreign-disk, path, admin-state, operational-state, percent-complete, imported-blocks, total-blocks, , estimated-remaining-duration
+
 vserver foreign-disk path               admin-state operational-state percent-complete imported-blocks total-blocks estimated-remaining-duration
 ------- ------------ ------------------ ----------- ----------------- ---------------- --------------- ------------ ----------------------------
 datamig 83017542000E /vol/winvol/fdrive started     completed         100              4194304         4194304      -
@@ -37,17 +61,24 @@ datamig 830175420010 /vol/linuxvol/bootlun
                                         started     in_progress       83               35107077        41943040     00:00:48
 3 entries were displayed.
 ----
-. Vérifiez que le travail d'importation a bien été effectué.
+. Vérifiez que l’importation des données est terminée avec succès.
++
+[source, cli]
+----
+lun import show –vserver <SVM_name> –fields vserver, foreign-disk, path, admin-state, operational-state, percent-complete, imported-blocks, total-blocks, , estimated-remaining-duration
+----
++
+Cet exemple montre la commande permettant de vérifier l'état d'importation du SVM *datamig*.
+
 +
 [listing]
 ----
-DataMig-cmode::*> lun import show –vserver datamig –fields vserver, foreign-disk, path, admin-state, operational-state, percent-complete, imported-blocks, total-blocks, , estimated-remaining-duration
-vserver foreign-disk path               admin-state operational-state percent-complete imported-blocks total-blocks estimated-remaining-duration
-------- ------------ ------------------ ----------- ----------------- ---------------- --------------- ------------ ----------------------------
-datamig 83017542000E /vol/winvol/fdrive started     completed         100              4194304         4194304      -
-datamig 83017542000F /vol/winvol/gdrive started     completed         100              6291456         6291456      -
-datamig 830175420010 /vol/linuxvol/bootlun
-                                        started     completed         100
-3 entries were displayed.
+DataMig-ontap::*> lun import show –vserver datamig –fields vserver, foreign-disk, path, admin-state, operational-state, percent-complete, imported-blocks, total-blocks, , estimated-remaining-duration
 ----
++
+Le *statut opérationnel* indique *terminé* lorsque la tâche d'importation est terminée avec succès.
 
+
+
+.Quelle est la prochaine étape ?
+link:task_fli_offline_verifying_migration_results.html["Vérifier les résultats de la migration"] .

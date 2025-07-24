@@ -17,7 +17,7 @@ La phase de planification consiste à développer un plan de correction à l'aid
 
 La figure suivante montre le flux de travail du plan.
 
-image::../media/plan_and_prepare_phase_1.png[planifier et préparer la phase 1]
+image::../media/plan_and_prepare_phase_1.png[flux de travail du plan de migration]
 
 Les tâches de la phase de planification sont répertoriées dans le tableau suivant.
 

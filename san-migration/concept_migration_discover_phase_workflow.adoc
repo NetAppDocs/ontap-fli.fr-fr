@@ -15,7 +15,7 @@ La phase de découverte du processus de migration consiste à collecter les info
 
 La figure suivante illustre le workflow de phase de découverte.
 
-image::../media/discover_phase_1.png[découvrir la phase 1]
+image::../media/discover_phase_1.png[découvrir le flux de travail de la phase]
 
 Les tâches de phase de découverte sont répertoriées dans le tableau suivant.
 

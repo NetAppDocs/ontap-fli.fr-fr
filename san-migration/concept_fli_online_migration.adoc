@@ -13,7 +13,7 @@ summary: 'Le flux de travail de la migration en ligne est réalisé au cours de 
 [role="lead"]
 Le flux de travail de la migration en ligne est réalisé au cours de la phase d'exécution du processus de migration. Le schéma des workflows en ligne présente les tâches effectuées sur l'hôte, la structure, le stockage de destination et le stockage source.
 
-image::../media/online_migration_1.png[migration en ligne 1]
+image::../media/online_migration_1.png[Flux de travail de migration en ligne FlI]
 
 Les tâches de workflow en ligne sont répertoriées dans le tableau suivant.
 

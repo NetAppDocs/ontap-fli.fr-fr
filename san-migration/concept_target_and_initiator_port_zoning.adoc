@@ -4,14 +4,14 @@ sidebar: sidebar
 keywords: target, initiator, port, zoning 
 summary: 'La migration FLI requiert l"accès aux LUN de stockage source par un système NetApp. Ceci est réalisé par zoning des ports cibles du stockage source avec des ports initiateurs du stockage de destination.' 
 ---
-= Segmentation du port cible et initiateur
+= Zonage des ports cibles et initiateurs pour les migrations ONTAP FLI
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-La migration FLI requiert l'accès aux LUN de stockage source par un système NetApp. Ceci est réalisé par zoning des ports cibles du stockage source avec des ports initiateurs du stockage de destination.
+La migration FLI nécessite que le stockage NetApp accède aux LUN sources de la baie étrangère. Pour ce faire, les ports cibles du stockage source sont zonés avec les ports initiateurs du stockage de destination NetApp .
 
 Les zones stockage vers hôte source existantes ne sont pas modifiées et sont désactivées après la migration. Des zones de stockage hôte-destination sont créées pour permettre l'accès aux LUN migrées depuis le stockage de destination par l'hôte.
 
@@ -37,3 +37,48 @@ Suivez les bonnes pratiques de segmentation :
 Après avoir effectué la segmentation des ports cible de stockage source avec les ports d'initiateur de stockage de destination, le stockage source sera visible dans le stockage de destination à l'aide de la commande Storage array show.lors de la découverte de la première fois, les contrôleurs NetApp peuvent ne pas afficher la baie automatiquement. Pour résoudre ce problème, réinitialisez le port de commutateur sur lequel sont connectés les ports d'initiateur ONTAP.
 
 ====
+Un scénario de migration standard utilisant FLI nécessite quatre zones distinctes. Vous devez inclure des ports spécifiques dans chaque zone.
+
+* Zone 1 : stockage source vers stockage de destination (structure de production A)
++
+La zone 1 doit contenir tous les initiateurs de stockage de destination sur tous les nœuds et tous les ports cibles de stockage source de la structure A. Les membres de la zone sont les suivants :
+
++
+** ONTAP -- nœud 1 -- 0a
+** ONTAP -- nœud 2 -- 0a
+** AMS2100 -- Ctrl0 -- 0a
+** AMS2100 -- CTRL1 -- 1a
+
+
+* Zone 2 : stockage source vers le stockage de destination (structure de production B)
++
+La zone 2 doit contenir tous les ports d'initiateur de stockage de destination sur tous les nœuds et tous les ports cible de stockage source dans la structure B. Les membres de la zone 2 sont les suivants :
+
++
+** ONTAP -- nœud 1 -- 0b
+** ONTAP -- nœud 2 -- 0b
+** AMS2100 -- Ctrl0 -- 0e
+** AMS2100 -- CTRL1 -- 1e
+
+
+* Zone 3 : stockage hôte à destination (structure de production A)
++
+La zone 3 doit contenir le port 1 de l'adaptateur de bus hôte (HBA) et les ports du contrôleur de destination dans la structure de production A. Les membres de la zone 3 sont les suivants :
+
++
+** ONTAP -- lif1
+** ONTAP -- lif3
+** Hôte -- HBA0
+
+
+* Zone 4 : stockage hôte à destination (structure de production B)
++
+La zone 4 doit contenir le port HBA 2 et les ports du contrôleur de destination dans la structure de production B. Les membres de la zone 4 sont les suivants :
+
++
+** ONTAP -- lif2
+** ONTAP -- lif4
+** Hôte -- HBA1
+
+
+

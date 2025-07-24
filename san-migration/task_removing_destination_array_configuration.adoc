@@ -20,10 +20,10 @@ Les étapes suivantes montrent comment supprimer la configuration de la baie de 
 . Développez groupes et sélectionnez *groupes d'hôtes*.
 . Sélectionnez le groupe d'hôtes *cdot_FLI* et cliquez sur *Supprimer le groupe d'hôtes*.
 +
-image::../media/remove_destination_array_configuration_from_source_array_1.png[supprimer la configuration de la matrice de destination de la matrice source 1]
+image::../media/remove_destination_array_configuration_from_source_array_1.png[suppression de la configuration du tableau de destination du tableau source]
 
 . Confirmez la suppression du groupe hôte.
 +
-image::../media/remove_destination_array_configuration_from_source_array_2.png[supprimer la configuration de la matrice de destination de la matrice source 2]
+image::../media/remove_destination_array_configuration_from_source_array_2.png[suppression de la configuration du tableau de destination du tableau source]
 
 

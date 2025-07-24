@@ -17,10 +17,9 @@ Les baies de stockage utilisées lors de la migration doivent disposer d'un chem
 
 Cette figure illustre un exemple de câblage de stockage pour les structures doubles.
 
-image::../media/physical_wiring_1.png[câblage physique 1]
+image::../media/physical_wiring_1.png[exemple de câblage de stockage pour les fabrics doubles]
 
 Suivez les bonnes pratiques de câblage suivantes :
 
-* Utilisez les meilleures pratiques FlexArray de NetApp en matière de câblage entre les systèmes de stockage source et de destination, comme indiqué dans la https://docs.netapp.com/us-en/ontap-flexarray/install/index.html["Conditions requises pour l'installation et référence de la virtualisation FlexArray"].
 * Le stockage ONTAP nécessite des ports d'initiateur libres pour se connecter à la structure. Configurez les ports d'initiateur si des ports libres n'existent pas.
 

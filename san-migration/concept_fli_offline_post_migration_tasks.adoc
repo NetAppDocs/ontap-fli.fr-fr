@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: fli, offline, post-migration, tasks 
 summary: Toute correction de serveur non effectuée précédemment est effectuée lors de la post-migration. 
 ---
-= Tâches post-migration hors ligne FLI
+= Effectuer des tâches post-migration hors ligne ONTAP FLI
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/

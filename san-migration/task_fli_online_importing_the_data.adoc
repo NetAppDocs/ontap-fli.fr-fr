@@ -2,28 +2,38 @@
 permalink: san-migration/task_fli_online_importing_the_data.html 
 sidebar: sidebar 
 keywords: fli online, import, data 
-summary: 'Voici les étapes permettant d"importer les données à partir de la LUN source vers la LUN de destination.' 
+summary: 'Une fois la relation d"importation LUN établie et l"hôte transféré de la baie étrangère vers la baie ONTAP , vous pouvez importer les données de la LUN source étrangère vers la LUN de destination ONTAP .' 
 ---
-= FLI en ligne : importation des données
+= Importer des données à partir d'une baie étrangère à l'aide de la migration en ligne ONTAP FLI
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-Voici les étapes permettant d'importer les données à partir de la LUN source vers la LUN de destination.
+Une fois la relation d'importation LUN établie et la connexion hôte déplacée de la baie étrangère vers la baie ONTAP , vous pouvez importer les données de la LUN source étrangère vers la LUN de destination ONTAP .
 
 .Étapes
+. Définissez le niveau de privilège sur avancé.
++
+[source, cli]
+----
+set -privilege advanced
+----
+. Entrez `y` lorsqu'on vous demande si vous souhaitez continuer.
 . Démarrez l'importation de la migration.
 +
-[listing]
+[source, cli]
 ----
-cluster::*> lun import start -vserver fli -path /vol/fli_vol/OnlineFLI_LUN
+lun import start -vserver <SVM_name> -path <volume_path|storage_unit_path>
 ----
 . Afficher l'état FLI.
 +
-[listing]
+[source, cli]
 ----
-cluster::*> lun import start -vserver fli -path /vol/fli_vol/OnlineFLI_LUN
+lun import show -vserver <SVM_name> -path <volume_path|storage_unit_path>
 ----
 
+
+.Quelle est la prochaine étape ?
+link:task_fli_online_verifying_migration_results.html["Vérifier les résultats de la migration"] .

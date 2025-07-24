@@ -1,0 +1,59 @@
+---
+permalink: san-migration/configure-fc-adapter-initiator.html 
+sidebar: sidebar 
+keywords: online, migration, workflow 
+summary: 'Le mode initiateur est utilisé pour connecter les ports aux lecteurs de bande, aux bibliothèques de bandes ou au stockage tiers avec Foreign LUN Import (FLI).' 
+---
+= Configurer les adaptateurs FC pour le mode initiateur
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Le mode initiateur permet de connecter les ports aux lecteurs de bande, aux bibliothèques de bandes ou aux systèmes de stockage tiers via l'importation de LUN étrangers (FLI). Vous devez convertir votre adaptateur cible FC en mode initiateur pour l'utiliser avec FLI.
+
+.Avant de commencer
+* Les LIF sur l'adaptateur doivent être supprimés de tous les ensembles de ports dont ils sont membres.
+* Tous les LIF de chaque machine virtuelle de stockage (SVM) utilisant le port physique à modifier doivent être migrés ou détruits avant de modifier la personnalité du port physique de cible à initiateur.
+
+
+.Étapes
+. Retirez tous les LIF de l'adaptateur :
++
+[source, cli]
+----
+network interface delete -vserver <SVM_name> -lif <lif_name>,<lif_name>
+----
+. Mettez votre adaptateur hors ligne :
++
+[source, cli]
+----
+network fcp adapter modify -node <node_name> -adapter <adapter_port> -status-admin down
+----
++
+Si l'adaptateur ne se met pas hors ligne, vous pouvez également retirer le câble du port d'adaptateur approprié sur le système.
+
+. Changer l'adaptateur de cible à initiateur :
++
+[source, cli]
+----
+system hardware unified-connect modify -t initiator <adapter_port>
+----
+. Redémarrez le nœud hébergeant l’adaptateur que vous avez modifié.
+. Vérifiez que les ports FC sont configurés dans l’état correct pour votre configuration :
++
+[source, cli]
+----
+system hardware unified-connect show
+----
+. Remettez l'adaptateur en ligne :
++
+[source, cli]
+----
+node run -node _node_name_ storage enable adapter <adapter_port>
+----
+
+
+.Quelle est la prochaine étape ?
+Zonez les ports cibles de la baie étrangère avec les ports initiateurs de votre stockage ONTAP .

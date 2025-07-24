@@ -13,7 +13,7 @@ summary: 'Le flux de travail de la migration hors ligne s"effectue au cours de l
 [role="lead"]
 Le flux de travail de la migration hors ligne s'effectue au cours de la phase d'exécution du processus de migration. Le diagramme des workflows hors ligne présente les tâches effectuées sur l'hôte, la structure, le stockage de destination et le stockage source.
 
-image::../media/offline_migration_1.png[migration hors ligne 1]
+image::../media/offline_migration_1.png[Flux de travail de migration hors ligne FLI]
 
 Les tâches de workflow hors ligne sont répertoriées dans le tableau suivant.
 

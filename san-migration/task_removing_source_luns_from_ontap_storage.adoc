@@ -28,6 +28,6 @@ image::../media/remove_source_luns_from_ontap_storage_2.png[Modifier des groupes
 
 . Sélectionnez les LUN hôtes qui sont migrés à partir des LUN logiques attribués. Utilisez les noms de LUN pour chaque hôte mentionné dans la fiche LUN source. Sélectionnez ici les LUN des hôtes Windows 2012, RHEL 5.10 et ESXi 5.5 et sélectionnez *Remove*.
 +
-image::../media/remove_source_luns_from_ontap_storage_3.png[suppression des lun source du stockage ONTAP 3]
+image::../media/remove_source_luns_from_ontap_storage_3.png[Supprimer les LUN]
 
 

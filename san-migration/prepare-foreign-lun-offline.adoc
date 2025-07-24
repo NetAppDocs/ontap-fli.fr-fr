@@ -1,0 +1,98 @@
+---
+permalink: san-migration/prepare-foreign-lun-offline.html 
+sidebar: sidebar 
+keywords: present, source luns, ontap storage, fli 
+summary: Dans le processus de migration hors ligne FLI, vous devez présenter le LUN source étranger au stockage ONTAP ; vous devez ensuite découvrir le LUN source étranger sur le stockage ONTAP . 
+---
+= Préparer les LUN de baies de stockage étrangères pour une migration hors ligne ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dans une migration hors ligne d'importation de LUN étranger (FLI), vous devez effectuer des étapes manuelles à partir de votre baie de stockage étrangère pour présenter le LUN source étranger à votre système de stockage ONTAP ; vous devez ensuite effectuer des étapes à partir de votre système de stockage ONTAP pour découvrir le LUN étranger.
+
+
+
+== Étape 1 : Présenter les LUN sources de la baie étrangère au stockage ONTAP
+
+Avant de pouvoir commencer à importer des données à partir d'un LUN de baie de stockage étrangère à l'aide d'une migration hors ligne FLI, vous devez présenter les LUN sources de votre baie de stockage étrangère à votre système de stockage ONTAP .
+
+.Étapes
+. Connectez-vous à la matrice source.
+. Ajoutez les initiateurs NetApp au groupe hôte créé lors de la phase de planification.
+. Sélectionnez les LUN hôtes qui doivent être migrés à partir des LUN logiques disponibles.
++
+Utilisez les noms LUN pour chaque hôte mentionné dans la section LUN source de votre link:reference_site_survey_and_planning_worksheet_source_luns_tab.html["Feuille de travail sur l'étude et la planification du site"] .
+
+
+
+
+
+== Étape 2 : Découvrir les LUN sources de baies étrangères dans ONTAP
+
+Une fois que vous avez présenté vos LUN sources de matrice étrangère à votre système de stockage ONTAP , les LUN doivent être découverts dans ONTAP avant de pouvoir créer la relation d'importation de LUN.
+
+.Étapes
+. Vérifiez les LUN sources et le mappage du stockage source vers le stockage de destination.
+. Connectez-vous au système de stockage ONTAP via SSH à l'aide de l'utilisateur administrateur.
+. Changez le mode en avancé.
++
+[source, cli]
+----
+set -privilege advanced
+----
+. Entrez `y` lorsqu'on vous demande si vous souhaitez continuer.
+. Détectez la baie source sur ONTAP. Patientez quelques minutes, puis réessayez de détecter la baie source.
++
+[source, cli]
+----
+storage array show
+----
++
+L'exemple suivant montre la découverte d'une matrice Hitachi DF600F.
+
++
+[listing]
+----
+DataMig-ontap::*> storage array show
+Prefix                         Name   Vendor            Model Options
+-------- ---------------------------- -------- ---------------- ----------
+HIT-1                HITACHI_DF600F_1  HITACHI           DF600F
+----
++
+[NOTE]
+====
+Lors de la découverte initiale de la baie de stockage, il est possible que ONTAP n'affiche pas la baie en découvrant automatiquement. Suivez les instructions ci-dessous pour réinitialiser le port de commutateur sur lequel sont connectés les ports d'initiateur ONTAP.
+
+====
+. Vérifiez que la matrice source est détectée par tous les ports d'initiateur.
++
+[source, cli]
+----
+storage array config show -array-name <array_name>
+----
++
+L'exemple suivant montre la matrice Hitachi DF600F découverte via tous les ports initiateurs.
+
++
+[listing]
+----
+DataMig-ontap::*> storage array config show -array-name HITACHI_DF600F_1
+             LUN   LUN
+Node         Group Count     Array Name       Array Target Port Initiator
+------------ ----- ----- ---------------------------- -----------------------
+DataMig-ontap-01 0     1    HITACHI_DF600F_1     50060e801046b960        0a
+                                                 50060e801046b964        0b
+                                                 50060e801046b968        0a
+                                                 50060e801046b96c        0b
+DataMig-ontap-02 0     1    HITACHI_DF600F_1     50060e801046b960        0a
+                                                 50060e801046b964        0b
+                                                 50060e801046b968        0a
+                                                 50060e801046b96c        0b
+----
+
+
+.Quelle est la prochaine étape ?
+link:create-lun-import-relationship-offline.html["Créer la relation d'importation LUN"] .

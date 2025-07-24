@@ -1,0 +1,303 @@
+---
+permalink: san-migration/prepare-host-offline-migration.html 
+sidebar: sidebar 
+keywords: prepare, hosts, fli, offline, migration 
+summary: 'Avant de commencer une migration hors ligne FLI, vous devez effectuer toutes les étapes nécessaires à la correction de l"hôte ; vous devez ensuite redémarrer vos hôtes et vérifier que le multipathing de l"hôte est correctement configuré.' 
+---
+= Préparer les hôtes pour la migration hors ligne ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant de commencer une migration hors ligne avec importation de LUN étrangers (FLI), vous devez effectuer les étapes identifiées lors de la phase d'analyse comme nécessaires à la correction de l'hôte, telles que l'installation de kits d'attachement d'hôte ou de DSM. Vous devez également redémarrer vos hôtes et vérifier que le multipathing est correctement configuré.
+
+.Étapes
+. Effectuez toutes les étapes de correction de l'hôte nécessaires identifiées dans le link:concept_migration_analyze_phase_workflow.html["phase d'analyse"] .
+. Arrêtez toutes vos applications ouvertes.
+. Redémarrez l'hôte.
+. Examinez les journaux pour détecter des erreurs.
+. Vérifiez la configuration multi-accès de votre hôte.
++
+** Pour les hôtes Windows : voir link:https://docs.netapp.com/us-en/ontap-sanhost/hu_windows_2022.html#multipathing["Utilisation de Windows Server 2022 avec ONTAP"] pour connaître les étapes à suivre pour vérifier votre configuration multi-chemins.
+** Pour les hôtes Linux : exécutez le  `multipath-ll` Commandez et examinez le résultat. Tous les chemins doivent s'afficher comme actifs et prêts.
++
+.Exemple de sortie de la commande multipath-ll
+[%collapsible]
+====
+mpath2 (360060e801046b96004f2bf4600000012) dm-6 HITACHI, DF600F
+
+\_ round-robin 0 [prio=1][actif] \_ 0:0:1:2 sdg 8:96 [actif][prêt] \_ 1:0:1:2 sdo 8:224 [actif][prêt] \_ round-robin 0 [prio=0][activé] \_ 0:0:0:2 sdc 8:32 [actif][prêt] \_ 1:0:0:2 sdk 8:160 [actif][prêt] mpath1 (360060e801046b96004f2bf4600000011) dm-5 HITACHI,DF600F
+
+\_ round-robin 0 [prio=1][actif] \_ 0:0:0:1 sdb 8:16 [actif][prêt] \_ 1:0:0:1 sdj 8:144 [actif][prêt] \_ round-robin 0 [prio=0][activé] \_ 0:0:1:1 sdf 8:80 [actif][prêt] \_ 1:0:1:1 sdn 8:208 [actif][prêt] mpath0 (360060e801046b96004f2bf4600000010) dm-0 HITACHI,DF600F
+
+\_ round-robin 0 [prio=1][actif] \_ 0:0:1:0 sde 8:64 [actif][prêt] \_ 1:0:1:0 sdm 8:192 [actif][prêt] \_ round-robin 0 [prio=0][activé] \_ 0:0:0:0 sda 8:0 [actif][prêt] \_ 1:0:0:0 sdi 8:128 [actif][prêt] mpath3 (360060e801046b96004f2bf4600000013) dm-7 HITACHI,DF600F
+
+\_ round-robin 0 [prio=1][actif] \_ 0:0:0:3 sdd 8:48 [actif][prêt] \_ 1:0:0:3 sdl 8:176 [actif][prêt] \_ round-robin 0 [prio=0][activé] \_ 0:0:1:3 sdh 8:112 [actif][prêt] \_ 1:0:1:3 sdp 8:240 [actif][prêt] [root@dm-rx200s6-22 ~]#
+
+====
+
+
+
+
+
+
+== Vérification des chemins d'accès multiples pour les hôtes ESXi
+
+Dans le cadre du processus d’importation de LUN étranger (FLI), vous devez vérifier que le multipath est configuré et fonctionne correctement sur vos hôtes ESXi.
+
+.Étapes
+. Identification de l'hyperviseur ESXi et de la machine virtuelle à l'aide du client VMware vSphere
++
+image::../media/esxi_host_1.png[Datastores de stockage vSphere]
+
+. Déterminer les LUN SAN à migrer à l'aide du client vSphere.
++
+image::../media/esxi_host_2.png[Périphériques de stockage vSphere]
+
+. Déterminez les volumes VMFS et RDM (vfat) à migrer : `esxcli storage filesystem list`
++
+[listing]
+----
+Mount Point                                        Volume Name        UUID                                 Mounted  Type           Size         Free
+-------------------------------------------------  -----------------  -----------------------------------  -------  ------  -----------  -----------
+/vmfs/volumes/538400f6-3486df59-52e5-00262d04d700  BootLun_datastore  538400f6-3486df59-52e5-00262d04d700     true  VMFS-5  13421772800  12486443008
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700  VM_datastore       53843dea-5449e4f7-88e0-00262d04d700     true  VMFS-5  42681237504   6208618496
+/vmfs/volumes/538400f6-781de9f7-c321-00262d04d700                     538400f6-781de9f7-c321-00262d04d700     true  vfat     4293591040   4269670400
+/vmfs/volumes/c49aad7f-afbab687-b54e-065116d72e55                     c49aad7f-afbab687-b54e-065116d72e55     true  vfat      261853184     77844480
+/vmfs/volumes/270b9371-8fbedc2b-1f3b-47293e2ce0da                     270b9371-8fbedc2b-1f3b-47293e2ce0da     true  vfat      261853184    261844992
+/vmfs/volumes/538400ef-647023fa-edef-00262d04d700                     538400ef-647023fa-edef-00262d04d700     true  vfat      299712512     99147776
+~ #
+----
++
+[NOTE]
+====
+Dans le cas d'un VMFS avec des étendues \(VMFS fractionné\), toutes les LUN qui font partie de l'extension doivent être migrées. Pour afficher toutes les extension dans l'interface graphique, accédez à Configuration \> matériel \> stockage et cliquez sur datastore pour sélectionner le lien Propriétés.
+
+====
++
+[NOTE]
+====
+Après la migration, en les ajoutant au stockage, plusieurs entrées de LUN ont le même label VMFS. Dans ce scénario, vous devez demander au client de sélectionner uniquement l'entrée marquée comme tête.
+
+====
+. Déterminez la LUN et la taille à migrer : `esxcfg-scsidevs -c`
++
+[listing]
+----
+Device UID                            Device Type      Console Device                                            Size      Multipath PluginDisplay Name
+mpx.vmhba36:C0:T0:L0                  CD-ROM           /vmfs/devices/cdrom/mpx.vmhba36:C0:T0:L0                  0MB       NMP     Local Optiarc CD-ROM (mpx.vmhba36:C0:T0:L0)
+naa.60060e801046b96004f2bf4600000014  Direct-Access    /vmfs/devices/disks/naa.60060e801046b96004f2bf4600000014  20480MB   NMP     HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000014)
+naa.60060e801046b96004f2bf4600000015  Direct-Access    /vmfs/devices/disks/naa.60060e801046b96004f2bf4600000015  40960MB   NMP     HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000015)
+~~~~~~ Output truncated ~~~~~~~
+~ #
+----
+. Identifiez les LUN RDM (Raw Device Mapping) à migrer.
+. Rechercher des périphériques RDM : `+find /vmfs/volumes -name **-rdm**+`
++
+[listing]
+----
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_1-rdmp.vmdk
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_2-rdm.vmdk
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Linux/Linux_1-rdm.vmdk
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Solaris10/Solaris10_1-rdmp.vmdk
+----
+. Supprimez -rdmp et -rdm de la sortie précédente et exécutez la commande vmkftaps pour trouver le mappage vml et le type RDM.
++
+[listing]
+----
+# vmkfstools -q /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_1.vmdk
+vmkfstools -q /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_1.vmdk
+Disk /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_1.vmdk is a Passthrough Raw Device Mapping
+Maps to: vml.020002000060060e801046b96004f2bf4600000016444636303046
+~ # vmkfstools -q /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_2.vmdk
+Disk /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003_2.vmdk is a Non-passthrough Raw Device Mapping
+Maps to: vml.020003000060060e801046b96004f2bf4600000017444636303046
+~ # vmkfstools -q /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Linux/Linux_1.vmdk
+Disk /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Linux/Linux_1.vmdk is a Non-passthrough Raw Device Mapping
+Maps to: vml.020005000060060e801046b96004f2bf4600000019444636303046
+~ # vmkfstools -q /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Solaris10/Solaris10_1.vmdk
+Disk /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Solaris10/Solaris10_1.vmdk is a Passthrough Raw Device Mapping
+Maps to: vml.020004000060060e801046b96004f2bf4600000018444636303046
+~ #
+----
++
+[NOTE]
+====
+Le Passthrough est RDM avec \(RDMP\) physique et le non passthrough est RDM avec \(RDMV\ virtuel). Après la migration, les machines virtuelles avec des RDM et des copies Snapshot de machine virtuelle prendront fin, en raison du delta du Snapshot des machines virtuelles vmdk, pointant vers un RDM avec un ID naa obsolète. Avant la migration, demandez au client de supprimer toutes les copies Snapshot de ces machines virtuelles. Cliquez avec le bouton droit de la souris sur VM et cliquez sur le bouton Snapshot --\> Snapshot Manager Supprimer tout. Pour plus d'informations sur le verrouillage à accélération matérielle pour VMware sur stockage NetApp, consultez la base de connaissances 3013935 NetApp.
+
+====
+. Identifiez le mappage de la LUN naa à des périphériques RDM.
++
+[listing]
+----
+~ # esxcfg-scsidevs -u | grep vml.020002000060060e801046b96004f2bf4600000016444636303046
+naa.60060e801046b96004f2bf4600000016                            vml.020002000060060e801046b96004f2bf4600000016444636303046
+~ # esxcfg-scsidevs -u | grep vml.020003000060060e801046b96004f2bf4600000017444636303046
+naa.60060e801046b96004f2bf4600000017                            vml.020003000060060e801046b96004f2bf4600000017444636303046
+~ # esxcfg-scsidevs -u | grep vml.020005000060060e801046b96004f2bf4600000019444636303046
+naa.60060e801046b96004f2bf4600000019                            vml.020005000060060e801046b96004f2bf4600000019444636303046
+~ # esxcfg-scsidevs -u | grep vml.020004000060060e801046b96004f2bf4600000018444636303046
+naa.60060e801046b96004f2bf4600000018                            vml.020004000060060e801046b96004f2bf4600000018444636303046
+~ #
+----
+. Détermination de la configuration des machines virtuelles : `esxcli storage filesystem list | grep VMFS`
++
+[listing]
+----
+/vmfs/volumes/538400f6-3486df59-52e5-00262d04d700  BootLun_datastore  538400f6-3486df59-52e5-00262d04d700     true  VMFS-5  13421772800  12486443008
+/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700  VM_datastore       53843dea-5449e4f7-88e0-00262d04d700     true  VMFS-5  42681237504   6208618496
+~ #
+----
+. Enregistrez l'UUID du datastore.
+. Faites une copie de `/etc/vmware/hostd/vmInventory.xml` et noter le contenu du chemin de fichier et de configuration vmx.
++
+[listing]
+----
+~ # cp /etc/vmware/hostd/vmInventory.xml /etc/vmware/hostd/vmInventory.xml.bef_mig
+~ # cat /etc/vmware/hostd/vmInventory.xml
+<ConfigRoot>
+  <ConfigEntry id="0001">
+    <objID>2</objID>
+    <vmxCfgPath>/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003.vmx</vmxCfgPath>
+  </ConfigEntry>
+  <ConfigEntry id="0004">
+    <objID>5</objID>
+    <vmxCfgPath>/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Linux/Linux.vmx</vmxCfgPath>
+  </ConfigEntry>
+  <ConfigEntry id="0005">
+    <objID>6</objID>
+    <vmxCfgPath>/vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Solaris10/Solaris10.vmx</vmxCfgPath>
+  </ConfigEntry>
+</ConfigRoot>
+----
+. Identifier les disques durs de l'ordinateur virtuel.
++
+Ces informations sont nécessaires après la migration pour ajouter les périphériques RDM supprimés dans l'ordre.
+
++
+[listing]
+----
+~ # grep fileName /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Windows2003/Windows2003.vmx
+scsi0:0.fileName = "Windows2003.vmdk"
+scsi0:1.fileName = "Windows2003_1.vmdk"
+scsi0:2.fileName = "Windows2003_2.vmdk"
+~ # grep fileName /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Linux/Linux.vmx
+scsi0:0.fileName = "Linux.vmdk"
+scsi0:1.fileName = "Linux_1.vmdk"
+~ # grep fileName /vmfs/volumes/53843dea-5449e4f7-88e0-00262d04d700/Solaris10/Solaris10.vmx
+scsi0:0.fileName = "Solaris10.vmdk"
+scsi0:1.fileName = "Solaris10_1.vmdk"
+~ #
+----
+. Déterminer le périphérique RDM, le mappage de la machine virtuelle et le mode de compatibilité.
+. À l'aide des informations précédentes, notez le mappage RDM sur le périphérique, la machine virtuelle, le mode de compatibilité et l'ordre.
++
+Vous aurez ultérieurement besoin de ces informations lors de l'ajout de périphériques RDM à la machine virtuelle.
+
++
+[listing]
+----
+Virtual Machine -> Hardware -> NAA -> Compatibility mode
+Windows2003 VM -> scsi0:1.fileName = "Windows2003_1.vmdk" -> naa.60060e801046b96004f2bf4600000016
+-> RDM Physical
+Windows2003 VM -> scsi0:2.fileName = "Windows2003_2.vmdk" -> naa.60060e801046b96004f2bf4600000017
+-> RDM Virtual
+Linux VM -> scsi0:1.fileName = “Linux_1.vmdk” -> naa.60060e801046b96004f2bf4600000019 -> RDM Virtual
+Solaris10 VM -> scsi0:1.fileName = “Solaris10_1.vmdk” -> naa.60060e801046b96004f2bf4600000018 -> RDM Physical
+----
+. Détermination d'une configuration à chemins d'accès multiples
+. Obtenez des paramètres de chemins d'accès multiples pour votre système de stockage dans le client vSphere :
++
+.. Sélectionnez un hôte ESX ou ESXi dans vSphere client et cliquez sur l'onglet Configuration.
+.. Cliquez sur *Storage*.
+.. Sélectionnez un datastore ou une LUN mappée.
+.. Cliquez sur *Propriétés*.
+.. Dans la boîte de dialogue Propriétés, sélectionnez l'étendue souhaitée, si nécessaire.
+.. Cliquez sur *extent Device* > *Manage Paths* et obtenez les chemins dans la boîte de dialogue Manage Path.
++
+image::../media/esxi_host_3.png[Chemins des périphériques de stockage vSphere]
+
+
+
+. Obtenir des informations de chemins d'accès multiples de LUN à partir de la ligne de commande de l'hôte VMware ESXi :
++
+.. Connectez-vous à la console hôte ESXi.
+.. Courir  `esxcli storage nmp device list` pour obtenir des informations sur les trajets multiples.
++
+[listing]
+----
+# esxcli storage nmp device list
+naa.60060e801046b96004f2bf4600000014
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000014)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=3: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L0, vmhba2:C0:T0:L0, vmhba1:C0:T1:L0, vmhba1:C0:T0:L0
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+
+naa.60060e801046b96004f2bf4600000015
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000015)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=0: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L1, vmhba2:C0:T0:L1, vmhba1:C0:T1:L1, vmhba1:C0:T0:L1
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+
+naa.60060e801046b96004f2bf4600000016
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000016)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=1: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L2, vmhba2:C0:T0:L2, vmhba1:C0:T1:L2, vmhba1:C0:T0:L2
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+
+naa.60060e801046b96004f2bf4600000017
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000017)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=1: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L3, vmhba2:C0:T0:L3, vmhba1:C0:T1:L3, vmhba1:C0:T0:L3
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+
+naa.60060e801046b96004f2bf4600000018
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000018)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=1: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L4, vmhba2:C0:T0:L4, vmhba1:C0:T1:L4, vmhba1:C0:T0:L4
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+
+naa.60060e801046b96004f2bf4600000019
+   Device Display Name: HITACHI Fibre Channel Disk (naa.60060e801046b96004f2bf4600000019)
+   Storage Array Type: VMW_SATP_DEFAULT_AA
+   Storage Array Type Device Config: SATP VMW_SATP_DEFAULT_AA does not support device configuration.
+   Path Selection Policy: VMW_PSP_RR
+   Path Selection Policy Device Config: {policy=rr,iops=1000,bytes=10485760,useANO=0; lastPathIndex=1: NumIOsPending=0,numBytesPending=0}
+   Path Selection Policy Device Custom Config:
+   Working Paths: vmhba2:C0:T1:L5, vmhba2:C0:T0:L5, vmhba1:C0:T1:L5, vmhba1:C0:T0:L5
+   Is Local SAS Device: false
+   Is Boot USB Device: false
+----
+
+
+
+
+.Quelle est la prochaine étape ?
+link:prepare-foreign-lun-offline.html["Préparer les LUN de la baie de stockage étrangère pour la migration hors ligne FLI"] .

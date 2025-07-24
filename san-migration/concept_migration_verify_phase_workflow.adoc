@@ -15,7 +15,7 @@ La phase de vérification du processus de migration porte sur le nettoyage post-
 
 La figure suivante illustre le workflow de phase de vérification.
 
-image::../media/verify_phase_1.png[vérifier la phase 1]
+image::../media/verify_phase_1.png[flux de travail de la phase de vérification de la migration]
 
 Les tâches de phase de vérification sont répertoriées dans le tableau suivant.
 

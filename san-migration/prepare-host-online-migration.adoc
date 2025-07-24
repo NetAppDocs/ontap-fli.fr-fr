@@ -1,0 +1,27 @@
+---
+permalink: san-migration/prepare-host-online-migration.html 
+sidebar: sidebar 
+keywords: reboot, hosts, fli, online migration, prepare 
+summary: 'Avant de commencer une migration hors ligne FLI, vous devez effectuer toutes les étapes nécessaires à la correction de l"hôte ; vous devez ensuite redémarrer vos hôtes et vérifier que le multipathing de l"hôte est correctement configuré.' 
+---
+= Préparer les hôtes pour la migration en ligne ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant de commencer une migration en ligne avec importation de LUN étrangers (FLI), vous devez effectuer les étapes identifiées lors de la phase d'analyse nécessaires à la correction de l'hôte, telles que l'installation de kits d'attachement d'hôte ou de DSM. Après avoir effectué ces étapes de correction, il est recommandé de redémarrer vos hôtes.
+
+.Avant de commencer
+Par mesure de précaution, prenez une copie instantanée de vos données d'hôte pour faciliter une restauration si nécessaire ultérieurement.
+
+.Étapes
+. Effectuez toutes les étapes de correction de l’hôte nécessaires.
+. Arrêtez toutes vos applications ouvertes.
+. Redémarrez l'hôte.
+. Examinez les journaux pour détecter des erreurs.
+
+
+.Quelle est la prochaine étape ?
+link:create-lun-import-relationship-online.html["Créer la relation d'importation LUN"] .

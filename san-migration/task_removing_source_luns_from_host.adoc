@@ -22,15 +22,15 @@ Pour supprimer des LUN source de l'hôte, procédez comme suit :
 . Connectez-vous à Hitachi Storage Navigator modulaire.
 . Sélectionnez l'hôte migré et sélectionnez *Modifier le groupe d'hôtes*.
 +
-image::../media/remove_source_luns_from_host_1.png[retirer les lun source de l'hôte 1]
+image::../media/remove_source_luns_from_host_1.png[modifier l'écran du groupe d'hôtes]
 
 . Sélectionnez *ports* et sélectionnez *Forced Set* sur tous les ports sélectionnés.
 +
-image::../media/remove_source_luns_from_host_2.png[retirer les lun source de l'hôte 2]
+image::../media/remove_source_luns_from_host_2.png[modifier l'écran du port du groupe d'hôtes]
 
 . Sélectionnez les LUN hôtes qui sont migrés à partir des LUN logiques attribués. Utilisez les noms de LUN pour chaque hôte mentionné dans la fiche LUN source. Sélectionnez ici les LUN de l'hôte Windows 2012 et sélectionnez *Supprimer*.
 +
-image::../media/remove_source_luns_from_host_3.png[supprimer les lun source de l'hôte 3]
+image::../media/remove_source_luns_from_host_3.png[supprimer les écrans d'unités logiques]
 
 . Répétez les étapes pour les hôtes Linux et VMware ESX.
 
