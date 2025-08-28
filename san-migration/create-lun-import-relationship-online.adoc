@@ -231,7 +231,7 @@ DGC-1.9 600601603F103100662E70861000E511
 Avant de créer la relation d'importation LUN pour une migration en ligne FLI, vous devez créer un volume sur votre système de stockage ONTAP pour contenir le LUN que vous importerez à partir de votre baie étrangère.
 
 .À propos de cette tâche
-À partir d' ONTAP 9.17.1, la migration des données des LUN étrangers via la migration hors ligne FLI est prise en charge par les systèmes ASA r2. ASA systèmes diffèrent des autres systèmes ONTAP (ASA, AFF et FAS) par la mise en œuvre de leur couche de stockage. Dans les systèmes ASA r2, les volumes sont automatiquement créés lors de la création d'une unité de stockage (LUN ou espace de noms). Par conséquent, il n'est pas nécessaire de créer un volume avant de créer la relation d'importation de LUN. Vous pouvez ignorer cette étape si vous utilisez un système ASA r2.
+À partir d' ONTAP 9.17.1, la migration des données des LUN étrangers à l'aide de la migration en ligne FLI est prise en charge avec les systèmes ASA r2. L'implémentation de la couche de stockage des systèmes ASA r2 diffère des autres systèmes ONTAP (ASA, AFF et FAS). Dans les systèmes ASA r2, les volumes sont automatiquement créés lors de la création d'une unité de stockage (LUN ou espace de noms). Par conséquent, il n'est pas nécessaire de créer un volume avant de créer la relation d'importation de LUN. Vous pouvez ignorer cette étape si vous utilisez un système ASA r2.
 
 En savoir plus sur link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Systèmes ASA r2"^] .
 
@@ -417,4 +417,4 @@ lun import create -vserver <SVM_name> -path <volume_path|storage_unit_path> -for
 link:map-source-lun-to-destination-online-migration.html["Mapper le LUN source au LUN de destination ONTAP"] .
 
 .Informations connexes
-https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_is_an_unaligned_I%2F%2FO%3F["En savoir plus sur les E/S non alignées"] .
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_is_an_unaligned_I%2F%2FO%3F["En savoir plus sur les E/S non alignées"^] .
