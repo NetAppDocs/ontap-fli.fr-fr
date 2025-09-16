@@ -49,7 +49,7 @@ entries:
   - title: Exigences en matière de câblage physique pour FLI
     url: "/san-migration/concept_physical_wiring_requirements_for_fli.html"
   - title: Configurer les adaptateurs FC pour le mode initiateur
-    url: san-migration/configure-fc-adapter-initiator.html
+    url: "/san-migration/configure-fc-adapter-initiator.html"
   - title: Zonage des ports cibles et initiateurs pour FLI
     url: "/san-migration/concept_target_and_initiator_port_zoning.html"
   - title: Configuration du groupe initiateur
