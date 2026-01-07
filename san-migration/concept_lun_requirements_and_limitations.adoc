@@ -14,12 +14,13 @@ summary: Vos LUN doivent respecter les exigences suivantes avant de procéder à
 Vos LUN doivent respecter les exigences suivantes avant de procéder à une migration FLI.
 
 * FLI requiert au moins un port FC sur chaque contrôleur et fait MIGRER LES LUN directement en mode initiateur.
-* Les LUN étrangères doivent être marqués comme étrangères sur la baie de destination pour éviter toute affectation à partir de ONTAP.
-* Les LUN étrangères doivent figurer dans une relation d'importation avant de démarrer l'importation.
-* La LUN doit être de même taille que le LUN étranger et doit avoir la même taille de bloc de disque. Ces deux exigences sont prises en charge au cours de la procédure de création de LUN.
+* Le LUN étranger doit être marqué comme étranger sur la baie de destination pour empêcher les affectations depuis ONTAP.
+* Le LUN étranger doit être en relation d'importation avant de commencer l'importation.
+* Le LUN doit avoir la même taille que le LUN étranger. Cette exigence est prise en compte lors des étapes de création du LUN.
+* La taille des blocs LUN étrangers doit être de 512 octets. Les LUN NetApp ne prennent en charge que la taille de bloc de 512 octets.
 * La LUN ne doit pas être étendue ou sous-traitance.
 * La LUN doit être mappée sur au moins un groupe initiateur.
-* La LUN NetApp doit être mise hors ligne avant de créer une relation. Toutefois, une fois la relation LUN créée, elle peut être remise en ligne en cas de FLI en ligne.
+* Le LUN NetApp doit être mis hors ligne avant d'établir une relation. Toutefois, une fois la relation LUN créée, elle peut être remise en ligne en cas de FLI en ligne.
 
 
 

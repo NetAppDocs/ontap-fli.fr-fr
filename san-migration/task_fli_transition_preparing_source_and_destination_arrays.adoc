@@ -48,13 +48,7 @@ ontaptme-fc-cluster-02
 
 Warning: Configuration errors were detected.  Use 'storage errors show' for detailed information.
 ----
-. Afficher les détails de toutes les erreurs de stockage répertoriées. Certaines erreurs peuvent nécessiter une action avant de continuer. Toutefois, les erreurs indiquées dans l'exemple suivant « ce périphérique est une LUN ONTAP(R) » peuvent être ignorées en toute sécurité.
-+
-[NOTE]
-====
-Le message d'erreur « ce périphérique est une LUN ONTAP\(R\) » s'affiche, car FLI s'appuie sur la technologie FlexArray qui ne prend pas en charge la virtualisation de cibles ONTAP ou ONTAP. FLI peut importer les LUN, mais FlexArray ne prend pas en charge leur virtualisation.
-
-====
+. Consultez les détails des erreurs de stockage répertoriées. Certaines erreurs peuvent nécessiter une intervention avant de poursuivre.
 +
 [listing]
 ----

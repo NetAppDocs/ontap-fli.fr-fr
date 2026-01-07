@@ -2,7 +2,7 @@
 permalink: san-migration/task_importing_non_fc_luns.html 
 sidebar: sidebar 
 keywords: import, non-fc luns 
-summary: 'Comme Foreign LUN Import (FLI) exploite la technologie FlexArray pour monter des LUN étrangères, il ne peut se connecter qu"aux baies sources utilisant FCP. Seuls les LUN FC sont pris en charge par FLI. Toutefois, il existe une solution de contournement permettant d"importer des LUN iSCSI. Comme vous importez les LUN iSCSI en tant que LUN FC, contrairement aux autres LUN FLI en ligne 7-mode vers des flux de production ONTAP, la fenêtre d"interruption couvre l"ensemble du workflow :' 
+summary: 'Seuls les LUN FC sont pris en charge par FLI. Il existe cependant une solution de contournement qui vous permet d"importer des LUN iSCSI. Étant donné que vous importerez les LUN iSCSI en tant que LUN FC, contrairement aux autres flux de travail FLI en ligne 7-Mode vers ONTAP , la période d"interruption couvrira l"intégralité de ce flux de travail :' 
 ---
 = Importation de LUN non FC
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: 'Comme Foreign LUN Import (FLI) exploite la technologie FlexArray pour 
 
 
 [role="lead"]
-Comme Foreign LUN Import (FLI) exploite la technologie FlexArray pour monter des LUN étrangères, il ne peut se connecter qu'aux baies sources utilisant FCP. Seuls les LUN FC sont pris en charge par FLI. Toutefois, il existe une solution de contournement permettant d'importer des LUN iSCSI. Comme vous importez les LUN iSCSI en tant que LUN FC, contrairement aux autres LUN FLI en ligne 7-mode vers des flux de production ONTAP, la fenêtre d'interruption couvre l'ensemble du workflow :
+Seuls les LUN FC sont pris en charge par FLI. Il existe cependant une solution de contournement qui vous permet d'importer des LUN iSCSI. Étant donné que vous importerez les LUN iSCSI en tant que LUN FC, contrairement aux autres flux de travail FLI en ligne 7-Mode vers ONTAP , la période d'interruption couvrira l'intégralité de ce flux de travail :
 
 Comme vous importez les LUN iSCSI en tant que LUN FC, contrairement aux autres LUN FLI en ligne 7-mode vers des flux de production ONTAP, la fenêtre d'interruption couvre l'ensemble de ce workflow.
 
