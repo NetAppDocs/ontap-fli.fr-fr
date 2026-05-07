@@ -1,0 +1,16 @@
+---
+permalink: phases/phase-overview.html 
+sidebar: sidebar 
+keywords: foreign lun import, fli, ontap, phase, overview 
+summary: 'Cette section décrit la méthodologie de bout en bout pour exécuter les migrations Foreign LUN Import (FLI), avec un accent particulier sur le FLI backend iSCSI, en utilisant une approche structurée et par phases.' 
+---
+= Découvrez les phases ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cette section décrit la méthodologie de bout en bout pour l'exécution des migrations d'importation de LUN externes (FLI), avec un accent particulier sur les FLI avec backend iSCSI, en utilisant une approche structurée et par phases. Elle détaille les objectifs, les données d'entrée, les points de contrôle de validation et les livrables des phases Discovery, Analyze, Plan & Prepare, Execute et Verify afin de garantir une migration prévisible, prise en charge et à faible risque d'une baie de stockage externe vers ONTAP.
+
+Le flux de travail privilégie la collecte de données en amont et la vérification de l'interopérabilité, la préparation de l'hôte et du réseau, les contraintes de conception explicites du backend iSCSI (utilisation des IC LIF, portails cibles/IQN explicites, connectivité maillée complète et limites d'échelle), ainsi qu'une gestion des modifications disciplinée pour protéger la disponibilité des applications et les options de restauration. En combinant la validation du support pilotée par l'IMT, la planification ciblée des corrections, les migrations de test et un nettoyage post-migration rigoureux, cette approche garantit que les migrations se terminent avec succès tout en aboutissant à un état post-migration entièrement pris en charge, bien documenté et opérationnellement propre pour les scénarios FLI basés sur FC et iSCSI.

@@ -1,0 +1,27 @@
+---
+permalink: configure/fc-connectivity-wiring.html 
+sidebar: sidebar 
+keywords:  
+summary:  
+---
+= Connectivité et câblage d'importation de LUN étrangères (FLI) ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+L'importation de LUN externes via FC repose sur une architecture SAN à double fabric afin que les contrôleurs ONTAP de destination puissent accéder de manière fiable aux LUN de la baie externe lors de la découverte et de l'importation. Pour un déploiement compatible, chaque contrôleur de stockage utilisé doit disposer d'un chemin actif principal dans les deux fabrics, ce qui signifie que les ports cibles de la baie source et les ports initiateurs ONTAP des nœuds effectuant l'importation doivent se trouver dans une zone commune des fabrics A et B. Il n'est pas nécessaire d'inclure tous les nœuds du cluster ONTAP ; seuls ceux qui importeront et migreront les LUN sont requis. Bien que des chemins indirects puissent fonctionner, la bonne pratique est d'utiliser des chemins actifs et optimisés entre la source et la destination.
+
+
+
+== Pratiques de câblage et de zonage FC recommandées pour ONTAP FLI
+
+* Utilisez deux fabrics (A et B) pour la redondance.
+* Assurez-vous que les chemins principaux et actifs de chaque contrôleur utilisé sont présents dans les deux fabrics.
+* Utilisez au moins deux ports initiateurs ONTAP et deux ports cibles de la baie source lorsque cela est possible afin d'éviter les points de défaillance uniques.
+* Ne zonez pas les ports initiateurs ONTAP avec l'hôte. Les ports initiateurs ONTAP sont utilisés uniquement pour se connecter aux ports cibles de la baie source pour l'importation et la découverte.
+* Ne zonez que les nœuds ONTAP participant aux importations, il n'est pas nécessaire de zoner l'ensemble du cluster.
+
+
+image::new-zoning.png[Exemple de zonage FC pour ONTAP FLI]

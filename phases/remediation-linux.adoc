@@ -1,0 +1,68 @@
+---
+permalink: phases/remediation-linux.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, linux host, pre-migration, offline fli, online fli 
+summary: 'Avant d"exécuter la migration ONTAP FLI sur un hôte Linux, complétez les étapes préalables suivantes. Il existe des étapes distinctes pour les migrations hors ligne et en ligne.' 
+---
+= Correction de l'hôte Linux ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant d'exécuter la migration ONTAP FLI sur un hôte Linux, complétez les étapes préalables suivantes. Il existe des étapes distinctes pour les migrations hors ligne et en ligne.
+
+
+
+== Pré-migration - FLI hors ligne
+
+Ces étapes sont communes aux configurations FLI en ligne et hors ligne. Avant de déprovisionner le LUN source de l'hôte, assurez-vous que les étapes suivantes sont terminées.
+
+[cols="3"]
+|===
+| Système de fichiers (LVM et non-LVM) | Pacemaker avec LVM (SCSI3 PR) | SANBOOT 
+
+
+| Étape 1 : Collecter la configuration de bout en bout du périphérique de bloc : état/chemins multipath, disposition LVM sur le périphérique de bloc et paramètres GRUB/bootloader confirmant le périphérique de démarrage et les paramètres de démarrage corrects. | Étape 1 : Collecter la configuration de bout en bout du périphérique de bloc : état/chemins multipath, disposition LVM sur le périphérique de bloc et paramètres GRUB/bootloader confirmant le périphérique de démarrage et les paramètres de démarrage corrects. | Étape 1 : Collecter la configuration de démarrage SAN de bout en bout : état/chemins multipath, disposition LVM sur le LUN de démarrage et paramètres GRUB/chargeur de démarrage confirmant le périphérique de démarrage et les paramètres de démarrage corrects. 
+
+
+| Étape 2 : Assurez-vous que les  `/etc/fstab` entrées pour les périphériques de données respectifs (LVM/Non-LVM) sont référencées par leur UUID FS. | Étape 2 : Désactivez les groupes de ressources du cluster pour les LUN concernés par la migration. Une fois désactivés, supprimez les groupes de ressources. | Étape 2 : Assurez-vous que les  `/etc/fstab` entrées du périphérique de démarrage SAN, y compris les périphériques de données (lvm/nonlvm), sont référencées par leur UUID FS. 
+
+
+| Étape 3 : Assurez-vous que toutes les opérations sur les points de montage cibles sont suspendues. Assurez-vous qu’aucun processus n’accède encore au périphérique de bloc. Si nécessaire, videz/tuez les descripteurs de processus ouverts. | Étape 3 : Sauvegardez la configuration des groupes de volumes LVM dans un fichier pour les groupes de ressources que nous venons de désactiver/supprimer. Ensuite, désactivez les groupes de volumes. | Étape 3 : Assurez-vous d’avoir mis à jour la  `GRUB_CMDLINE_LINUX` ligne avec les références UUID correctes. Recréez une nouvelle configuration GRUB en fonction des références UUID du périphérique. 
+
+
+| Étape 4 : Démontez le système de fichiers et effectuez la sauvegarde de la configuration du groupe de volumes LVM. Désactivez le VG et exportez le VG | Étape 4 : Supprimez les LUN sources de la configuration PCS stonith. | Étape 4 : Validez les modifications avec les nouveaux paramètres grub et recréez la nouvelle image initrd pour refléter les modifications avec le périphérique de démarrage SAN. 
+
+
+| Étape 5 : Videz la configuration multipath du périphérique et supprimez tous les fichiers de périphérique SCSI obsolètes. | Étape 5 : Videz la configuration multipath du périphérique et supprimez tous les fichiers de périphérique SCSI obsolètes. REMARQUE : Si des réservations persistantes de LUN sont présentes, supprimez-les et assurez-vous qu’aucune clé PR n’est | Étape 5 : Redémarrez l’hôte pour vérifier que les modifications ci-dessus sont correctement prises en compte. Une fois que l’hôte a redémarré correctement, vérifiez que la préparation de l’hôte avant la remédiation pour la migration FLI est terminée. 
+
+
+| Étape 6 : Rechargez la configuration multipath afin que l’hôte dispose de la liste de périphériques mise à jour. Si nécessaire, effectuez une nouvelle analyse du bus SCSI de l’hôte. | Étape 6 : Analysez à nouveau l’hôte pour vous assurer qu’il n’y a pas d’entrées obsolètes dans le mappage des périphériques existants. | Étape 6 : Arrêtez maintenant l’hôte sanboot pour poursuivre le workflow ONTAP FLI. 
+|===
+
+
+== Pré-migration - FLI en ligne
+
+Vous trouverez ci-dessous les étapes spécifiques de FLI en ligne, mais celles-ci doivent être précédées des étapes de FLI hors ligne préalable à la migration. Les étapes suivantes doivent être effectuées après le provisionnement du LUN NetApp sur l'hôte. Ces étapes doivent être effectuées après le provisionnement du LUN NetApp sur l'hôte. Elles s'appliquent uniquement à FLI en ligne.
+
+[cols="3"]
+|===
+| Système de fichiers (LVM et non-LVM) | Pacemaker avec LVM (SCSI3 PR) | SANBOOT 
+
+
+| Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Linux mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Linux mappés. | Étape 1 : Mettez le serveur sous tension. 
+
+
+| Étape 2 : Découvrir les périphériques multipath. | Étape 2 : Identifiez les périphériques multipath. Assurez-vous que les LUN migrés sont ajoutés à la configuration PCS Stonith. | Étape 2 : Sur le BIOS ou l’UEFI du HBA du serveur, configurez le nouveau périphérique de démarrage qui est présenté à ce HBA Host. 
+
+
+| Étape 3 : Importez les groupes de volumes et effectuez l’activation des VG. | Étape 3 : Effectuez une restauration de la sauvegarde de configuration VG pour les VG/LVM nouvellement découverts, suivie de l’activation du VG. | Étape 3 : Redémarrez l’hôte pour démarrer à partir du LUN nouvellement mappé qui fait partie de LUN Import. 
+
+
+| Étape 4 : Montez la configuration LVM sur les points de montage respectifs. | Étape 4 : Créez les nouveaux groupes de ressources PCS et ajoutez les ressources correspondantes pour les LV et les systèmes de fichiers disponibles. REMARQUE : Veuillez noter que les nouveaux objets LVM activés ont les structures LV et système de fichiers intactes. |  
+
+
+|  | Étape 5 : Vérifiez que l'état du cluster PCS pour toutes les ressources est en ligne et disponible. |  
+|===

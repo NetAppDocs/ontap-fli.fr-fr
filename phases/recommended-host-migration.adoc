@@ -1,0 +1,157 @@
+---
+permalink: phases/recommended-host-migration.html 
+sidebar: sidebar 
+keywords: discovery phase, foreign lun import, fli, active iq onecollect, fc fli, iscsi fli, intercluster lif, wwpn, iqn, foreign array, lun discovery, san migration 
+summary: 'Alignez le système d"exploitation hôte et la configuration de stockage avec l"approche Foreign LUN Import (FLI) recommandée avant de sélectionner une méthode de migration.' 
+---
+= Approches ONTAP FLI recommandées par système d'exploitation et configuration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Alignez le système d'exploitation hôte et la configuration de stockage avec l'approche Foreign LUN Import (FLI) recommandée avant de sélectionner une méthode de migration.
+
+
+
+== Intention
+
+Le tableau ci-dessous permet d'aligner le système d'exploitation hôte et la configuration de stockage avec l'approche d'importation de LUN externes (FLI) recommandée avant de choisir une méthode de migration. Pour chaque type d'hôte et modèle d'utilisation, il indique si l'importation FLI en ligne, hors ligne ou les deux sont appropriées. La colonne « Remarques/Justification » met en évidence les principales contraintes techniques — telles que la sémantique de clustering, les réservations persistantes SCSI 3 et les dépendances de démarrage — qui influencent directement la possibilité pour les E/S hôte de coexister en toute sécurité avec une relation d'importation active. Il est conseillé de suivre ces recommandations dès la phase de planification afin d'éviter les flux de travail non pris en charge et de définir des attentes réalistes concernant les fenêtres d'interruption et les délais de remédiation.
+
+
+
+== Orientations clés
+
+* Le clustering implique presque toujours un FLI hors ligne en raison des exigences de réservation persistante SCSI 3.
+* Les hôtes autonomes et les charges de travail virtualisées non clusterisées sont généralement flexibles et peuvent utiliser FLI en ligne ou hors ligne.
+* Les cas d'utilisation du démarrage SAN sont techniquement pris en charge dans les deux modes, mais sont souvent plus simples à exécuter en tant que FLI hors ligne.
+* Le choix final du mode doit prendre en compte la tolérance à l’indisponibilité des applications, les exigences de restauration et la complexité opérationnelle, et pas seulement la prise en charge du protocole.
+
+
+
+
+== Instructions détaillées
+
+
+
+=== Windows
+
+[cols="3"]
+|===
+| Configuration | Recommandation | Raisons le cas échéant 
+
+
+| Volume NTFS  a| 
+FLI en ligne / hors ligne
+| Prise en charge dans les deux modes ; le choix dépend de la tolérance à l’indisponibilité des applications. 
+
+
+| Cluster de basculement Windows (WFSC) | FLI hors ligne | Les réservations persistantes SCSI 3 sont requises par WFSC et ne sont pas prises en charge lorsqu'un LUN est dans une relation d'importation active. 
+
+
+| Hyper V | FLI en ligne / hors ligne | Hyper-V autonome pris en charge ; Hyper-V en cluster suit les recommandations de WFSC. 
+
+
+| Démarrage SAN | FLI en ligne / hors ligne | Nécessite une planification minutieuse de la transition ; généralement considérée comme hors ligne sauf si l'interruption est bien maîtrisée. 
+|===
+
+
+=== Linux (RHEL/SLES)
+
+[cols="3"]
+|===
+| Configuration | Recommandation | Raisons le cas échéant 
+
+
+| Système de fichiers / Disque brut | FLI en ligne / hors ligne | Prise en charge dans les deux modes avec le multipathing standard. 
+
+
+| LVM | FLI en ligne / hors ligne | Pris en charge ; assurez-vous de la détection correcte de l’hôte et de la cohérence PV/VG lors de la bascule. 
+
+
+| Cluster Pacemaker | FLI en ligne / hors ligne | Pris en charge, mais le comportement du cluster doit être validé lors de la bascule. 
+
+
+| Démarrage SAN | FLI en ligne / hors ligne | Généralement plus simple à utiliser hors ligne, bien que techniquement pris en charge en ligne. 
+|===
+
+
+=== Solaris
+
+[cols="3"]
+|===
+| Configuration | Recommandation | Raisons le cas échéant 
+
+
+| Autonome | FLI en ligne / hors ligne | Les deux modes sont pris en charge en fonction de la tolérance aux interruptions. 
+
+
+| Oracle Solaris Cluster (OSC / Sun Cluster) | FLI hors ligne | Le cluster requiert des comportements SCSI exclusifs non pris en charge lors d'une importation active. 
+
+
+| Démarrage SAN | FLI en ligne / hors ligne | À traiter de la même manière que les autres scénarios de démarrage SAN du système d'exploitation. 
+|===
+
+
+=== AIX
+
+[cols="3"]
+|===
+| Configuration | Recommandation | Raisons le cas échéant 
+
+
+| Autonome | FLI en ligne / hors ligne | Prise en charge dans les deux modes. 
+
+
+| PowerHA (HACMP) | FLI hors ligne | Les disques en cluster nécessitent une sémantique de réservation incompatible avec l'importation en ligne. 
+
+
+| Virtualisé (PowerVM NPIV/VFC, vSCSI - pas de clustering) | FLI en ligne / hors ligne | Pris en charge lorsqu'il ne fait pas partie d'un cluster. 
+
+
+| Virtualisé (PowerVM avec clustering) | FLI hors ligne | Mêmes limitations de clustering que le PowerHA physique. 
+
+
+| Démarrage SAN | FLI en ligne / hors ligne | Préférence opérationnelle souvent hors ligne. 
+|===
+
+
+=== HP-UX
+
+[cols="3"]
+|===
+| Configuration | Recommandation | Raisons le cas échéant 
+
+
+| Autonome | FLI en ligne / hors ligne | Prise en charge dans les deux modes. 
+
+
+| Clustering d'hôtes (MC/ServiceGuard) | FLI hors ligne | La sémantique des disques de cluster nécessite une migration hors ligne. 
+
+
+| Démarrage SAN | FLI en ligne / hors ligne | Généralement planifié comme hors ligne en pratique. 
+|===
+
+
+=== VMware ESXi
+
+[cols="3"]
+|===
+| Configuration | Recommandation | Raisons le cas échéant 
+
+
+| VMDK (magasins de données standard) | FLI en ligne / hors ligne | Les deux modes sont pris en charge ; le mode en ligne minimise l'interruption des machines virtuelles. 
+
+
+| RDM (Standard) | FLI en ligne / hors ligne | Prise en charge ; assurez-vous de la cohérence des analyses de l’hôte lors de la bascule. 
+
+
+| VMSC / VMHA | FLI en ligne / hors ligne | Soutenu par une coordination minutieuse. 
+
+
+| WFSC (VMDK en cluster) | FLI hors ligne | Des limitations de clustering Windows s'appliquent. 
+
+
+| WFSC (RDM) | FLI hors ligne | SCSI 3 PR requis, importation en ligne non prise en charge. 
+|===

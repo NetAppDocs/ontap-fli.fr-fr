@@ -1,0 +1,70 @@
+---
+permalink: phases/verify-phase.html 
+sidebar: sidebar 
+keywords: verify phase, foreign lun import, fli, post-migration cleanup, application validation, fc zoning, iscsi cleanup, ontap configuration, migration documentation, san migration 
+summary: 'Découvrez la phase de vérification qui confirme que la migration s"est déroulée comme prévu et supprime les configurations temporaires utilisées pendant la période de migration.' 
+---
+= Phase de vérification de l'importation de LUN externes ONTAP (FLI)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase de vérification confirme que la migration s'est déroulée comme prévu et se concentre sur le nettoyage post-migration. Cela inclut la validation du comportement des applications, la confirmation de l'accès hôte et des chemins d'accès corrects aux LUN ONTAP, la collecte des journaux de migration à des fins d'audit et de dépannage, ainsi que la suppression de la connectivité et de la configuration temporaires utilisées uniquement pour la migration.
+
+Dans le cadre du nettoyage, vous supprimez les enregistrements d'initiateurs côté source et le zonage qui ne sont plus nécessaires, et vous documentez la configuration finale afin que les équipes d'exploitation disposent d'un état « tel que construit » clair.
+
+Pour iSCSI FLI, la phase de vérification doit également inclure la suppression des sessions d'initiateur iSCSI logiciel et des initiateurs créés sur les LIF intercluster. Si les LIF intercluster ont été créées uniquement pour l'importation de LUN étrangères, ces LIF doivent également être supprimées.
+
+
+
+== Tâches de la phase de vérification ONTAP FLI
+
+Voici les tâches de vérification ONTAP FLI pour chaque composant.
+
+[cols="1,2"]
+|===
+| Composant | Tâches 
+
+
+| Hôte  a| 
+* Effectuez une validation au niveau applicatif sur les LUN migrés. (vérification de la cohérence du système de fichiers, erreur de somme de contrôle, dbcc checkdb (MS SQL), rman (Oracle))
+* Vérifiez que tous les systèmes de fichiers, banques de données et disques de cluster attendus sont accessibles et stables après la migration et la remédiation.
+* Vérifiez que le nombre de chemins d'E/S et le type de chemin correspondent aux lignes attendues.
+
+
+
+
+| Fabric FC FLI  a| 
+* Supprimez les zones de stockage hôte-source de l'ensemble de zones actives, ou les règles d'accès équivalentes, si elles n'ont pas déjà été supprimées lors de la bascule anticipée.
+* Supprimer les zones de connectivité source-destination créées spécifiquement pour la migration.
+* Sauvegardez la zone post-migration mise à jour à des fins de restauration et d'audit.
+
+
+
+
+| réseau iSCSI FLI  a| 
+* Supprimer les objets de connectivité backend iSCSI FLI créés pour la migration.
+* Les sessions d'initiateur iSCSI doivent être supprimées et l'objet d'initiateur iSCSI créé sur les LIF intercluster doit être supprimé.
+
+
+
+
+| Baie de stockage NetApp (Destination)  a| 
+* Vérifiez l'exactitude du stockage après la migration, y compris l'alignement des LUN lorsque votre hôte ou votre cas d'utilisation l'exige.
+* Collectez les journaux d'importation de la migration FLI à des fins d'audit et de dépannage. Déclenchez AutoSupport après la fin de la migration.
+* Supprimez toutes les copies Snapshot créées manuellement utilisées uniquement pour la restauration pendant la période de migration.
+* Supprimez de ONTAP les artefacts de configuration de la baie source devenus inutiles, tels que les objets de la baie source et les détails d'association des disques externes. Confirmez la même chose à l'aide de la commande storage disk show.
+* Documentez la configuration finale d'ONTAP, y compris les chemins LUN, les mappages, les igroups, les initiateurs et le modèle d'accès hôte.
+
+
+
+
+| Baie de stockage externe (Source)  a| 
+* Supprimez les groupes d'initiateurs de stockage de destination (NetApp) et les groupes d'hôtes créés pour présenter les LUN sources à ONTAP pendant la migration.
+* Supprimez les groupes d'initiateurs hôtes et les enregistrements hôtes liés au mappage hôte d'origine lors de la mise hors service de l'accès source.
+* Assurez-vous que les LUN sources migrées ne soient plus présentées de manière à provoquer une double présentation à l'hôte. Ceci est essentiel et doit être vérifié tout au long de la migration.
+
+
+|===

@@ -1,0 +1,157 @@
+---
+permalink: phases/remediation-aix.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, aix host, pre-migration, offline fli, online fli 
+summary: 'Avant d"exécuter la migration ONTAP FLI sur un hôte AIX, complétez ces étapes préalables à la migration. Il existe des étapes distinctes pour les migrations hors ligne et en ligne.' 
+---
+= Correction de l'hôte ONTAP FLI AIX
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant d'exécuter la migration ONTAP FLI sur un hôte AIX, complétez ces étapes préalables à la migration. Il existe des étapes distinctes pour les migrations hors ligne et en ligne.
+
+
+
+== Pré-migration - FLI hors ligne
+
+Ces étapes sont communes aux configurations FLI en ligne et hors ligne. Avant de déprovisionner le LUN source de l'hôte, assurez-vous que les étapes suivantes sont terminées.
+
+[cols="5"]
+|===
+| Système de fichiers | Périphérique de bloc | LVM (FS) | Cluster | Sanboot 
+
+
+| Étape 1 : Capturer les détails LUN des systèmes de fichiers concernés par la migration. | Étape 1 : Capturer les détails des LUN utilisés comme périphériques de blocs bruts (sans système de fichiers) dans le périmètre de la migration. | Étape 1 : Capturez les LUN mappés à l’hôte avec une configuration LVM qui sont dans le périmètre de la migration. | Étape 1 : Capturer les détails généraux du cluster et les disques impliqués dans la migration. | Étape 1 : Capturez les détails du LUN démarré sur SAN et les informations de partition associées. 
+
+
+| Étape 2 : Démontez le système de fichiers. | Étape 2 : Retirez les périphériques de bloc SCSI associés au périphérique multipath | Étape 2 : Démontez le périphérique LVM s’il est déjà monté. | Étape 2 : Arrêtez les services du cluster en douceur, conformément à la procédure recommandée. | Étape 2 : Vérifiez la liste des périphériques de démarrage depuis le système d’exploitation ainsi que depuis le menu IPL (Initial Program Load)/SMS. Assurez-vous que tous les périphériques sont correctement référencés par leur nom de périphérique. 
+
+
+| Étape 3 : Retirez les périphériques de blocs SCSI associés au périphérique multipath. | Étape 3 : Analyser à nouveau tous les appareils. | Étape 3 : Effectuez une sauvegarde du VG et désactivez/varyoff le VG. Par exemple : `varyoffvg vg_name` | Étape 3 : Retirez les périphériques de blocs SCSI associés au périphérique multipath. Par exemple : `rmdev -Rdl hdiskx` |  
+
+
+| Étape 4 : Analysez à nouveau l’hôte pour vous assurer qu’il n’existe aucune entrée obsolète dans le mappage des périphériques existants. | Étape 4 : Analysez à nouveau l’hôte pour vous assurer qu’il n’existe aucune entrée obsolète dans le mappage des périphériques existants. | Étape 4 : Analysez à nouveau l’hôte pour vous assurer qu’il n’existe aucune entrée obsolète dans le mappage des périphériques. Par exemple : `cfgmgr` | Étape 4 : Analysez à nouveau l’hôte pour vous assurer qu’il n’y a pas d’entrées obsolètes dans le mappage des périphériques existant. |  
+|===
+
+NOTE: Veuillez consulter la documentation du fournisseur du système d'exploitation pour obtenir la liste des commandes la plus récente et mise à jour.
+
+.Étapes
+. Identifier les périphériques de stockage.
++
+[Source]
+----
+lsdev -Cc disk
+sanlun lun show all (This works only for NetApp storage)
+sanlun lun show all -pv
+lsmpio -l hdiskx
+----
+. Identifiez le groupe de volumes et les systèmes de fichiers.
++
+[Source]
+----
+lspv
+lsvg <vg_name>
+lsvg -l <vg_name>
+lsvg -p <vs_name>
+----
+. Varyoffvg et démonter les systèmes de fichiers.
++
+[Source]
+----
+df -g (to get the mount points)
+umount /mount_point
+varyoffvg <vg_name>
+df -g (to ensure its unmounted)
+----
+. Supprimez les périphériques de blocs SCSI.
++
+rmdev -Rdl hdiskx
+
+. Vérifiez que l'appareil est détaché.
++
+lspv |grep hdiskx
+
+. Effectuez une nouvelle analyse après détachement pour confirmer l'état propre.
++
+cfgmgr
+
+
+
+
+
+== Pré-migration - FLI en ligne
+
+Vous trouverez ci-dessous les étapes spécifiques pour la FLI en ligne, mais ces étapes doivent être précédées des étapes de la section Pré-migration - FLI hors ligne ci-dessus.
+
+Les étapes suivantes doivent être effectuées après que le NetApp LUN a été provisionné sur l'hôte.
+
+À ce stade, l'importation lun est déjà créée, lun est mappée à l'igroup de l'hôte et il y a soit un initiateur iSCSI soit FC connecté depuis l'hôte.
+
+Pour FLI hors ligne, le NetApp LUN reste en état hors ligne.
+
+[cols="4"]
+|===
+| Système de fichiers | Périphérique de bloc | LVM (FS) | Sanboot 
+
+
+| Étape 1 : Analyser à nouveau le stockage sur tous les hôtes AIX mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes AIX mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes AIX mappés. | Étape 1 : Mettez le serveur sous tension. 
+
+
+| Étape 2 : Identifier les périphériques à trajets multiples. Ex : `lsdev -Cc disk; lsmpio -l hdiskx` | Étape 2 : Identifier les périphériques à trajets multiples. Ex : `lsdev -Cc disk; lsmpio -l hdiskx` | Étape 2 : Identifier les périphériques à trajets multiples. Ex : `lsdev -Cc disk; lsmpio -l hdiskx` | Étape 2 : Vérifiez que la liste des périphériques de démarrage affichée dans le menu IPL (Initial Program Load)/SMS contient bien les nouveaux LUN faisant référence à la liste des périphériques provenant du nouveau Storage device. Définissez l’ordre de démarrage sur le chemin de la nouvelle liste de périphériques. 
+
+
+| Étape 3 : Vérifier les détails du système de fichiers. | Étape 3 : Identifiez l’ID du périphérique multipath et présentez-le à l’application correspondante. | Étape 3 : S’assurer que les nouveaux LUN sont détectés. | Étape 3 : Assurez-vous que le serveur démarre correctement. 
+
+
+| Étape 4 : Remontez les périphériques dans leurs dossiers respectifs. |  | Étape 4 : Les VG devraient s’activer automatiquement. |  
+
+
+|  |  | Étape 5 : Vérifiez que le VG, le LV et les systèmes de fichiers sont actifs et montables. |  
+|===
+
+NOTE: Veuillez consulter la documentation du fournisseur du système d'exploitation pour obtenir la liste des commandes la plus récente et mise à jour.
+
+.Étapes
+. Identifier les périphériques de stockage
++
+[Source]
+----
+lsdev -Cc disk
+sanlun lun show all (This works only for NetApp storage)
+sanlun lun show all -pv
+lsmpio -l hdiskx
+----
+. Identifiez le groupe de volumes et les systèmes de fichiers.
++
+[Source]
+----
+lspv
+lsvg <vg_name>
+lsvg -l <vg_name>
+lsvg -p <vs_name>
+----
+. Varyoffvg et démonter les systèmes de fichiers.
++
+[Source]
+----
+df -g (to get the mount points)
+umount /mount_point
+varyoffvg <vg_name>
+df -g (to ensure its unmounted)
+----
+. Supprimez les périphériques de blocs SCSI.
++
+rmdev -Rdl
+
+. Vérifiez que l'appareil est détaché.
++
+lspv |grep hdiskx
+
+. Effectuez une nouvelle analyse après détachement pour confirmer l'état propre.
++
+cfgmgr
+
+

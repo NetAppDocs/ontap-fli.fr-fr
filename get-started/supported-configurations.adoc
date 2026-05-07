@@ -1,0 +1,95 @@
+---
+permalink: get-started/supported-configurations.html 
+sidebar: sidebar 
+keywords: supported configurations, foreign lun import, fli, ontap fli, aff, asa, fas, ontap select, cloud volumes ontap, cvo, iscsi fli, fc fli, interoperability, san migration, lun import, supported platforms 
+summary: Examinez les plateformes et configurations prises en charge pour ONTAP FLI, y compris les options de backend FC et iSCSI, ainsi que les principales contraintes pour la planification de la migration. 
+---
+= Découvrez les configurations et plateformes prises en charge par l'importation de LUN externes ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP FLI doit être déployé dans une configuration prise en charge pour garantir un comportement prévisible et une prise en charge complète.
+
+* Toutes les migrations FLI sont effectuées au niveau LUN (bloc) ; les migrations au niveau fichier et protocole sont en dehors du périmètre ONTAP FLI.
+* Prévoyez jusqu'à 8 importations simultanées par nœud. La concurrence réellement sûre dépend de la latence observée sur l'hôte et sur l'importation.
+* La taille maximale des LUN étrangères pour l'import est de 4 To par LUN.
+* Limites de mise à l'échelle des sessions iSCSI (backend iSCSI) :
++
+** 1 initiateur par IC LIF
+** Jusqu'à 16 sessions par LIF
+** Jusqu'à 32 sessions par nœud
+
+
+* Contraintes du protocole iSCSI :
++
+** Aucune session de découverte iSCSI
+** Pas de sessions à connexions multiples (MCS)
+** Le niveau de récupération d'erreur > 0 n'est pas pris en charge (ERL0 uniquement)
+** IPv6 n'est pas pris en charge pour l'utilisation de la LIF initiateur iSCSI
+
+
+* Remarques concernant la sécurité et la disponibilité de la gestion :
++
+** CHAP non inclus
+** La couverture de l'API REST pour les opérations iSCSI FLI n'est pas disponible (workflow CLI uniquement).
+
+
+* Note de planification opérationnelle pour les importations en ligne :
++
+** Dans FLI en ligne, les E/S de l’hôte et la copie d’import partagent les ressources backend
+** Les importations peuvent être suspendues et reprises afin de protéger la latence de l'hôte
+** Les migrations devraient être planifiées en dehors des heures de pointe si possible
+
+
+
+
+
+
+== Configurations et plateformes prises en charge
+
+ONTAP FLI doit être déployé dans une configuration prise en charge pour garantir un comportement prévisible et une compatibilité totale. Au fur et à mesure que de nouvelles configurations sont qualifiées, les combinaisons prises en charge peuvent évoluer. Pour chaque migration, validez la pile de bout en bout (baie source + hôte + fabric/réseau + cible ONTAP) par rapport aux recommandations d'interopérabilité actuelles.
+
+.Destination prise en charge (vers laquelle vous pouvez migrer)
+* ONTAP est la seule destination prise en charge pour les migrations FLI. FLI est conçu pour importer des données dans les LUN ONTAP ; les migrations vers un stockage de destination tiers ne sont pas prises en charge.
+* Pour iSCSI FLI, l'initiateur logiciel iSCSI est intégré à la pile FLI et est spécifiquement conçu pour permettre la découverte et l'importation de LUN externes à l'aide de la connectivité backend iSCSI/TCP.
+
+
+.Couverture des plateformes ONTAP prises en charge (plateformes de destination)
+La couverture de la plateforme dépend du transport backend utilisé pour la découverte/importation :
+
+* Le backend FC FLI (traditionnel) prend en charge ONTAP sur AFF / ASA / ASA r2 / FAS (conformément au tableau de comparaison dans la conception du test iSCSI).
+* Le backend iSCSI FLI étend sa couverture pour inclure AFF / ASA / ASA r2 / FAS / ONTAP Select / Cloud Volumes ONTAP (CVO) (selon la même comparaison).
+
+
+.Baies sources prises en charge et approche de qualification
+* Avec le backend FC FLI, les baies étrangères prises en charge sont généralement validées par le biais de listes d'interopérabilité établies et de directives de qualification (la liste prise en charge évolue à mesure que de nouvelles baies sont qualifiées).
+* Avec le backend iSCSI FLI, aucune baie étrangère n'est préqualifiée par défaut ; les clients doivent effectuer une qualification sur le terrain à l'aide des outils de qualification fournis (par exemple, sanlunmigrate / offtap sanlunmigrate) avant de s'engager dans une migration en production.
+
+
+.Systèmes d'exploitation hôtes et prise en charge de la structure/des commutateurs (validation de bout en bout)
+* La prise en charge du système d'exploitation hôte doit être conforme aux directives d'interopérabilité de l'hôte SAN pour le protocole frontal choisi (FC ou iSCSI) et la configuration de l'hôte après migration.
+* La prise en charge des commutateurs/fabrics doit également être validée dans le cadre de la configuration de bout en bout (en particulier pour les environnements FC où le zonage/masquage est requis).
+
+
+.Exigence post-migration (maintien du support après la bascule)
+Une fois l'importation terminée et les hôtes opérationnels sur les LUN ONTAP, assurez-vous que la configuration finale en régime permanent est prise en charge. Cela inclut le multipathing des hôtes, les niveaux HBA/pilote/micrologiciel, le zonage/masquage (FC), la configuration iSCSI (si utilisée) et toutes les interactions avec les fonctionnalités ONTAP que vous prévoyez d'utiliser.
+
+.garde-fous spécifiques à iSCSI FLI (importants pour la prise en charge)
+* iSCSI FLI utilise des LIF inter-clusters (IC) pour les sessions iSCSI backend. La création de nouvelles LIF IC sur un sous-réseau différent dans le seul but d’atteindre des cibles étrangères alors que des LIF IC existantes sont déjà établies sur un autre sous-réseau est considérée comme une recommandation de planification non prise en charge.
+* La configuration de session de l'initiateur iSCSI est conçue pour n'exister que pendant la migration et doit être nettoyée une fois celle-ci terminée afin d'éviter les effets secondaires opérationnels, y compris les considérations de mise à niveau et de restauration.
+
+
+
+
+== Meilleures pratiques
+
+NetApp recommande fortement de fournir des services professionnels ou des services professionnels de ses partenaires, de définir et de planifier la migration, ainsi que de former le personnel du client sur la façon d'effectuer la migration de données à l'aide de Foreign LUN Import (FLI) 7-mode vers ONTAP.
+
+* Effectuez une ou plusieurs migrations de test au moins une semaine avant votre projet de migration afin de vérifier la configuration, la connectivité et le débit ; de déceler tout autre problème ; et de valider votre méthodologie.
+* Pour un débit maximal, n'exécutez pas plus de 16 migrations simultanément par nœud.
+* La vérification n'est pas obligatoire, mais nous vous encourageons à vérifier un sous-ensemble des LUN importés et migrés afin de valider le processus d'importation.
+* Utilisez le débit observé lors de vos migrations de test pour planifier la migration en production
+

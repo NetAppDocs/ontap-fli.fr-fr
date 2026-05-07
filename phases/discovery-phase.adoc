@@ -1,0 +1,109 @@
+---
+permalink: phases/discovery-phase.html 
+sidebar: sidebar 
+keywords: discovery phase, foreign lun import, fli, active iq onecollect, fc fli, iscsi fli, intercluster lif, wwpn, iqn, foreign array, lun discovery, san migration 
+summary: 'Découvrez la phase de découverte qui consiste à recueillir des informations sur l"environnement source et la connectivité afin de jeter les bases de la planification de la migration.' 
+---
+= Phase de découverte de l'importation de LUN externes (FLI) ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase de découverte ONTAP FLI est la première étape du processus de migration. Il est essentiel de recueillir toutes les informations nécessaires concernant l'environnement source, la connectivité et le système ONTAP cible afin de garantir une migration sans encombre. La phase de découverte jette les bases de la planification, de la préparation, de l'exécution et de la vérification de la migration.
+
+
+
+== Préparez-vous à une migration iSCSI avec ONTAP FLI
+
+La phase de découverte ONTAP FLI recueille les détails techniques nécessaires à la réalisation de la migration :
+
+* Planifier le flux de travail de migration (en ligne vs hors ligne)
+* Exécutez la remédiation de l'hôte en toute sécurité
+* Validez la connectivité et la découverte du LUN étranger sur ONTAP avant de créer la relation d'importation
+
+
+Pour une collecte de données structurée et reproductible sur les hôtes, les contrôleurs NetApp et les fabrics, vous pouvez utiliser NetApp Active IQ OneCollect. OneCollect est conçu pour collecter des informations provenant du stockage, des hôtes, des fabrics et des commutateurs à des fins de planification et de validation de la migration.
+
+Pour FC FLI, la phase de découverte doit capturer les WWPN des ports cibles de la baie étrangère.
+
+Pour iSCSI FLI, la phase de découverte doit :
+
+* Capturez les adresses IP du portail cible de la baie étrangère et les IQN cibles
+* Vérifiez l’accessibilité de l’IC LIF
+* Planifiez des sessions iSCSI en mesh complet (chaque nœud HA se connectant à chaque portail cible) afin de garantir que la baie LUN externe soit découverte par tous les chemins disponibles
+
+
+
+
+== Tâches de la phase de découverte ONTAP FLI
+
+Chaque composant possède un ensemble de tâches permettant de collecter des données ou de valider la connectivité.
+
+[cols="1,2"]
+|===
+| Composant | Tâches 
+
+
+| Hôte  a| 
+* Identifiez la version du système d'exploitation hôte, la pile de chemins multiples et sa configuration, ainsi que tout modèle de consommation, tel qu'un système de fichiers, un périphérique brut ou un disque de cluster, afin de guider les étapes de correction et de basculement de l'hôte.
+* Capturez l'inventaire des LUN, y compris la taille, les identifiants ou numéros de série, la disposition ou les décalages des partitions, et la manière dont chaque LUN est consommée par les applications pour la planification et le retour arrière.
+* Pour les environnements frontaux FC, enregistrez les WWPN des hôtes initiateurs. Ceux-ci sont utilisés pour le zonage et le masquage, le cas échéant, dans le cadre de la conception globale de la migration et du basculement.
+* Pour les environnements frontaux iSCSI, si utilisés après la migration, enregistrez les IQN de l’initiateur hôte et les adresses IP du portail cible que l’hôte utilisera pour la connexion après la bascule.
+
+
+
+
+| Infrastructure et réseau  a| 
+* Pour les environnements FC :
++
+** Documentez le zonage actuel (vers et depuis les zones de la baie hôte et source) afin qu'il puisse être supprimé ou mis à jour en toute sécurité après la bascule.
+** Relevez les identifiants des commutateurs et les ports concernés.
+
+
+* Pour les environnements iSCSI :
++
+** Documenter le VLAN, le sous-réseau et le chemin de routage entre les LIF ONTAP IC et les portails cibles de la baie externe
+** Vérifiez qu'aucun pare-feu ni aucune liste de contrôle d'accès (ACL) ne bloque la communication.
+
+
+
+
+
+
+| Baie de stockage NetApp (destination)  a| 
+* Confirmez la version ONTAP et la préparation ECV pour iSCSI FLI.
++
+
+NOTE: La création de l'initiateur est bloquée si le cluster n'est pas au niveau pris en charge.
+
+* Identifiez les nœuds participants, tels que le nœud propriétaire du LUN et son partenaire HA, et notez les LIF intercluster disponibles sur ces nœuds. Prévoyez la redondance ; prévoyez les LIF IC, les initiateurs et les sessions sur les deux nœuds HA.
+* Enregistrez l'IPspace et le sous-réseau des IC LIF et vérifiez qu'elles peuvent atteindre les portails cibles étrangers. Évitez de créer de nouvelles IC LIF dans un sous-réseau différent si des IC LIF existantes sont déjà utilisées ailleurs dans le cluster.
+* Validez les contraintes côté destination que vous devez appliquer lors de la planification, telles que la taille maximale d'importation, l'exigence de taille de bloc de 512B et les limites de mise à l'échelle de session et d'importation pertinentes pour iSCSI FLI.
+
+
+
+
+| Baie de stockage externe (Source)  a| 
+* Identifiez les adresses IP du portail cible de la baie étrangère et les IQN cibles ; les sessions de découverte iSCSI ne sont pas prises en charge pour iSCSI FLI, il est donc impératif de les connaître explicitement au préalable.
+* Identifiez les LUN spécifiques mappées sur l'hôte source, y compris la taille de la LUN et la taille des blocs. Assurez-vous que la LUN est stable, qu'elle n'est pas en expansion et qu'elle convient à la planification de l'importation.
+* Enregistrez les objets d'accès et de masquage des hôtes, tels que les enregistrements d'hôte et d'initiateur, afin de pouvoir démapper ou remapper en toute sécurité lors d'un cutover et valider la préparation à la restauration.
+* Planifier et exécuter la qualification de baies étrangères.
++
+
+NOTE: La qualification sur le terrain est requise pour iSCSI FLI ; ne présumez pas que les baies qualifiées FC sont automatiquement qualifiées pour iSCSI.
+
+
+
+|===
+
+
+== Livrables recommandés pour la découverte ONTAP FLI
+
+* Un seul tableau de correspondance d'inventaire : Hôte → LUN source(s) → Portail cible étranger/IQN → ONTAP IC LIF/nœuds → LUN de destination(s) pour une exécution propre et une restauration.
+* Un package OneCollect (ou équivalent) capturé avant l'exécution des modifications afin de réduire le temps de triage en cas de problème.
+
+
+.Informations connexes
+link:https://mysupport.netapp.com/site/tools["Outils"]

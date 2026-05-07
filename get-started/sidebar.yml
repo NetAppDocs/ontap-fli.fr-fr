@@ -1,0 +1,18 @@
+---
+section: get-started
+title: Commencer
+entries:
+- title: Présentation
+  url: "/get-started/learn-about-data-migration.html"
+- title: migration des données SAN vers ONTAP
+  url: "/get-started/learn-about-san-data-migration.html"
+- title: Importation de LUN étrangères
+  url: "/get-started/learn-about-fli.html"
+- title: Migration FLI du mode 7 vers ONTAP
+  url: "/get-started/learn-about-7-mode.html"
+- title: Principales caractéristiques et avantages
+  url: "/get-started/key-features-benefits.html"
+- title: Prérequis FLI
+  url: "/get-started/prerequisites.html"
+- title: Configurations et plateformes prises en charge
+  url: "/get-started/supported-configurations.html"

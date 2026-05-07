@@ -1,0 +1,44 @@
+---
+permalink: get-started/learn-about-san-data-migration.html 
+sidebar: sidebar 
+keywords: san migration, foreign lun import, fli, ontap, data transfer appliance, san lun migrate, active iq onecollect, interoperability matrix tool, imt, migration planning, online migration, offline migration, lun migration, migration tools 
+summary: 'Explorez les options de migration des données SAN pour ONTAP, notamment l"importation de LUN externes et les outils recommandés pour la planification de la durée et la qualification des configurations.' 
+---
+= Découvrez la migration des données SAN vers ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La migration des données SAN est souvent limitée par des fenêtres d'interruption très courtes, des risques pour la production et des ressources spécialisées limitées. ONTAP Foreign LUN Import (FLI) est une fonctionnalité intégrée de migration par blocs qui copie les données d'une baie LUN externe (tierce partie) vers une baie LUN ONTAP native et prend en charge les styles de migration hors ligne et en ligne. Bien qu'ONTAP ne nécessite pas de migration dirigée par des services professionnels, il est fortement recommandé d'impliquer NetApp ou des partenaires qualifiés pour la définition du périmètre, la planification et la formation — en particulier pour les environnements non triviaux.
+
+
+
+== Choisir la bonne approche de migration (niveau général)
+
+Une stratégie de migration pratique peut s'appuyer sur une méthode principale et la compléter par d'autres approches là où elles sont les plus pertinentes. Pour les migrations au niveau SAN/LUN vers ONTAP, FLI est généralement un choix judicieux ; toutefois, dans certains cas, des alternatives non perturbatrices par nature peuvent s'avérer plus adaptées.
+
+.Options courantes :
+Importation de LUN étrangers (FLI):: Migration au niveau bloc/LUN vers ONTAP avec des workflows en ligne et hors ligne.
+Dispositif de transfert de données (DTA):: Un modèle d'appliance SAN dont la licence est facturée par téraoctet migré et qui prend en charge les migrations hors ligne et en ligne.
+Migrations basées sur le système d'exploitation hôte ou sur l'application:: Utile lorsque la plateforme offre une mobilité native ou lorsque le contrôle de l'hôte ou de l'application est préféré (par exemple, la mobilité du stockage VMware et les approches de copie basées sur l'hôte).
+
+
+
+
+== Planification de la durée de la migration
+
+Pour la planification initiale uniquement, on considère généralement qu'il faut compter environ 5 heures par hôte pour un hôte disposant de 8 LUN totalisant environ 2 To, ce qui correspond à environ 400 Go/heure. Il s'agit intentionnellement d'une estimation approximative de planification et il est peu probable qu'elle corresponde à chaque environnement. La méthode recommandée pour obtenir une estimation précise consiste à effectuer plusieurs migrations de test de différentes tailles afin de mesurer le débit réel dans vos propres conditions de stockage, de réseau et d'hôte.
+
+
+
+== Outils recommandés (collecte de données, compatibilité, automatisation, qualification)
+
+Les outils de service offrent une méthode standardisée pour collecter les données de l'environnement, valider la compatibilité avec le support et réduire les erreurs humaines lors de la planification et de l'exécution.
+
+Active IQ OneCollect:: Collecte des données provenant du stockage, des hôtes, des fabrics et des commutateurs à des fins de dépannage, de validation, de planification de migration et d'évaluation des mises à niveau.
+Outil de matrice d'interopérabilité (IMT):: Un utilitaire web permettant de confirmer les configurations prises en charge entre NetApp et les composants tiers.
+Réétiqueteur Solaris (le cas échéant):: Mise à jour des étiquettes de disque VTOC après la migration afin que les systèmes reflètent les informations de requête mises à jour après les migrations au niveau des blocs.
+SAN LUN Migrate (sanlunmigrate pour les projets FLI):: Utilisez une approche de qualification pour valider le comportement des baies/LUN étrangères dans l'environnement client avant de procéder à la migration en production ; ceci est particulièrement important lorsque le comportement du transport ou du fournisseur diffère.
+

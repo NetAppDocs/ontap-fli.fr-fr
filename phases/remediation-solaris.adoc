@@ -1,0 +1,157 @@
+---
+permalink: phases/remediation-solaris.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, solaris host, pre-migration, offline fli, online fli 
+summary: 'Avant d"exécuter la migration ONTAP FLI sur un hôte Solaris, complétez ces étapes préalables à la migration. Il existe des étapes distinctes pour les migrations hors ligne et en ligne.' 
+---
+= Remédiation de l'hôte Solaris ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant d'exécuter la migration ONTAP FLI sur un hôte Solaris, complétez ces étapes préalables à la migration. Il existe des étapes distinctes pour les migrations hors ligne et en ligne.
+
+
+
+== Pré-migration - FLI hors ligne
+
+Ces étapes sont communes aux configurations FLI en ligne et hors ligne. Avant de déprovisionner le LUN source de l'hôte, assurez-vous que les étapes suivantes sont terminées.
+
+[cols="3"]
+|===
+| Système de fichiers (ZFS/Zpool) | OSC (Oracle Sun Cluster) (SCSI3 PR) avec Zpool | SANBOOT 
+
+
+| Étape 1 : Collecter la configuration de bout en bout du périphérique de bloc : état/chemins multipath, disposition Zpool sur le périphérique de bloc et paramètres OBP (ok prompt) confirmant le périphérique de démarrage et les paramètres de démarrage corrects. | Étape 1 : Collecter la configuration de bout en bout du périphérique de bloc : état/chemins multipath, disposition LVM sur le périphérique de bloc et paramètres OBP confirmant le périphérique de démarrage et les paramètres de démarrage corrects. | Étape 1 : Collecter la configuration de démarrage SAN de bout en bout : état/chemins multipath, disposition RPool sur le LUN de démarrage et paramètres OBP confirmant le périphérique de démarrage et les paramètres de démarrage corrects. 
+
+
+| Étape 2 : Assurez-vous que toutes les opérations sur les points de montage cibles sont suspendues. Assurez-vous qu’aucun processus n’accède encore au périphérique de bloc. Si nécessaire, videz/tuez les descripteurs de processus ouverts. | Étape 2 : Désactivez les groupes de ressources du cluster pour les LUN respectifs en cours de migration. | Étape 2 : Redémarrez l’hôte pour vérifier que les modifications ci-dessus sont correctement prises en compte. Une fois que l’hôte démarre correctement, comprenez que la préparation de l’hôte avant la remédiation pour la migration FLI est prête. 
+
+
+| Étape 3 : Vérifiez que le pool n’est pas utilisé Démontez tous les systèmes de fichiers utilisant le pool : | Étape 3 : S'assurer que le pool n'est pas utilisé | Étape 3 : Arrêtez maintenant l’hôte sanboot pour poursuivre le workflow ONTAP FLI. 
+
+
+| Étape 4 : Exporter le pool Vérifier l’exportation | Étape 4 : Supprimez les LUN sources de la configuration OSC. |  
+
+
+| Étape 5 : Si nécessaire, effectuez une nouvelle analyse du bus SCSI hôte. Par exemple : `devfsadm` | Étape 5 : Supprimez tous les fichiers de périphériques SCSI obsolètes, le cas échéant NOTE : Si des réservations persistantes de LUN sont présentes, supprimez-les et assurez-vous qu’aucune clé PR n’est présente |  
+
+
+|  | Étape 6 : Analysez à nouveau l’hôte pour vous assurer qu’il n’y a pas d’entrées obsolètes dans le mappage des périphériques existants. |  
+|===
+
+NOTE: Veuillez consulter la documentation du fournisseur du système d'exploitation pour obtenir la liste des commandes la plus récente et mise à jour.
+
+.Étapes
+. Identifier les périphériques de stockage.
++
+[Source]
+----
+echo | format
+sanlun lun show all (This is only applicable for NetApp devices)
+mpathadm list lu
+mpathadm show lu lu_name
+luxadm display node wwn/ disk path
+----
+. Identifiez le zpool et les systèmes de fichiers.
++
+[Source]
+----
+zpool status <zpool_name>
+df -h
+----
+. Démonter et exporter les systèmes de fichiers.
++
+[Source]
+----
+zfs umount /mount_point
+zpool export <zpool_name>
+df -h (to ensure its unmounted)
+----
+. Supprimez les périphériques de blocs SCSI.
++
+[Source]
+----
+rm /dev/rdsk/disk_ID
+----
+. Vérifiez que l'appareil est détaché.
++
+format | grep disk_id
+
+. Effectuez une nouvelle analyse après détachement pour confirmer l'état propre.
++
+cfgadm -al
+
+
+
+
+
+== Pré-migration - FLI en ligne
+
+Vous trouverez ci-dessous les étapes spécifiques de FLI en ligne, mais celles-ci doivent être précédées des étapes de pré-migration - FLI hors ligne. Les étapes suivantes doivent être effectuées après que le NetApp LUN a été provisionné sur l’hôte.
+
+[cols="4"]
+|===
+| Système de fichiers | Périphérique de bloc | LVM (FS) | Sanboot 
+
+
+| Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés. | Étape 1 : Mettez le serveur sous tension. 
+
+
+| Étape 2 : Identifier les périphériques de stockage multipath. | Étape 2 : Identifier les dispositifs à trajets multiples. | Étape 2 : Identifier les dispositifs à trajets multiples. | Étape 2 : Sur le serveur SPARC OBP, configurez le nouveau périphérique de démarrage présenté à ce Host HBA. Modifiez le nvalias pour représenter le nouveau chemin d’accès au disque. 
+
+
+| Étape 3 : Vérifier les détails du système de fichiers. | Étape 3 : Identifiez l’ID du périphérique multipath et présentez-le à l’application correspondante. | Étape 3 : Vérifier l’état du pool. | Étape 3 : Redémarrez l’hôte pour démarrer à partir du LUN nouvellement mappé qui fait partie de LUN Import. 
+
+
+| Étape 4 : Remontez les périphériques dans leurs dossiers respectifs. |  | Étape 4 : Importer le pool. |  
+
+
+|  |  | Étape 5 : Vérifier l’état du pool. |  
+
+
+|  |  | Étape 6 : Monter le pool/ZFS. |  
+|===
+
+NOTE: Veuillez consulter la documentation du fournisseur du système d'exploitation pour obtenir la liste des commandes la plus récente et mise à jour.
+
+.Étapes
+. Identifier les périphériques de stockage.
++
+[Source]
+----
+format
+sanlun lun show all
+mpathadm list lu
+mpathadm show lu
+----
+. Identifiez le zpool et les systèmes de fichiers.
++
+[Source]
+----
+zpool status <zpool_name>
+df -h
+----
+. Varyoffvg et démonter les systèmes de fichiers.
++
+[Source]
+----
+zfs umount /mount_point
+zpool export <zpool_name>
+df -h (to ensure its unmounted)
+----
+. Supprimez les périphériques de blocs SCSI.
++
+rm /dev/rdsk/disk_ID
+
+. Vérifiez que l'appareil est détaché.
++
+format | grep disk_id
+
+. Effectuez une nouvelle analyse après détachement pour confirmer l'état propre.
++
+cfgadm -al
+
+

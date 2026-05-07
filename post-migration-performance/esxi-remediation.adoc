@@ -1,0 +1,56 @@
+---
+permalink: post-migration-performance/esxi-remediation.html 
+sidebar: sidebar 
+keywords: esxi remediation, vmfs, ats, caw, vaai, vmkfstools, datastore, online fli, foreign lun import, fli, vmware, ats-only 
+summary: 'Corriger les banques de données VMware ESXi avec des en-têtes VMFS ATS uniquement qui peuvent empêcher le montage lorsqu"elles sont présentées via une relation d"importation FLI en ligne.' 
+---
+= Effectuer la correction ONTAP FLI ESXi VMFSS ATS/CAW
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Lors d'une migration FLI en ligne, la relation d'importation temporaire ne prend pas en charge VMware ATS ni CAW (VAAI Atomic Test and Set ou SCSI Compare And Write). Si votre datastore est au format VMFS5 et a été créé sur un stockage compatible ATS, VMware peut indiquer dans l'en-tête VMFS qu'il est “ATS-only”. Dans cet état, le datastore peut échouer à se monter lorsqu'il est présenté via une relation FLI en ligne.
+
+.À propos de cette tâche
+* Le paramètre « ATS uniquement » est stocké dans l’en-tête VMFS, qui se trouve sur la première étendue de la banque de données. Si la banque de données s’étend sur plusieurs étendues, seule la première étendue nécessite une correction.
+* Si la banque de données est partagée entre plusieurs hôtes ESXi, sa mise à jour depuis un seul hôte est généralement suffisante ; les autres hôtes prennent en compte la modification après une nouvelle analyse et un remontage.
+* Aucune opération d'E/S active ne doit être exécutée sur la banque de données pendant le passage en mode ATS uniquement. VMware recommande d'évacuer et de migrer les machines virtuelles, ou de les arrêter, puis de démonter et de remonter si nécessaire, afin d'appliquer la modification.
+
+
+.Étapes
+. Vérifiez le mode ATS actuel du datastore.
++
+Exécutez cette commande sur un hôte ESXi pour le volume VMFS :
+
++
+[source, cli]
+----
+vmkfstools -Ph -v1 /vmfs/volumes/<DATASTORE_NAME_OR_UUID>
+----
+. Désactiver ATS uniquement.
++
+
+IMPORTANT: Assurez-vous que les machines virtuelles sont migrées et arrêtées, et que la banque de données est démontée de tous les hôtes conformément à votre plan de modification. Exécutez la commande suivante sur le chemin d'accès du périphérique du premier LUN étendu (naa.*) :
+
++
+[source, cli]
+----
+vmkfstools --configATSOnly 0 /vmfs/devices/disks/naa.<naa_id>:1
+----
++
+Cela modifie le volume pour permettre le verrouillage non-ATS (public).
+
+. Réanalysez les adaptateurs de stockage (ou remontez la banque de données) afin que les hôtes relisent le mode mis à jour.
+. Réactiver ATS.
++
+Une fois la migration terminée, si vous souhaitez rétablir le comportement ATS uniquement :
+
++
+[source, cli]
+----
+vmkfstools --configATSOnly 1 /vmfs/devices/disks/naa.<naa_id>:1
+----
+. Relancez l'analyse et le remontage pour appliquer la modification.
+

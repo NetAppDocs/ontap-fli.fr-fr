@@ -1,0 +1,226 @@
+---
+permalink: phases/remediation-windows.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, windows host, pre-migration, offline fli, online fli 
+summary: 'Avant d"exécuter la migration ONTAP FLI sur un hôte Windows, complétez ces étapes préalables à la migration. Il existe des étapes distinctes pour les migrations hors ligne et en ligne.' 
+---
+= Correction de l'hôte Windows ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant d'exécuter la migration ONTAP FLI sur un hôte Windows, complétez ces étapes préalables à la migration. Il existe des étapes distinctes pour les migrations hors ligne et en ligne.
+
+
+
+== Pré-migration - FLI hors ligne
+
+Ces étapes s'appliquent à la fois à FLI hors ligne et en ligne. Effectuez la préparation côté hôte suivante avant de dissocier les LUN sources de l'hôte Windows.
+
+[cols="4"]
+|===
+| périphériques du système de fichiers | Disques physiques (sans système de fichiers) | WSFC (WFC) | Hyper V 
+
+
+| Étape 1 : Identifier les disques du système de fichiers qui ont été sélectionnés pour la migration | Étape 1 : Identifier les disques physiques sélectionnés pour la migration | Étape 1 : Identifier les disques du cluster qui ont été sélectionnés pour la migration | Étape 1 : Arrêtez toutes les applications sur les machines virtuelles et éteignez les machines virtuelles. 
+
+
+| Étape 2 : Arrêtez les applications proprement | Étape 2 Shutdown the applications gracefully | Étape 2 Shutdown the applications gracefully | Étape 2 : Déconnecter le disque de l'hôte. 
+
+
+| Étape 3 : Mettre les disques hors ligne |  | Étape 3 : Arrêtez le cluster et les services de cluster sur tous les nœuds du cluster | Étape 3 : Dissocier tous les LUN de l’hôte. 
+|===
+
+
+=== périphériques du système de fichiers
+
+.Étapes
+. Identifiez les disques du système de fichiers dont la migration est prévue.
++
+Get-Disk | Format-Table Number, FriendlyName, Size, PartitionStyle
+
+. Fermez les applications proprement.
++
+Stop-Service -Name <ServiceName>
+
+. Déconnectez les disques.
++
+Définir-Disque -Numéro <DiskNumber> -IsOffline $true
+
+
+
+
+
+=== Disques physiques (sans système de fichiers)
+
+.Étapes
+. Identifiez les disques physiques dont la migration est prévue.
++
+Get-PhysicalDisk | Format-Table FriendlyName, Taille, MediaType
+
+. Fermez les applications proprement.
++
+Stop-Service -Name <ServiceName>
+
+
+
+
+
+=== WSFC (Clusterage de basculement Windows Server)
+
+.Étapes
+. Identifiez les disques du cluster dont la migration est prévue.
++
+Get-ClusterResource | Where-Object ResourceType -eq "Disque physique"
+
+. Fermez les applications proprement.
++
+Stop-ClusterResource -Name <ResourceName>
+
+. Arrêtez le cluster et stoppez les services de cluster sur tous les nœuds du cluster.
++
+Stop-Cluster -Name <ClusterName>
+
+
+
+
+
+=== Hyper V
+
+.Étapes
+. Arrêtez toutes les applications sur les machines virtuelles et éteignez les machines virtuelles.
++
+Stop-VM -Name <VM_Name> -Force
+
+. Déconnectez le disque de l'hôte.
++
+Définir-Disque -Numéro <DiskNumber> -IsOffline $true
+
+. Dissocier tous les LUN de l’hôte depuis la baie de stockage.
+. Assurez-vous que les disques sont correctement retirés de l'hôte.
++
+Get-Disk | Where-Object OperationalStatus -ne "Online"
+
+
+
+
+
+== Pré-migration - FLI en ligne
+
+Vous trouverez ci-dessous les étapes spécifiques de la procédure FLI en ligne, mais ces étapes doivent être précédées des étapes de la procédure FLI hors ligne de pré-migration.
+
+Les étapes suivantes doivent être effectuées une fois le NetApp LUN provisionné sur l'hôte.
+
+À ce stade, l'importation de la baie LUN est déjà créée, la baie LUN est mappée à l'igroup hôte et un initiateur iSCSI ou FC est connecté depuis l'hôte.
+
+Pour FLI hors ligne, le NetApp LUN reste en état hors ligne.
+
+[cols="2"]
+|===
+| périphériques du système de fichiers | Disques physiques (sans système de fichiers) 
+
+
+| Étape 1 : Analyser à nouveau le stockage sur tous les hôtes mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes mappés. 
+
+
+| Étape 2 : Identifiez les lecteurs répertoriés et mettez les disques en ligne. | Étape 2 : ajoutez le disque physique à l’application requise et démarrez. 
+
+
+| Étape 3 : Vérifiez si tous les disques du système de fichiers sont disponibles et fonctionnels. |  
+
+
+| Étape 4 : Lancez les applications requises. |  
+|===
+
+
+=== périphériques du système de fichiers
+
+.Étapes
+. Réanalysez le stockage sur tous les hôtes mappés.
++
+Update-HostStorageCache
+
+. Identifiez les lecteurs répertoriés et mettez les disques en ligne.
++
+[Source]
+----
+Get-Disk | Where-Object IsOffline -eq $true
+Set-Disk -Number <DiskNumber> -IsOffline $false
+----
+. Vérifiez si tous les disques du système de fichiers sont disponibles et fonctionnels.
++
+Get-Volume | Format-Table DriveLetter, FileSystemLabel, Taille, SizeRemaining
+
+. Lancez les applications requises.
++
+Start-Service -Name <ServiceName>
+
+
+
+
+
+=== Disques physiques (sans système de fichiers)
+
+.Étapes
+. Réanalysez le stockage sur tous les hôtes mappés.
++
+Update-HostStorageCache
+
+. Ajoutez le disque physique à l'application requise et démarrez.
++
+Configuration spécifique à l'application
+
+
+
+
+
+=== WSFC
+
+.Étapes
+. Réanalysez le stockage sur tous les hôtes mappés.
++
+Update-HostStorageCache
+
+. Identifiez les lecteurs répertoriés et mettez les disques en ligne.
++
+[Source]
+----
+Get-Disk | Where-Object IsOffline -eq $true
+Set-Disk -Number <DiskNumber> -IsOffline $false
+----
+. Vérifiez si tous les hôtes mappés ont les lecteurs disponibles et en ligne.
++
+Get-ClusterResource | Where-Object ResourceType -eq "Disque physique"
+
+. Démarrez l'application de cluster WSFC et configurez les ressources de cluster requises.
++
+[Source]
+----
+Start-Cluster -Name <ClusterName>
+Start-ClusterResource -Name <ResourceName>
+----
+
+
+
+
+=== Hyper V
+
+.Étapes
+. Relancez l'analyse de la gestion des disques, tous les disques doivent être connectés.
++
+Update-HostStorageCache
+
+. Sélectionnez les disques et mettez-les en ligne, ils doivent tous passer en ligne et retrouver leur nom et leur lettre d'origine.
++
+[Source]
+----
+Get-Disk | Where-Object IsOffline -eq $true
+Set-Disk -Number <DiskNumber> -IsOffline $false
+----
+. Essayez de mettre sous tension les machines virtuelles, elles devraient se connecter sans problème.
++
+Démarrer-VM -Name <VM_Name>
+
+

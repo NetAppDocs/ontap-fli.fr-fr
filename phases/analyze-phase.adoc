@@ -1,0 +1,133 @@
+---
+permalink: phases/analyze-phase.html 
+sidebar: sidebar 
+keywords: analyze phase, foreign lun import, fli, gap analysis, interoperability matrix tool, imt, host remediation, hba, mpio, alua, san migration, iscsi fli, fc fli 
+summary: 'Découvrez la phase d"analyse qui compare les configurations de l"hôte et de la pile SAN à la NetApp Interoperability Matrix afin d"identifier les modifications nécessaires.' 
+---
+= Phase d'analyse de l'importation de LUN externes (FLI) ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase d'analyse détermine les éléments à corriger avant de passer à la planification et à l'exécution détaillées de la migration. Le principal résultat de cette phase est de garantir que chaque hôte, ainsi que l'ensemble de la pile SAN dont il dépend (système d'exploitation, gestionnaire de volumes, HBA, multipathing, firmware du commutateur et la version cible d'ONTAP), puisse être mis en configuration post-migration prise en charge. Cela se fait en comparant l'état actuel de chaque hôte aux combinaisons prises en charge dans la NetApp Interoperability Matrix (IMT), puis en définissant une configuration cible claire par hôte (niveau du système d'exploitation, comportement MPIO/ALUA, pilote/firmware HBA et tout outil hôte requis) et en produisant une analyse de la différence listant les modifications exactes nécessaires pour atteindre cette cible.
+
+Planifiez et examinez l'analyse de la différence afin d'éviter les modifications correctives susceptibles d'impacter la compatibilité des applications et la planification des interruptions. Dans de nombreux environnements, certaines modifications, telles que le correctif du système d'exploitation ou la mise à jour des HBA, sont plus sûres à effectuer avant la fenêtre de migration. Cependant, les modifications de la pile de multipathing sont souvent reportées jusqu'à la bascule ou après la migration, car la modification du comportement MPIO peut affecter la supportabilité avec la baie actuelle et compliquer le retour arrière.
+
+Pour iSCSI FLI, la phase d'analyse doit également prendre en compte l'état de préparation spécifique à iSCSI :
+
+* Vérifiez que la conception multipath iSCSI de l'hôte reste prise en charge après la bascule
+* Assurez-vous que la baie étrangère est qualifiée pour une utilisation en tant que backend iSCSI, car les différences de transport du backend peuvent modifier le comportement d'interopérabilité.
+
+
+
+
+== Tâches de la phase d'analyse ONTAP FLI
+
+La phase d'analyse est centrée sur l'hôte, mais elle doit également valider la chaîne de support complète de bout en bout (de l'hôte au fabric à ONTAP et retour) et confirmer la position d'interopérabilité du backend FLI.
+
+[cols="1,2"]
+|===
+| Composant | Tâches 
+
+
+| Hôte  a| 
+* Comparez la configuration hôte actuelle aux configurations prises en charge par IMT et déterminez la configuration cible après la migration :
++
+** Niveau OS
+** Approche multipathing
+** Modèle HBA, pilote et micrologiciel
+** Outils hôtes requis
+
+
+* Créez une analyse de la différence avec les éléments requis :
++
+** Correctifs et correctifs rapides
+** mises à jour du système d'exploitation
+** Mises à jour des pilotes et du microprogramme HBA
+** Modifications multipath
+** Énumérez les utilitaires requis
+
+
+
+
+
+
+| Fabric (réseau FC/iSCSI)  a| 
+* Validez la prise en charge du commutateur et de la structure (modèle et micrologiciel) dans la vue de bout en bout et enregistrez les mises à niveau requises si la structure n'est pas prise en charge pour la combinaison ONTAP et hôte cible.
+
+
+
+
+| Baie de stockage NetApp (destination)  a| 
+* Confirmez que la plateforme ONTAP et la version cibles sont compatibles avec le flux de travail FLI prévu, y compris toutes les attentes d’activation AFF applicables, et consignez tous les prérequis qui influencent la conception cible.
+
+
+
+
+| baie de stockage externe (source)  a| 
+* Vérifiez si la baie source est couverte par l'interopérabilité du backend FLI. Si l'interopérabilité n'est pas mentionnée dans l'IMT pour ONTAP 9.9.1 et les versions ultérieures, utilisez l'application SAN LUN Migrate pour aider à qualifier si elle pourrait être prise en charge.
+
+
+|===
+
+
+== Utilisez l'IMT pendant la phase d'analyse ONTAP FLI
+
+L'outil de matrice d'interopérabilité (IMT) est un référentiel de configurations et une méthode guidée pour identifier les configurations de bout en bout prises en charge où les produits NetApp interopèrent avec des composants tiers. IMT peut contenir des configurations prises en charge et certifiées :
+
+* Les configurations prises en charge sont qualifiées par NetApp.
+* Les configurations certifiées sont qualifiées par un tiers pour fonctionner avec les composants NetApp.
+
+
+.Vérifiez l'IMT pour :
+* Consignez les actions IMT dans votre feuille de travail : documentez les logiciels, correctifs et mises à niveau recommandés par l’IMT pour les hôtes et les commutateurs dans votre feuille de planification.
+* Commencez par une définition générale, puis affinez-la : commencez par des critères statiques (version ONTAP, protocole, mode HA/cluster), puis ajoutez les détails du système d’exploitation hôte, du gestionnaire de volumes et du HBA en vous basant sur votre étude de site.
+* Évitez le sur-filtrage : si votre recherche devient trop spécifique et ne donne aucun résultat, assouplissez les filtres, examinez plusieurs configurations valides et choisissez la meilleure correspondance prise en charge.
+* Normaliser les identifiants HBA : les HBA peuvent apparaître comme des numéros de pièces OEM, vérifiez-les avant de les saisir dans l’IMT.
+* Vérifiez chaque hôte : exécutez le contrôle de compatibilité IMT pour chaque hôte inclus dans le périmètre de migration.
+* Effectuez deux vérifications d'interopérabilité :
++
+** Prise en charge FLI du backend : confirmez que le scénario de backend de la baie source est pris en charge.
+** Assistance post-migration de bout en bout : Confirmer la prise en charge de la combinaison ONTAP, système d’exploitation hôte, multipath, HBA et de la matrice de commutation.
+
+
+* Flux de travail pratique IMT :
++
+** Recherchez le modèle de baie source, puis sélectionnez « Foreign LUN Import (FLI) backend Interoperability » et choisissez la plateforme ONTAP et la version ONTAP.
+** Pour la compatibilité avec l'hôte, utilisez « Créer une vue de bout en bout avec ONTAP SAN host » pour valider le système d'exploitation, le multipath et le HBA.
+** Pour vérifier la compatibilité du commutateur, utilisez « Build end-to-end view for SAN-Switch » depuis la vue hôte SAN afin de valider la prise en charge de la structure et du commutateur.
+
+
+
+
+.Si la baie étrangère n'est pas répertoriée dans IMT (ONTAP 9.9.1 et versions ultérieures)
+À partir d'ONTAP 9.9.1, si la baie externe n'est pas répertoriée comme prise en charge dans IMT, vous pouvez utiliser l'outil de migration SAN LUN pour déterminer si la baie pourrait être compatible avec FLI. L'application se télécharge depuis le NetApp Support Site et s'exécute sur un hôte Linux disposant d'un accès bloc (FC ou iSCSI) à la baie LUN source. Les résultats sont analysés avec l'équipe d'ingénierie. L'importation depuis la baie externe peut être qualifiée sur site. Pour iSCSI FLI, l'importation depuis la baie externe est toujours qualifiée sur site.
+
+
+
+== Modifications de l’hôte ONTAP FLI et stratégie de restauration
+
+La phase d'analyse doit définir clairement les modifications à apporter et leur calendrier, car les changements apportés à l'hôte peuvent engendrer des risques et affecter la prise en charge du stockage actuel. Ceci est important si la pile hôte nécessite une mise à niveau avant de pouvoir être prise en charge avec ONTAP.
+
+* Les mises à jour hôtes (correctifs, micrologiciel HBA et pilotes) peuvent être plus sûres lorsqu'elles sont effectuées à l'avance lorsque cela est possible, mais nécessitent toujours une coordination avec les fenêtres de maintenance et les équipes d'application.
+* Les modifications apportées à la pile de chemins multiples (MPIO, ALUA et chemins multiples tiers) peuvent affecter la prise en charge actuelle de la baie, elles sont donc souvent reportées jusqu’à l’événement de migration ou même jusqu’après la mise en service.
+* Retarder la reconfiguration MPIO peut simplifier la restauration si vous devez revenir au stockage d'origine pendant l'interruption.
+
+
+
+
+== ONTAP FLI analyse de la différence
+
+L'analyse de la différence résume l'environnement actuel par rapport à la configuration cible recommandée par NetApp et répertorie les mises à niveau ou les corrections nécessaires pour atteindre un état post-migration pris en charge.
+
+Une configuration cible complète par hôte comprend généralement :
+
+* Niveau de configuration du système d'exploitation et correctifs ou mises à jour requis
+* Approche multipathing et paramètres requis (comportement MPIO et ALUA)
+* Modèle HBA et CNA, version du pilote et du firmware
+* Exigences relatives aux utilitaires et outils hôtes pertinents pour votre environnement, le cas échéant
+
+
+L'analyse de la différence doit être examinée rapidement, car les mesures correctives pourraient nécessiter des fenêtres d'interruption et pourraient interagir avec les exigences du support applicatif.

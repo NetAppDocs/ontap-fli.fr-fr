@@ -1,0 +1,44 @@
+---
+permalink: get-started/learn-about-fli.html 
+sidebar: sidebar 
+keywords: foreign lun import, fli, ontap, block migration, lun migration, san migration, offline fli, online fli, fibre channel, iscsi, scsi initiator, import workflow, cutover, fc backend, iscsi backend 
+summary: Découvrez comment ONTAP Foreign LUN Import migre les LUN SAN en agissant comme un initiateur SCSI pour lire à partir de baies étrangères et écrire sur les LUN ONTAP de destination. 
+---
+= En savoir plus sur l'importation de LUN étrangères ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Foreign LUN Import (FLI) est une fonctionnalité ONTAP qui permet la migration des données au niveau bloc (LUN) en copiant les données utilisateur d'une baie LUN étrangère vers une LUN ONTAP. ONTAP effectue la migration en agissant comme un initiateur SCSI qui lit à partir de la baie LUN étrangère et écrit vers la LUN ONTAP de destination.
+
+FLI fonctionne exclusivement au niveau LUN et est conçu pour les migrations SAN ; il ne s'agit pas d'un outil de migration au niveau fichier (les migrations NAS/protocoles de fichiers tels que NFS/SMB nécessitent des approches différentes). FLI prend en charge les migrations hors ligne et en ligne. En mode hors ligne, les E/S de l'hôte sont interrompues pendant l'importation ; en mode en ligne, les opérations de l'hôte reprennent après une brève interruption tandis que l'importation se poursuit en arrière-plan.
+
+Les LUN externes apparaissent dans la pile de stockage ONTAP et doivent être explicitement marquées comme étrangères afin d’éviter toute réécriture ou prise de contrôle accidentelle. FC FLI utilise une connectivité dorsale FC (ports initiateurs, zonage/masquage), tandis qu’avec iSCSI FLI, la connectivité dorsale utilise un initiateur logiciel iSCSI lié à la connectivité inter-clusters, tandis que le protocole côté hôte (frontend) après migration peut rester FC ou iSCSI selon la conception.
+
+.Comparaison FLI hors ligne et en ligne
+Ce qui suit résume les principales différences entre les approches de migration hors ligne et en ligne.
+
+[cols="3"]
+|===
+| Zone | FLI hors ligne | FLI en ligne 
+
+
+| E/S de l'hôte pendant l'importation | Les E/S de l'hôte sont interrompues pendant toute la durée de l'importation. | Les E/S de l'hôte peuvent fonctionner pendant que la copie d'importation se poursuit (après la bascule). 
+
+
+| Profil d'interruption | Nécessite une interruption pendant toute la durée de l'importation. | Conçu pour être le moins perturbateur possible, nécessitant généralement seulement une courte interruption pour la bascule. 
+
+
+| Cas d'utilisation opérationnel | Idéal lorsque des interruptions plus longues sont acceptables ou requises par l'application ou le modèle d'hôte. | Idéal lorsque l'interruption doit être minimisée et que vous pouvez tolérer une activité de copie en arrière-plan. 
+|===
+.Flux de travail FLI hors ligne
+Dans le flux de travail hors ligne, l'hôte est déconnecté pendant toute la durée de l'import.
+
+image::new-offline-fli.png[Flux de travail FLI hors ligne]
+
+.Flux de travail FLI en ligne
+Dans le flux de travail en ligne, l'hôte est déconnecté uniquement pendant une courte période de basculement, le temps que l'importation passe de la copie à la finalisation.
+
+image::new-online-fli.png[Flux de travail FLI hors ligne]

@@ -1,0 +1,16 @@
+---
+permalink: migrate/migrate-overview.html 
+sidebar: sidebar 
+keywords: foreign lun import, fli, ontap, migration, overview 
+summary: 'Cette section décrit le flux de travail d"importation des LUN étrangères (FLI), couvrant le cycle de vie complet depuis la découverte des LUN étrangères jusqu"à l"exécution de l"importation, la surveillance et le nettoyage final.' 
+---
+= Découvrez la migration ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cette section décrit le flux de travail d'importation des LUN externes (FLI), couvrant l'intégralité de leur cycle de vie, de la découverte des LUN externes à l'exécution de l'importation, en passant par la surveillance et le nettoyage final. Elle explique comment ONTAP utilise la connectivité backend établie (FC ou iSCSI) pour découvrir en toute sécurité les LUN externes après qu'elles ont été déprovisionnées des hôtes et mappées exclusivement aux initiateurs ONTAP, garantissant ainsi l'absence de risque de double présentation. Le flux de travail détaille ensuite comment les disques externes sont identifiés et marqués dans ONTAP, comment les LUN de destination sont provisionnés pour correspondre à la géométrie source, et comment des relations d'importation persistantes sont créées pour associer les périphériques source et de destination.
+
+Cette section clarifie également la différence opérationnelle entre les importations FLI hors ligne et en ligne, du point de vue de l’état du LUN et du timing, tout en soulignant que les commandes d’importation ONTAP sous-jacentes restent identiques dans les deux modes. Elle décrit comment les importations sont démarrées, surveillées, limitées (pause/reprise) et achevées, et comment une vérification optionnelle peut être utilisée pour valider l’intégrité des données si nécessaire. Enfin, elle détaille les étapes permettant de supprimer en toute sécurité la relation d’importation une fois la copie de données terminée, de transférer le LUN de destination en pleine production et de conclure le workflow FLI.

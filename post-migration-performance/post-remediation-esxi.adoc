@@ -1,0 +1,242 @@
+---
+permalink: post-migration-performance/post-remediation-esxi.html 
+sidebar: sidebar 
+keywords: host remediation, esxi, post-migration, fli, ontap 
+summary: Après la migration, les hôtes ESXi nécessitent des étapes de correction pour garantir que les LUN nouvellement importés soient correctement reconnus et fonctionnels. 
+---
+= Effectuer la correction des hôtes ONTAP FLI ESXi après migration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Après la migration, les hôtes ESXi nécessitent des étapes de correction pour garantir que les LUN nouvellement importés soient correctement reconnus et fonctionnels.
+
+
+
+== Après la migration - FLI hors ligne
+
+Pour FLI hors ligne, mettez le LUN en ligne après avoir supprimé l'importation du LUN et confirmé que les initiateurs hôtes sont connectés.
+
+[cols="4"]
+|===
+| Machines virtuelles/VMDK | RDM | WFSC | VMSC 
+
+
+| Étape 1 : Analyser à nouveau le stockage sur tous les hôtes ESXi mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes ESXi mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes ESXi mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes ESXi mappés. 
+
+
+| Étape 2 : Lister les détails du volume/périphérique pour confirmer les détails du système de fichiers sur le LUN. | Étape 2 : Identifier les nouveaux identifiants NAA et ajouter les RDM aux VM respectives. | Étape 2 : Lister les détails du volume/périphérique pour confirmer les détails du système de fichiers sur le LUN. | Étape 2 : Lister les détails du volume/périphérique pour confirmer les détails du système de fichiers sur le LUN. 
+
+
+| Étape 3 : Identifiez les détails de la banque de données et remontez les banques de données sur ESXi. | Étape 3 : Mettez sous tension les machines virtuelles invitées et démarrez les applications. | Étape 3 : Identifiez les détails de la banque de données et remontez les banques de données sur ESXi. | Étape 3 : Identifiez les détails de la banque de données et remontez les banques de données sur ESXi. 
+
+
+| Étape 4 : Identifiez les détails de la banque de données et remontez les banques de données sur ESXi. |  | Étape 4 : Identifiez les détails de la banque de données et remontez les banques de données sur ESXi. | Étape 4 : Mettez sous tension les machines virtuelles invitées et démarrez les applications. 
+
+
+|  |  | Étape 5 : identifier les disques RDM utilisés par le cluster et les réaffecter aux nœuds du cluster WFSC en utilisant les mêmes ID de contrôleur et numéros d’unité (par exemple, SCSI1:0) afin de maintenir la cohérence avec la configuration précédente. | Étape 5 : Mettez sous tension les machines virtuelles invitées et démarrez les applications 
+
+
+|  |  | Étape 6 : Mettez sous tension les machines virtuelles invitées et démarrez l’application du cluster. |  
+|===
+
+NOTE: Veuillez consulter la documentation du fournisseur du système d'exploitation pour obtenir la liste des commandes la plus récente et mise à jour.
+
+Effectuez une nouvelle analyse après détachement pour confirmer l'état propre::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+Quitter le mode maintenance une fois terminé::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+Analysez à nouveau le stockage sur tous les hôtes ESXi mappés sur le LUN::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+Répertoriez les périphériques et les systèmes de fichiers pour confirmer les détails du LUN / système de fichiers::
+
+
+[source, cli]
+----
+esxcli storage core device list
+esxcli storage filesystem list
+----
+Identifiez les nouveaux identifiants NAA s'ils ont changé après la migration::
+
+
+[source, cli]
+----
+esxcli storage core device list | grep -i naa
+----
+Monter les banques de données VMFS sur ESXi::
+
+
+[source, cli]
+----
+esxcli storage filesystem mount -l <DATASTORE_NAME>
+----
+Vérifier le montage du datastore::
+
+
+[source, cli]
+----
+esxcli storage filesystem list
+----
+Réintégrer RDM à la VM (effectué via l’interface utilisateur vSphere):: L'interface de ligne de commande (CLI) n'est généralement pas utilisée ; vérifiez plutôt la visibilité du périphérique backend.
++
+--
+[source, cli]
+----
+esxcli storage core device list -d <naa.ID>
+----
+--
+Quitter le mode maintenance (le cas échéant)::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+Mise sous tension des machines virtuelles invitées::
++
+--
+(Les opérations d'alimentation des machines virtuelles sont généralement effectuées via vCenter, mais la vérification peut être effectuée sur l'hôte ESXi)
+
+[source, cli]
+----
+vim-cmd vmsvc/getallvms
+vim-cmd vmsvc/power.on <VMID>
+----
+--
+
+
+
+
+== Après la migration - FLI en ligne
+
+Après avoir supprimé la relation d'importation, vérifiez que le nouveau LUN fonctionne indépendamment avec CAW/UNMAP/XCOPY/WRITESAME activés.
+
+Pour rétablir le mode de verrouillage VMFS en mode ATS uniquement, démontez la banque de données, configurez-la en mode ATS uniquement, puis remontez-la. Après avoir supprimé l'import LUN, vérifiez si l'option -space-reserve est désactivée et l'option -space-allocation activée. Si ce n'est pas le cas, modifiez-la en conséquence.
+
+[cols="3"]
+|===
+| Machines virtuelles/VMDK | RDM | VMSC 
+
+
+| Étape 1 : Analyser à nouveau le stockage sur tous les hôtes ESXi mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes ESXi mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes ESXi mappés. 
+
+
+| Étape 2 : Arrêtez les machines virtuelles invitées en douceur. |  | Étape 2 : Arrêtez les machines virtuelles invitées en douceur. 
+
+
+| Étape 3 : Démontez les banques de données prévues pour la migration ; si elles sont partagées, démontez-les de tous les hôtes. |  | Étape 3 : Démontez les banques de données prévues pour la migration ; si elles sont partagées, démontez-les de tous les hôtes. 
+
+
+| Étape 4 : Vérifiez le mode de verrouillage VMFS (ATS-only vs ATS+SCSI). Si ATS-SCSI, passez en mode ATS-only. |  | Étape 4 : Vérifiez le mode de verrouillage VMFS (ATS-only vs ATS+SCSI). Si ATS-SCSI, passez en mode ATS-only. 
+
+
+| Étape 5 : Identifiez les détails de la banque de données et remontez les banques de données sur ESXi. |  | Étape 5 : Activez VM-HA / DRS et configurez les disques de heartbeat requis si nécessaire. 
+
+
+| Étape 6 : Mettez sous tension les machines virtuelles invitées et démarrez les applications. |  | Étape 6 : Mettez sous tension les machines virtuelles invitées et lancez les applications 
+
+
+| Étape 7 : Valider le mode de verrouillage de la banque de données et l’état de la machine virtuelle/application |  | Étape 7 : Valider le mode de verrouillage de la banque de données et l’état de la machine virtuelle/application 
+|===
+Effectuez une nouvelle analyse après détachement pour confirmer l'état propre::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+Quitter le mode maintenance une fois terminé::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+Analysez à nouveau le stockage sur tous les hôtes ESXi mappés sur le LUN::
+
+
+[source, cli]
+----
+esxcli storage core adapter rescan --all
+----
+Répertoriez les périphériques et les systèmes de fichiers pour confirmer les détails du LUN / système de fichiers::
+
+
+[source, cli]
+----
+esxcli storage core device list
+esxcli storage filesystem list
+----
+Identifiez les nouveaux identifiants NAA s'ils ont changé après la migration::
+
+
+[source, cli]
+----
+esxcli storage core device list | grep -i naa
+----
+Monter les banques de données VMFS sur ESXi::
+
+
+[source, cli]
+----
+esxcli storage filesystem mount -l <DATASTORE_NAME>
+----
+Vérifier le montage du datastore::
+
+
+[source, cli]
+----
+esxcli storage filesystem list
+----
+Réintégrer RDM à la VM (effectué via l’interface utilisateur vSphere)::
++
+--
+L'interface de ligne de commande (CLI) n'est généralement pas utilisée ; vérifiez plutôt la visibilité du périphérique backend.
+
+[source, cli]
+----
+esxcli storage core device list -d <naa.ID>
+----
+--
+Quitter le mode maintenance (le cas échéant)::
+
+
+[source, cli]
+----
+esxcli system maintenanceMode set --enable false
+----
+Mise sous tension des machines virtuelles invitées::
++
+--
+(Les opérations d'alimentation des machines virtuelles sont généralement effectuées via vCenter, mais la vérification peut être effectuée sur l'hôte ESXi)
+
+[source, cli]
+----
+vim-cmd vmsvc/getallvms
+vim-cmd vmsvc/power.on <VMID>
+----
+--
+Si ATS+SCSI est détecté, convertissez en ATS uniquement::
+
+
+[source, cli]
+----
+vmkfstools --configATSOnly 1 /vmfs/volumes/<DATASTORE_NAME>
+----

@@ -1,0 +1,193 @@
+---
+permalink: phases/remediation-esxi.html 
+sidebar: sidebar 
+keywords: ontap, fli, foreign lun import, esxi host, pre-migration, offline fli, online fli 
+summary: 'Avant d"exécuter la migration ONTAP FLI sur un hôte ESXi, complétez ces étapes préalables à la migration. Il existe des étapes distinctes pour les migrations hors ligne et en ligne.' 
+---
+= Correction de l'hôte ONTAP FLI ESXi
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant d'exécuter la migration ONTAP FLI sur un hôte ESXi, complétez ces étapes préalables à la migration. Il existe des étapes distinctes pour les migrations hors ligne et en ligne.
+
+
+
+== Pré-migration - FLI hors ligne
+
+Cette série d'étapes est commune aux opérations FLI en ligne et hors ligne. Avant de déprovisionner le LUN source de l'hôte, assurez-vous d'avoir effectué les étapes suivantes.
+
+[cols="4"]
+|===
+| Machines virtuelles/VMDK | RDM | WSFC | VMSC 
+
+
+ a| 
+Étape 1 : Arrêtez les machines virtuelles invitées en douceur.
+ a| 
+Étape 1 : Pour les machines virtuelles utilisant des RDM, identifiez le mappage backend avec le périphérique nmp et supprimez les disques RDM en douceur.
+ a| 
+Étape 1 : Si WFSC est présent, arrêtez le cluster correctement et suivez les étapes de remédiation de Windows pour supprimer les disques.
+ a| 
+Étape 1 : Si VM-HA ou VMSC est configuré, désactivez HA, libérez le(s) disque(s) de pulsation le cas échéant et ajustez la configuration du cluster selon les besoins.
+
+
+
+ a| 
+Étape 2 : Démontez les datastores prévus pour la migration ; si partagés, démontez-les de tous les hôtes.
+ a| 
+Étape 2 : Détacher les périphériques NMP concernés par la migration.
+ a| 
+Étape 2 : Arrêtez les machines virtuelles invitées en douceur.
+ a| 
+Étape 2 : Démontez les datastores prévus pour la migration ; si partagés, démontez-les de tous les hôtes.
+
+
+
+ a| 
+Étape 3 : Vérifiez le mode de verrouillage VMFS (ATS-only vs ATS+SCSI). Si ATS-only, passez à SCSI (requis uniquement pour Online FLI).
+ a| 
+ a| 
+Étape 3 : Démontez les datastores prévus pour la migration ; si elles sont partagées, démontez-les de tous les hôtes.
+ a| 
+Étape 3 : Détacher les périphériques NMP concernés par la migration.
+
+
+
+ a| 
+Étape 4 : Détacher les périphériques NMP concernés par la migration.
+|   a| 
+Étape 4 : Détacher les périphériques NMP concernés par la migration.
+|  
+|===
+.Points clés à retenir
+* Le paramètre *ATS uniquement* est stocké dans l'en-tête VMFS, qui se trouve sur la première étendue du datastore. Si le datastore s'étend sur plusieurs étendues, seule la première étendue nécessite une correction.
+* Si la banque de données est partagée entre plusieurs hôtes ESXi, sa mise à jour depuis un seul hôte est généralement suffisante ; les autres hôtes prennent en compte la modification après une nouvelle analyse/un remontage.
+* Aucune opération d'E/S active ne doit être exécutée sur la banque de données pendant le passage en mode ATS uniquement. VMware recommande d'évacuer/migrer ou d'arrêter les machines virtuelles, puis de les démonter/remonter si nécessaire pour appliquer la modification.
+
+
+
+
+=== Exemples de commandes ESX : Bloc de synchronisation
+
+Mettre l'hôte en mode maintenance::
+
+
+esxcli system maintenanceMode set --enable true
+
+Identifier les périphériques de stockage et les banques de données::
+
+
+[Source]
+----
+esxcli storage core device list
+esxcli storage filesystem list
+----
+Vérifier le mode de verrouillage ATS de VMFS::
+
+
+vmkfstools --queryfs -h /vmfs/volumes/<DATASTORE_NAME>
+
+Démontez la datastore (répétez l'opération sur tous les hôtes ESXi si elle est partagée)::
+
+
+esxcli storage filesystem unmount -l <DATASTORE_NAME>
+
+Détacher le périphérique de support (NMP / périphérique naa)::
+
+
+esxcli storage core device set -d <naa.ID> --state=off
+
+Vérifiez que l'appareil est détaché::
+
+
+esxcli storage core device list -d <naa.ID>
+
+Effectuez une nouvelle analyse après détachement pour confirmer l'état propre::
+
+
+esxcli storage core adapter rescan --all
+
+Quitter le mode maintenance une fois terminé::
+
+
+esxcli system maintenanceMode set --enable false
+
+
+
+== Pré-migration - FLI en ligne
+
+Vous trouverez ci-dessous les étapes spécifiques de la procédure FLI en ligne, mais ces étapes doivent être précédées des étapes de la procédure FLI hors ligne de pré-migration.
+
+Les étapes suivantes doivent être effectuées après que le NetApp LUN a été provisionné sur l'hôte.
+
+À ce stade, l'importation de la LUN est déjà créée, la LUN est mappée à l'igroup de l'hôte et un initiateur iSCSI ou FC est connecté depuis l'hôte.
+
+En cas de FLI hors ligne, le NetApp LUN reste en état hors ligne.
+
+[cols="3"]
+|===
+| Machines virtuelles/VMDK | RDM | VMSC 
+
+
+| Étape 1 : Analyser à nouveau le stockage sur tous les hôtes ESXi mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes ESXi mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes ESXi mappés. 
+
+
+| Étape 2 : Lister les détails du volume/périphérique pour confirmer les détails du système de fichiers sur le LUN. | Étape 2 : Identifier les nouveaux identifiants NAA et ajouter les RDM aux VM respectives. | Étape 2 : Lister les détails du volume/périphérique pour confirmer les détails du système de fichiers sur le LUN. 
+
+
+| Étape 3 : Identifiez les détails de la banque de données et remontez les banques de données sur ESXi. | Étape 3 : Mettez sous tension les machines virtuelles invitées et démarrez les applications. | Étape 3 : Identifiez les détails de la banque de données et remontez les banques de données sur ESXi. 
+
+
+| Étape 4 : Mettez sous tension les machines virtuelles invitées et démarrez les applications. |  | Étape 4 : Mettez sous tension les machines virtuelles invitées et démarrez les applications. 
+
+
+|  |  | Étape 5 : Mettez sous tension les machines virtuelles invitées et démarrez les applications 
+|===
+
+NOTE: Consultez la documentation du fournisseur du système d'exploitation pour obtenir la liste des commandes la plus récente et mise à jour.
+
+Mettre l'hôte en mode maintenance::
+
+
+esxcli system maintenanceMode set --enable true
+
+Identifier les périphériques de stockage et les banques de données::
+
+
+[Source]
+----
+esxcli storage core device list
+esxcli storage filesystem list
+----
+Vérifier le mode de verrouillage ATS de VMFS::
+
+
+vmkfstools --queryfs -h /vmfs/volumes/<DATASTORE_NAME>
+
+Démontez la datastore (répétez l'opération sur tous les hôtes ESXi si elle est partagée)::
+
+
+esxcli storage filesystem unmount -l <DATASTORE_NAME>
+
+Si ATS uniquement est détecté, convertissez en ATS+SCSI::
+
+
+vmkfstools --configATSOnly 0 /vmfs/volumes/<DATASTORE_NAME>
+
+Détacher le périphérique de support (NMP / périphérique naa)::
+
+
+esxcli storage core device set -d <naa.ID> --state=off
+
+Vérifiez que l'appareil est détaché::
+
+
+esxcli storage core device list -d <naa.ID>
+
+Effectuez une nouvelle analyse après détachement pour confirmer l'état propre::
+
+
+esxcli storage core adapter rescan --all

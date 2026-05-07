@@ -1,0 +1,37 @@
+---
+permalink: get-started/key-features-benefits.html 
+sidebar: sidebar 
+keywords: fli, foreign lun import, ontap fli, block migration, san migration, online migration, offline migration, key features, benefits, multipathing, fibre channel, iscsi, lun import, data migration, load balancing 
+summary: 'Découvrez les principales caractéristiques et les avantages d"ONTAP FLI, notamment les options de migration en ligne et hors ligne et la migration de baie LUN au niveau bloc pour les environnements SAN.' 
+---
+= Découvrez les principales fonctionnalités et avantages de ONTAP Foreign LUN Import
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP Foreign LUN Import (FLI) est une fonctionnalité intégrée de migration de blocs qui copie les données d'une baie LUN externe (tierce) vers une LUN ONTAP native et prend en charge les styles de migration hors ligne et en ligne. FLI est conçue pour migrer des LUN SAN depuis diverses baies tierces vers ONTAP, et elle offre une méthodologie de migration cohérente qui aide à standardiser la planification, l'exécution et la validation sur différents hôtes et baies.
+
+
+
+== Caractéristiques principales
+
+* Migrations en ligne et hors ligne pour répondre aux exigences d'interruption des activités.
+* La migration au niveau bloc, indépendante du système d'exploitation, ne dépend pas des gestionnaires de volumes hôtes ni des utilitaires du système d'exploitation pour déplacer les données.
+* Fonctionne dans des environnements SAN hétérogènes et est conçu pour migrer les LUN SAN d'une gamme de baies tierces vers ONTAP.
+* Le transport backend est flexible avec une connectivité backend FC et iSCSI, bien que les configurations prises en charge dépendent de la validation de l'interopérabilité.
+* Prise en charge native du multipathing et de l'équilibrage de charge qui exploite les modèles de chemin SAN standard.
+* Contrôle et visibilité via l'interface de ligne de commande (CLI), permettant une exécution reproductible et une surveillance opérationnelle.
+
+
+
+
+== Principaux avantages
+
+* ONTAP FLI est inclus avec ONTAP. Aucun dispositif de migration distinct n'est requis pour effectuer des importations LUN basées sur FLI.
+* Réduit le risque d'interruption en permettant un flux de travail en ligne où l'accès à l'hôte peut reprendre après une courte transition, tandis que l'importation se poursuit en arrière-plan.
+* Méthodologie de migration cohérente qui contribue à standardiser la planification, l'exécution et la validation sur différents hôtes et baies.
+* Prend en charge les scénarios de transition complexes, y compris les migrations de 7 Mode vers ONTAP où les considérations d'alignement et de format peuvent être abordées dans le cadre du flux de travail de transition.
+* Modèle opérationnel solidement étayé, bien que les services professionnels ne soient pas obligatoires, NetApp recommande de recourir à des services professionnels ou à des partenaires qualifiés pour la définition du périmètre, la planification et la formation pour tout projet allant au-delà des simples migrations.
+

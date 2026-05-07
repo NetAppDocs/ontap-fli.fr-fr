@@ -1,0 +1,60 @@
+---
+permalink: get-started/learn-about-data-migration.html 
+sidebar: sidebar 
+keywords: data migration, foreign lun import, fli, ontap, foreign array, san migration, fibre channel, iscsi, offline import, online import, import relationship, lun migration, migration methodology, scsi initiator, 7 mode 
+summary: 'Découvrez le programme de migration des données ONTAP, y compris les termes clés et une méthodologie en cinq phases couvrant la découverte jusqu"à la vérification pour les migrations SAN.' 
+---
+= Découvrez le programme de migration des données ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Le programme de migration des données propose des solutions éprouvées pour aider les clients à transférer des données depuis des baies tierces vers ONTAP, et à migrer les LUN des systèmes NetApp 7 Mode vers ONTAP, l’Importation de LUN externes (FLI) constituant un élément clé de ce portefeuille de migration. Pour améliorer la réussite des migrations et réduire les efforts, le programme fournit les outils, les conseils et l’accompagnement nécessaires pour exécuter les migrations efficacement et de manière cohérente, aidant ainsi les clients à adopter les technologies NetApp plus rapidement et avec une plus grande confiance.
+
+Les migrations de données s'accompagnent souvent de véritables défis opérationnels : fenêtres d'interruption prolongées, risques pour les charges de travail en production, ressources limitées et lacunes en matière d'expertise spécialisée. Face à des exigences de disponibilité toujours plus élevées et à des interruptions de plus en plus inacceptables, les migrations doivent être planifiées dans le cadre de la continuité d'activité. L'impact sur les performances, l'intégrité des données et la perte de données étant des préoccupations courantes lors de toute migration, comprendre les concepts fondamentaux de FLI et le flux de travail en amont permet de rationaliser l'exécution et de réduire la configuration initiale ainsi que la charge opérationnelle.
+
+FLI est une fonctionnalité de migration des données ONTAP qui copie les données utilisateur d'une baie LUN étrangère (tierce partie) vers un LUN ONTAP natif. ONTAP effectue la migration en agissant comme initiateur SCSI : il lit les blocs du LUN étranger et les écrit dans le LUN ONTAP de destination.
+
+ONTAP FLI était pris en charge lorsque la baie LUN étrangère était accessible via Fibre Channel (FC). À partir d'ONTAP 9.19.1, la prise en charge d'iSCSI FLI a été ajoutée pour accéder aux baies LUN étrangères en utilisant le transport iSCSI sur le backend. Avec iSCSI FLI, le chemin backend vers la baie source est iSCSI/TCP, tandis que l'accès hôte frontal au LUN ONTAP peut se faire soit par FC, soit par iSCSI (le backend et le frontend peuvent différer).
+
+iSCSI et FC ONTAP FLI prennent en charge à la fois les importations hors ligne (aucune E/S hôte pendant l'importation) et les importations en ligne (l'hôte reste connecté, avec une seule brève interruption).
+
+
+
+== Termes clés
+
+Baie externe:: Tout système de stockage qui n'exécute pas ONTAP (y compris NetApp 7 Mode dans un contexte de transition du mode 7 vers ONTAP).
+LUN étranger:: Un LUN contenant des données utilisateur sur la baie externe dans le format natif de cette baie.
+Relation d'importation:: Un appariement persistant entre le LUN étranger (source) et le LUN ONTAP (destination) utilisé pour la copie de données.
+Importation de LUN:: Le processus qui transfère les blocs du LUN étranger vers le LUN ONTAP.
+
+
+
+
+== Méthodologie de haut niveau
+
+Phase de découverte:: Dressez un inventaire complet de l'environnement—hôtes, systèmes de stockage et infrastructures SAN/réseau—afin de comprendre ce qui existe et comment tout est connecté.
+Phase d'analyse:: Examinez l'inventaire collecté et déterminez l'approche de migration la plus appropriée pour chaque hôte et baie source en fonction de la compatibilité, des risques et des contraintes opérationnelles.
+Phase de planification:: Élaborer et valider le plan de migration, provisionner le stockage ONTAP de destination et préparer les outils de migration et de qualification requis ainsi que les manuels d'exploitation.
+Phase d'exécution:: Effectuez la migration (importation/copie) et complétez les actions de correction et de basculement de l’hôte requises selon le workflow sélectionné (online ou offline).
+Phase de vérification:: Vérifiez que les données et la configuration migrées se comportent comme prévu, validez l'accès à l'hôte et le multipathing, et documentez l'état final et les résultats pour le transfert opérationnel.
+
+
+
+
+== Public visé
+
+Ces informations sont destinées aux clients, partenaires et NetApp field teams qui planifient ou exécutent des migrations de données SAN (blocs/LUN) vers ONTAP, en particulier les migrations qui utilisent Foreign LUN Import (FLI) et les options de migration associées.
+
+.Lecteurs primaires
+* Les administrateurs de stockage client / administrateurs SAN sont responsables de la planification de l’approche de migration, de la préparation d’ONTAP, de la coordination des fenêtres de changement et de la validation de l’accès hôte/multipathing.
+* Responsables de migration / propriétaires de projets techniques qui ont besoin de conseils de haut niveau pour choisir entre FLI, les options basées sur des appliances ou les méthodes de migration basées sur l’hôte/l’application, et pour estimer les délais et les efforts.
+* NetApp et des ingénieurs en services professionnels partenaires qui prennent en charge la définition du périmètre, la planification, la qualification et l'accompagnement du client dans le cadre de la migration (recommandé pour la plupart des migrations, sauf les plus simples).
+
+
+.Les lecteurs doivent avoir des connaissances de base sur :
+* Concepts SAN (masquage/mappage LUN, zonage ou réseau iSCSI, multipathing/ALUA) et pratiques standard de contrôle des changements.
+* Principes fondamentaux de l'administration ONTAP et utilisation des outils de planification associés (tels que la collecte de données d'environnement et les utilitaires de validation d'interopérabilité).
+

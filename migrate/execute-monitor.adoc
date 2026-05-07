@@ -1,0 +1,95 @@
+---
+permalink: migrate/execute-monitor.html 
+sidebar: sidebar 
+keywords: lun import start, execute import, monitor import, foreign lun import, fli, ontap, lun import show, import progress, pause import, resume import, san migration, online fli, offline fli, asa r2 
+summary: 'Démarrez l"importation du LUN et suivez sa progression. Mettez en pause puis reprenez le flux de copie pour gérer la contention de bande passante entre l"importation et les charges de travail hôtes actives.' 
+---
+= Exécutez et surveillez l'importation du LUN FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Une fois la relation d'importation créée, vous utilisez la commande lun import start pour démarrer l'importation en arrière-plan des données depuis la baie LUN étrangère vers la baie LUN ONTAP de destination, et vous suivez la progression avec la commande lun import show, qui indique l'opération en cours (telle que l'importation ou la vérification), les états administratifs et opérationnels, ainsi que le pourcentage d'achèvement afin que vous puissiez suivre la tâche jusqu'à son terme.
+
+Dans les scénarios en ligne où les E/S de l'hôte et l'importation se disputent les mêmes ressources backend, vous pouvez temporairement utiliser la commande lun import pause pour interrompre le flux de copie sans perdre de points de contrôle, puis la commande lun import resume pour reprendre à partir du dernier point de contrôle lorsque la charge et la latence se stabilisent ; il s'agit d'un paramètre de contrôle recommandé pour réguler les flux de copie actifs tout en maintenant des temps de réponse stables pour l'application.
+
+.À propos de cette tâche
+À partir d'ONTAP 9.17.1, la migration des données des LUN externes via la migration hors ligne FLI est prise en charge avec les systèmes ASA r2. Les systèmes ASA r2 se distinguent des autres systèmes ONTAP (ASA, AFF et FAS) par l'implémentation de leur couche de stockage. Dans les systèmes ASA r2, les volumes sont créés automatiquement lors de la création d'une unité de stockage (LUN ou namespace). Chaque volume contient uniquement une unité de stockage. Par conséquent, pour les systèmes ASA r2, il n'est pas nécessaire d'inclure le nom du volume dans l'option  `-path` lors de la création du LUN ; il convient d'inclure le chemin d'accès à l'unité de stockage à la place.
+
+.Étapes
+. Définissez le niveau de privilège sur avancé :
++
+[source, cli]
+----
+set -privilege advanced
+----
+. Démarrez l'importation du LUN :
++
+[source, cli]
+----
+lun import start -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+. Surveillez la progression de l'importation :
++
+[cols="2"]
+|===
+| Commande | Description 
+
+
+| Afficher toutes les importations sur une SVM  a| 
+[source, cli]
+----
+lun import show -vserver <SVM_NAME>
+----
+
+
+| Afficher une importation LUN spécifique  a| 
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+
+
+| Vue détaillée (comprend plus de champs)  a| 
+[source, cli]
+----
+lun import show -instance
+----
+|===
+. Si la latence de l'hôte est affectée (contrôle en ligne courant), mettre en pause/reprendre :
++
+[cols="2"]
+|===
+| Commande | Description 
+
+
+| Suspendre l'importation (conserve les points de contrôle)  a| 
+[source, cli]
+----
+lun import pause -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+
+
+| Confirmez qu'il est en pause  a| 
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+
+
+| Reprendre l'importation à partir du dernier point de contrôle  a| 
+[source, cli]
+----
+lun import resume -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+
+
+| Vérifiez qu'il fonctionne à nouveau  a| 
+[source, cli]
+----
+lun import show -vserver <SVM_NAME> -path /vol/<VOL>/<LUN_NAME>
+----
+|===
+

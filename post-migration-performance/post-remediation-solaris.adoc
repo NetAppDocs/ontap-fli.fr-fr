@@ -1,0 +1,143 @@
+---
+permalink: post-migration-performance/post-remediation-solaris.html 
+sidebar: sidebar 
+keywords: host remediation, solaris, post-migration, fli, ontap 
+summary: Après la migration, les hôtes Solaris nécessitent des mesures correctives pour garantir que les LUN nouvellement importés soient correctement reconnus et fonctionnels. 
+---
+= Effectuer la correction des hôtes Solaris après la migration ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Après la migration, les hôtes Solaris nécessitent des mesures correctives pour garantir que les LUN nouvellement importés soient correctement reconnus et fonctionnels.
+
+
+
+== Post-migration - FLI hors ligne
+
+Pour FLI hors ligne, mettez le LUN en ligne après avoir supprimé l'import du LUN et confirmé que les initiateurs hôtes sont connectés.
+
+[cols="5"]
+|===
+| Système de fichiers | Périphérique de bloc | LVM (FS) | Cluster | Sanboot 
+
+
+| Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés | Étape 1 : Mettez le serveur sous tension 
+
+
+| Étape 2 : identifier les dispositifs à trajets multiples | Étape 2 : identifier les dispositifs à trajets multiples | Étape 2 : identifier les dispositifs à trajets multiples | Étape 2 : identifier les dispositifs à trajets multiples | Étape 2 : Sur le serveur SPARC OBP, configurez le nouveau périphérique de démarrage présenté à cet HBA Host 
+
+
+| Étape 3 : Vérifier les détails du pool | Étape 3 : Identifiez l’ID du périphérique multipath et présentez-le à l’application correspondante. | Étape 3 : vérifier l'état du pool | Étape 3 : Vérifier les détails du système de fichiers | Étape 3 : Redémarrez l’hôte pour démarrer à partir du LUN nouvellement mappé qui fait partie de LUN Import 
+
+
+| Étape 4 : Remontez les périphériques dans leurs dossiers respectifs |  | Étape 4 : Importer le pool | Étape 4 : vérifiez la configuration requise du cluster et démarrez l’application du cluster |  
+
+
+|  |  | Étape 5 : Lister les systèmes de fichiers présents sur le pool | Étape 5 : Validez l'état du cluster et l'application qui consomme. |  
+
+
+|  |  | Étape 6 : Remonter le système de fichiers dans les dossiers respectifs |  |  
+|===
+
+NOTE: Veuillez consulter la documentation du fournisseur du système d'exploitation pour obtenir la liste des commandes la plus récente et mise à jour.
+
+.Étapes
+. Relancez l'analyse après la connexion.
++
+[source, cli]
+----
+cfgadm -al
+----
+. Identifier les périphériques de stockage.
++
+[source, cli]
+----
+format
+sanlun lun show all
+mpathadm list lu
+mpathadm show lu
+----
+. Vérifiez que l'appareil est connecté.
++
+[source, cli]
+----
+format |grep disk_id
+----
+. Importez le zpool et le système de fichiers sera automatiquement monté.
++
+[source, cli]
+----
+zpool import zpool_name
+df -g (to ensure its unmounted)
+----
+
+
+
+
+== Après la migration - FLI en ligne
+
+Après avoir supprimé l'importation LUN, vérifiez si la LUN est configurée avec -space-reserve désactivé et -space-allocation activé. Si ce n'est pas le cas, modifiez-la en conséquence.
+
+[cols="4"]
+|===
+| Système de fichiers | Périphérique de bloc | LVM (FS) | Sanboot 
+
+
+| Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés. | Étape 1 : Analyser à nouveau le stockage sur tous les hôtes Solaris mappés. 
+|===
+
+NOTE: Veuillez consulter la documentation du fournisseur du système d'exploitation pour obtenir la liste des commandes la plus récente et mise à jour.
+
+.Étapes
+. Relancez l'analyse après la connexion.
++
+[source, cli]
+----
+cfgadm -al
+----
+. Identifier les périphériques de stockage.
++
+[source, cli]
+----
+format
+sanlun lun show all
+mpathadm list lu
+mpathadm show lu
+----
+. Vérifiez que l'appareil est connecté.
++
+[source, cli]
+----
+`format |grep disk_id`
+----
+. Importez le zpool et le système de fichiers sera automatiquement monté.
++
+[source, cli]
+----
+zpool import zpool_name
+df -g
+----
+
+
+[cols="2"]
+|===
+|  | Solaris 
+
+
+| Étape 1 | Capture des informations de l'hôte. 
+
+
+| Étape 2 | Démontez le système de fichiers. 
+
+
+| Étape 3 | Faites une sauvegarde du VG. 
+
+
+| Étape 4 | Désactivez le VG. 
+
+
+| Étape 5 | Exporter le VG. 
+|===

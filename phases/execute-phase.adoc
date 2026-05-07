@@ -1,0 +1,70 @@
+---
+permalink: phases/execute-phase.html 
+sidebar: sidebar 
+keywords: execute phase, foreign lun import, fli, offline fli, online fli, cutover, import jobs, san migration, zoning, host remediation, iscsi fli, fc fli 
+summary: 'Découvrez la phase d"exécution qui couvre les tâches de bout en bout nécessaires pour effectuer une migration FLI hors ligne ou en ligne et faire passer l"accès hôte à ONTAP.' 
+---
+= Phase d'exécution de l'importation de LUN externes ONTAP (FLI)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase d'exécution correspond à la phase de migration. Elle englobe toutes les tâches nécessaires à l'exécution d'une opération d'importation de baie LUN externe, en ligne ou hors ligne, et à la transition de l'accès hôte de la baie externe vers la baie ONTAP.
+
+
+
+== Tâches de phase d'exécution ONTAP FLI
+
+Voici les tâches d'exécution ONTAP FLI pour chaque composant.
+
+[cols="1,2"]
+|===
+| Composant | Tâches 
+
+
+| Hôte  a| 
+* Consultez les journaux d'événements de l'hôte et les journaux système pour détecter les problèmes au plus tôt et réduire les risques avant toute reconfiguration majeure.
+* Redémarrez les hôtes si nécessaire pour garantir la stabilité avant une bascule anticipée ou une remédiation.
+* Après la bascule, vérifiez l'accès à l'hôte. Tous les périphériques attendus sont présents, le multipathing est fonctionnel, et les applications et systèmes de fichiers démarrent correctement.
+
+
+
+
+| iSCSI FLI et le réseau  a| 
+* Confirmez l'accessibilité de l'IC LIF aux portails cibles de la baie étrangère et assurez-vous que la connectivité du backend reste stable tout au long de l'importation.
+* Vérifiez que les sessions iSCSI restent fonctionnelles car elles permettent la découverte des LUN externes et la disponibilité des chemins d’accès.
+
+
+
+
+| Structure  a| 
+* Assurez-vous que le zonage et le masquage requis sont en place afin que les ports initiateurs ONTAP puissent accéder aux LUN de la baie étrangère pour la découverte et l'importation.
+* Après la bascule, mettez à jour le zonage si nécessaire afin que les hôtes accèdent aux LUNs ONTAP de destination et préparez-vous au nettoyage ultérieur.
+
+
+
+
+| Baie de stockage NetApp (Destination)  a| 
+* Vérifiez que les LUN étrangères sont détectées dans ONTAP avant de créer des tâches d'importation.
+* Créez la relation d'importation et lancez les tâches d'importation une fois la découverte confirmée.
+* Surveillez la progression de l'importation et gérez les exceptions. Utilisez la pause et la reprise au besoin pour réguler les flux de copie, surtout si la latence de l'hôte augmente.
+* Gestion de la transition :
++
+** La bascule FLI hors ligne a lieu une fois l'import terminée.
+** La bascule vers l’hôte FLI en ligne s’effectue plus tôt tandis que l’importation se poursuit en arrière-plan.
+
+
+
+
+
+
+| Baie de stockage externe (Source)  a| 
+* Assurez-vous que les LUN sources destinées à la migration sont correctement présentées pour la découverte et l'importation ONTAP (masquage FC ou visibilité de la cible iSCSI selon le transport).
+* Veillez à ce que les LUN sources ne soient pas accessibles via l'hôte pendant l'importation. Ceci est essentiel pour garantir que des opérations d'écriture ne soient pas effectuées à partir de plusieurs sources.
+* Lors de la bascule en ligne, coordonnez les actions de démappage et de remappage nécessaires pour éviter la double présentation et garantir une transition propre de l'hôte vers ONTAP.
+
+
+|===
+Pour les interfaces FLI utilisant FC ou iSCSI, la réussite de l'exécution dépend fortement du maintien d'une connectivité stable avec le backend, en garantissant l'intégrité de la session FC/iSCSI et une redondance complète du chemin vers le LUN étranger. Étant donné que les E/S de l'hôte (en ligne) et la copie d'importation peuvent consommer les mêmes ressources backend, l'importation peut être limitée opérationnellement (par exemple, à l'aide de pause et reprise) si nécessaire pour protéger la latence de l'hôte, et les migrations sont généralement planifiées pendant les périodes creuses.

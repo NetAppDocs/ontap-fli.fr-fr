@@ -1,0 +1,16 @@
+---
+permalink: configure/config-overview.html 
+sidebar: sidebar 
+keywords: foreign lun import, fli, ontap, configuration, overview 
+summary: 'Cette section décrit le cadre de configuration et de validation de l"importation de LUN étrangères (FLI) à l"aide de la connectivité backend Fibre Channel (FC) et iSCSI.' 
+---
+= Découvrez la configuration ONTAP FLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cette section décrit le cadre de configuration et de validation de l'importation de LUN externes (FLI) utilisant une connectivité Fibre Channel (FC) et iSCSI. Elle vise à garantir un accès fiable et redondant depuis ONTAP vers la baie de stockage externe lors de la découverte et de l'importation des LUN, tout en maintenant une séparation claire des chemins d'accès hôtes. Le contenu détaille les principes de conception SAN recommandés (FC double fabric, utilisation des ports initiateur/cible et bonnes pratiques de zonage), les exigences de configuration des adaptateurs sur ONTAP et les contrôles opérationnels permettant de confirmer que les LUN externes sont visibles et opérationnels avant le lancement de l'importation.
+
+En outre, il détaille le modèle FLI du backend iSCSI, qui utilise l’initiateur iSCSI logiciel ONTAP lié aux LIF intercluster (IC LIF), en mettant l’accent sur la création explicite de sessions (pas de sessions de découverte), la connectivité maillée complète pour la résilience et la validation stricte de l’accessibilité réseau et de l’état des sessions. Dans les scénarios FC et iSCSI, l’objectif est d’établir un transport backend déterministe et supportable qui réponde aux prérequis FLI, permette une découverte cohérente des LUN étrangères sur tous les chemins et fournisse l’instrumentation nécessaire (statistiques et visibilité) pour résoudre les problèmes lors de la découverte et de l’exécution de l’importation.

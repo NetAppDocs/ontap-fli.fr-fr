@@ -1,0 +1,31 @@
+---
+permalink: get-started/prerequisites.html 
+sidebar: sidebar 
+keywords: fli prerequisites, foreign lun import, ontap fli, fc backend, iscsi backend, intercluster lif, lun discovery, import relationship, 512 byte sectors, igroup, lun mapping, fibre channel, iscsi initiator 
+summary: 'Examinez les prérequis pour ONTAP Foreign LUN Import, y compris la connectivité backend, la découverte des LUN et les exigences relatives aux relations d"importation.' 
+---
+= Découvrez les prérequis pour l'importation de LUN externes ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Avant de lancer une importation de LUN externe ONTAP (FLI), plusieurs prérequis doivent être remplis pour garantir le succès de la migration. Ces prérequis concernent la compatibilité, la connectivité et la configuration, éléments essentiels au bon fonctionnement du processus FLI.
+
+* La connectivité du backend doit être disponible pour le transport choisi :
++
+** FC FLI nécessite au moins un port FC par contrôleur pouvant fonctionner en mode initiateur (deux ports, un par structure, sont préférables pour la redondance).
+** iSCSI FLI nécessite des LIF intercluster (IC) (ou des ports Ethernet capables d’héberger des LIF IC), car l’initiateur logiciel iSCSI lie les sessions sortantes à la connectivité IC.
+
+
+* Le LUN externe doit être détectable dans ONTAP avant l'importation. La baie LUN externe doit être visible dans la pile de stockage ONTAP (la détection est une condition préalable à l'importation).
+* Marquez la LUN source comme « étrangère » dans ONTAP. Une fois le LUN étranger détecté, il doit être explicitement marqué comme étranger afin d’éviter toute prise de possession ou écrasement accidentel.
+* Le LUN source doit être stable. Le LUN étranger ne doit pas s'étendre ni se contracter pendant le processus d'importation.
+* Le LUN étranger doit utiliser des secteurs de 512 octets (taille de bloc de 512B) pour la compatibilité d'importation, les autres tailles de secteur ne sont pas prises en charge pour l'importation.
+* La taille du LUN ONTAP de destination doit correspondre à celle du LUN source. Le workflow « créer un LUN à l’aide d’un disque étranger » garantit que le LUN de destination est créé à la taille correcte.
+* Le LUN ONTAP de destination doit être mappé à au moins un igroup en fonction du plan de protocole frontal afin que l’hôte puisse être connecté à l’étape appropriée du flux de travail.
+* Le LUN étranger et le LUN ONTAP de destination doivent être appariés via une relation d'importation avant de démarrer la copie d'importation.
+
+
+Maintenez le LUN ONTAP de destination hors ligne avant de créer la relation d'importation ; après la création de la relation, le LUN ne peut être mis en ligne que lors de l'exécution de FLI en ligne afin que l'hôte puisse reprendre les E/S pendant que la copie se poursuit.

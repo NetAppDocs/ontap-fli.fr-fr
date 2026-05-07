@@ -1,0 +1,88 @@
+---
+permalink: migrate/create-import-relationship.html 
+sidebar: sidebar 
+keywords: lun import relationship, foreign lun import, fli, ontap, create import relationship, lun create, igroup, lun mapping, destination lun, foreign disk, asa r2, san migration, offline fli, online fli 
+summary: 'Créez la relation d"importation LUN pour associer le LUN étranger à un LUN ONTAP de destination dont la taille est automatiquement ajustée pour correspondre à celle du LUN source.' 
+---
+= Créer la relation d'importation ONTAP FLI LUN
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Une fois le LUN externe détecté et marqué comme tel, vous pouvez créer la relation d'importation LUN afin d'associer le LUN externe à un LUN ONTAP de destination. Le LUN ONTAP de destination est créé à l'aide de l'identifiant du disque externe afin qu'il soit automatiquement dimensionné pour correspondre à la source. Le LUN de destination est mappé au groupe d'initiateurs approprié en fonction du protocole frontal prévu et du plan de basculement, puis mis hors ligne par mesure de sécurité avant la configuration de l'importation.
+
+Utilisez les commandes  `lun create` et  `lun import create` comme indiqué pour effectuer les opérations suivantes :
+
+* Créez le LUN ONTAP de destination en utilisant l'identifiant du disque étranger afin que la destination soit automatiquement dimensionnée pour correspondre à la source.
+* Préparez l'accès hôte en définissant l'igroup approprié en fonction du protocole frontal prévu et en mappant le LUN de destination comme requis par le plan de basculement.
+* Mettez hors ligne le LUN de destination par mesure de sécurité avant la configuration de l'importation.
+* Créez la relation d'importation LUN qui associe de manière permanente le disque étranger à la baie LUN de destination ONTAP et le prépare pour l'opération de copie de données suivante.
+
+
+.À propos de cette tâche
+À partir d'ONTAP 9.17.1, la migration des données des LUN externes via la migration hors ligne FLI est prise en charge avec les systèmes ASA r2. Les systèmes ASA r2 se distinguent des autres systèmes ONTAP (ASA, AFF et FAS) par l'implémentation de leur couche de stockage. Dans les systèmes ASA r2, les volumes sont créés automatiquement lors de la création d'une unité de stockage (LUN ou namespace). Chaque volume contient uniquement une unité de stockage. Par conséquent, pour les systèmes ASA r2, il n'est pas nécessaire d'inclure le nom du volume dans l'option  `-path` lors de la création du LUN ; il convient d'inclure le chemin d'accès à l'unité de stockage à la place.
+
+.Étapes
+. Créer un LUN de destination NetApp dimensionné pour correspondre au disque étranger :
++
+Cela garantira que le NetApp LUN et le LUN étranger ont la même taille.
+
++
+[source, cli]
+----
+lun create -vserver <SVM> -path /vol/<VOL>/<lun_name> -ostype <ostype> -foreign-disk <foreign_serial>
+----
+. Créez un igroup et mappez le LUN de destination (le protocole dépend du plan frontal) :
++
+[source, cli]
+----
+igroup create -vserver <SVM> -igroup <igroup> -protocol <iscsi|fcp|mixed> -ostype <ostype> -initiator <host_initiator>
+----
+. Associer la baie LUN NetApp à l’hôte :
++
+[source, cli]
+----
+lun map -vserver <SVM> -path /vol/<VOL>/<LUN_NAME> -igroup <igroup>
+----
+. Gardez le LUN hors ligne avant de créer l'importation (bonne pratique) :
++
+[source, cli]
+----
+lun offline -vserver <SVM> -path /vol/<VOL>/<LUN_NAME>
+----
+. Créer la relation d'importation :
++
+[source, cli]
+----
+lun import create -vserver <SVM> -foreign-disk <foreign_serial> -path /vol/<VOL>/<lun_name>
+----
+. Vérifiez que la relation d'importation existe :
++
+[source, cli]
+----
+lun import show -vserver <svm_name>
+----
++
+[NOTE]
+====
+Si le LUN n'est pas mis en ligne lors de cette étape, le flux de travail sera considéré comme un FLI hors ligne et la baie LUN NetApp ne sera pas visible par l'hôte pour effectuer une opération d'E/S.
+
+** L'importation FLI hors ligne signifie que l'hôte reste hors ligne pendant toute la durée de l'importation. ONTAP effectue la copie des blocs du LUN externe vers le LUN NetApp pendant l'arrêt des applications, et les opérations de correction et de basculement de l'hôte n'interviennent qu'une fois l'importation et la validation terminées.
+** L'importation en ligne FLI signifie que vous basculez l'hôte une seule fois, puis l'importation se poursuit en arrière-plan. L'interruption de service est généralement brève pendant le basculement, et les opérations de correction de l'hôte et de basculement ont lieu avant la fin de l'importation, tandis que ONTAP continue de copier les données.
+
+
+Du point de vue du flux de travail ONTAP, les commandes d'importation principales sont identiques dans les deux modes (`lun import create/start/show/verify/delete`). La différence de comportement pratique réside dans l'état et le moment des LUN : en FLI hors ligne, la LUN de destination reste généralement hors ligne jusqu'à ce que vous soyez prêt à finaliser et à présenter, tandis qu'en FLI en ligne, la LUN de destination peut être mise en ligne et présentée plus tôt afin de permettre l'accès à l'hôte pendant la copie en arrière-plan.
+
+====
+. Pour FLI en ligne, mettez le LUN en ligne :
++
+[source, cli]
+----
+lun online -vserver <SVM> -path /vol/<VOL>/<lun_name>
+----
++
+Une fois le LUN mis en ligne, découvrez le LUN sur l'hôte, effectuez les corrections spécifiques à l'hôte, puis vous pouvez démarrer les charges de travail sur le LUN.
+
+

@@ -1,0 +1,35 @@
+---
+permalink: configure/fc-zoning-model-best-practices.html 
+sidebar: sidebar 
+keywords:  
+summary:  
+---
+= ONTAP Importation de LUN externes : bonnes pratiques de câblage et de zonage FC recommandées
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+L'importation de LUN externes (FLI) nécessite que les LUN sources soient accessibles par ONTAP, ce qui est réalisé en zonant les ports cibles sources vers les ports initiateurs ONTAP. Les zones source-hôte existantes ne sont généralement pas modifiées pendant la migration et peuvent être supprimées ou désactivées après la migration.
+
+.Le scénario standard FC FLI utilise 4 zones distinctes
+* Zone 1 : Stockage source vers stockage de destination (Fabric A)
+* Zone 2 : Stockage source vers stockage de destination (Fabric B)
+* Zone 3 : Hôte vers stockage de destination (Fabric A)
+* Zone 4 : Hôte vers stockage de destination (Fabric B)
+
+
+.Bonnes pratiques de zonage
+* Ne mélangez pas les ports cibles source et les ports cibles de destination dans la même zone.
+* Ne mélangez pas les ports d'initiateur de destination et les ports hôtes dans la même zone.
+* Ne mélangez pas les ports cibles de destination et les ports initiateurs de destination dans la même zone.
+* Zone comportant au moins deux ports par contrôleur pour assurer la redondance, lorsque cela est possible.
+* Privilégier le zonage à initiateur unique et à cible unique.
+* Utilisez les WWPN de port physique appropriés pour le modèle de zonage requis par le workflow FLI. N'utilisez pas de WWPN NPIV lorsque cela est explicitement interdit par les directives de zonage de migration.
+
+
+image::new-fc-zoning-model.png[Exemple de modèle de zonage FC pour ONTAP FLI]
+
+
+NOTE: Après avoir attribué les cibles sources aux initiateurs de destination, le stockage source devrait être visible depuis ONTAP via les commandes de découverte. Si la baie n'apparaît pas du premier coup, il peut être nécessaire, dans certains environnements, de réinitialiser le port du commutateur connecté aux initiateurs ONTAP.

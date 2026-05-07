@@ -1,0 +1,74 @@
+---
+permalink: phases/plan-overview.html 
+sidebar: sidebar 
+keywords: plan and prepare phase, foreign lun import, fli, migration planning, test migration, cutover, intercluster lif, iscsi fli, gap analysis, san migration, fc fli, zoning 
+summary: 'Découvrez la phase de planification et de préparation qui transforme les résultats de la découverte et de l"analyse en un plan de migration exécutable et valide l"état de préparation de l"environnement.' 
+---
+= Phase de planification et de préparation de l'importation de LUN étrangères (FLI) ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La phase de planification et de préparation transforme les résultats de la découverte et de l'analyse en un plan de migration exécutable et confirme que l'environnement est prêt pour la fenêtre de migration. La majeure partie de l’effort du projet se situe généralement ici, car c’est à cette étape que vous finalisez l’approche de basculement, en ligne ou hors ligne, validez la connectivité de bout en bout et prouvez le flux de travail à travers une ou plusieurs migrations de test avant de passer en production.
+
+Pour iSCSI FLI, cette phase doit également valider les contraintes de conception du backend iSCSI. L'initiateur logiciel iSCSI ONTAP utilise des LIF IC, requiert une adresse IP de portail cible et un IQN cible explicites, aucune session de découverte, et est conçu pour fonctionner dans des limites d'échelle définies (importations par nœud, sessions par LIF/nœud, initiateur par LIF, taille maximale d'importation).
+
+
+
+== Résultats de la phase de planification et de préparation ONTAP FLI
+
+* Finalisez le plan de remédiation en utilisant l'analyse de la différence, y compris les modifications effectuées avant la migration et celles effectuées pendant la fenêtre de basculement, telles que les modifications MPIO.
+* Établissez le mappage LUN source-vers-destination, les identifiants et numéros de série des LUN source vers les noms et chemins des LUN ONTAP de destination, y compris le mappage de restauration.
+* Validez la connectivité du serveur ONTAP vers la baie distante en utilisant la connectivité IC LIF et une topologie de session maillée complète où chaque nœud HA établit des sessions avec chaque portail cible. Ceci est la condition préalable à la découverte fiable des LUN distantes.
+* Effectuez une ou plusieurs migrations de test pour confirmer l'exactitude de la configuration et recueillir des échantillons de débit permettant d'estimer les durées de production et les efforts en personnel.
+
+
+
+
+== Tâches de la phase de planification et de préparation ONTAP FLI
+
+Voici les tâches de planification et de préparation ONTAP FLI pour chaque composant.
+
+[cols="1,2"]
+|===
+| Composant | Tâches 
+
+
+| Hôte  a| 
+* Finalisez le plan de correction de l'hôte en utilisant l'analyse de la différence, en précisant si le changement doit avoir lieu avant la migration, pendant la bascule ou après la migration.
+* Choisissez le mode de migration, en ligne ou hors ligne, en fonction de la tolérance à l'interruption et de la criticité de la charge de travail ; adaptez le calendrier de correction en conséquence.
+* Valider et documenter les étapes de redécouverte et de correction côté hôte pour le cas d'utilisation prévu, LUN standard, disque en cluster, datastore RDM/VMFS, etc., à utiliser pendant la fenêtre de migration.
+
+
+
+
+| Fabric / Réseau  a| 
+* Environnements FC : Sauvegardez les ensembles de zones existants et planifiez les modifications de zones nécessaires pour la bascule et le nettoyage post migration.
+* Environnements backend iSCSI : Valider la connectivité IP de bout en bout entre les LIF IC ONTAP et les adresses IP du portail cible de la baie étrangère (routage/VLAN/pare-feu, y compris TCP/3260) et assurer la redondance.
+* N’ajoutez pas de nouvelles interfaces LIF IC sur un sous-réseau différent uniquement pour atteindre des cibles étrangères lorsque des interfaces LIF IC existantes sont déjà utilisées sur un autre sous-réseau (à considérer comme une planification non prise en charge).
+
+
+
+
+| Baie de stockage NetApp (ONTAP de destination)  a| 
+* Confirmer que le cluster ONTAP est prêt pour iSCSI FLI (version prise en charge/ECV) et que la configuration du backend iSCSI dédiée à la migration sera supprimée après la migration (important pour la préparation à la mise à niveau/au retour en arrière).
+* Identifier et confirmer les LIF IC sur le nœud propriétaire du LUN et le partenaire HA et planifier la résilience (généralement deux LIF IC par nœud sur des ports différents).
+* Créez des initiateurs iSCSI logiciels (un initiateur par IC LIF) et établissez des sessions maillées complètes (chaque nœud HA pour chaque portail cible étranger et IQN) et vérifiez que les sessions sont saines.
+* Découvrez les LUN étrangères dans ONTAP à l'aide de la commande storage disk show, validez l'intégrité du chemin et les propriétés de base, y compris l'exigence 512B, puis marquez les LUN étrangères comme étrangères.
+* Configurez un LUN de destination de test avec une parité de taille à l'aide du paramètre -foreign-disk, mappez-le à l'aide du protocole frontal prévu (FC ou iSCSI) et exécutez au moins une migration de test pour valider le flux de travail de bout en bout et capturer le débit.
+* Assurez-vous que le plan respecte les contraintes iSCSI FLI (pas de sessions de découverte, pas de MCS, ERL0 uniquement, limites d'importation et de session, et taille d'importation maximale).
+
+
+
+
+| Baie de stockage externe (Source)  a| 
+* Collectez les adresses IP du portail cible et les IQN cibles, les sessions sont créées explicitement et les sessions de découverte ne sont pas utilisées.
+* Créez un objet d'accès côté fournisseur (équivalent hôte/groupe d'hôtes) pour les initiateurs ONTAP et mappez un petit LUN de test (généralement ~1 Go) uniquement aux initiateurs ONTAP pour la qualification et les tests.
+* Vérifiez que la cible étrangère voit les connexions et les sessions de l'initiateur ONTAP et que les LUN corrects sont mappés pour l'import.
+* Veillez à ce que l'hôte de production ne se voie pas simultanément présenter le même LUN source lors de la bascule afin d'éviter une double présentation.
+* Effectuer la qualification complète des baies étrangères à l'aide des outils et de l'approche de qualification pris en charge avant les importations en production.
+
+
+|===

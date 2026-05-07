@@ -1,0 +1,41 @@
+---
+section: sample-site
+title: Exemple de feuille de travail d'étude et de planification du site
+entries:
+- title: Présentation
+  url: "/san-migration/reference_sample_site_survey_and_planning_worksheet.html"
+- title: Enquête sur le site et fiche de planification onglet Contacts
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_contacts_tab.html"
+- title: Feuille de questionnaire de planification et de sondage sur le site
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_questionnaire_tab.html"
+- title: Onglet commutateurs de la fiche de travail étude et planification du site
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_switches_tab.html"
+- title: Feuille de travail étude et planification du site onglet périphériques de
+    stockage source
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_source_storage_devices_tab.html"
+- title: Feuille de travail étude du site et planification périphériques de stockage
+    de destination
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_destination_storage_devices_tab.html"
+- title: Onglet hôtes de la feuille de calcul étude et planification du site
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_hosts_tab.html"
+- title: Fiche de planification et d'enquête sur le site, onglet HBA et informations
+    sur la zone
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html"
+- title: Feuille de travail étude de site et planification onglet LUN source
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_source_luns_tab.html"
+- title: Feuille de travail étude du site et planification groupes de stockage
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_storage_groups_tab.html"
+- title: Feuille de travail étude du site et planification onglet LUN Details
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_lun_details_tab.html"
+- title: Feuille de calcul étude et planification du site onglet mises en page des
+    LUN NetApp
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_netapp_lun_layouts_tab.html"
+- title: Feuille de travail de planification et d'étude du site onglet planification
+    de la migration
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_migration_schedule_tab.html"
+- title: Feuille de calcul étude du site et planification - onglet État de l'agrégat
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_aggregate_status_tab.html"
+- title: Fiche de planification et d'enquête de site onglet FAS Config
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_fas_config_tab.html"
+- title: Feuille de travail étude et planification du site onglet scripts CLI du SDS
+  url: "/san-migration/reference_site_survey_and_planning_worksheet_sds_cli_scripts_tab.html"
