@@ -1,5 +1,5 @@
 ---
-permalink: san-migration/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html 
+permalink: sample-site/reference_site_survey_and_planning_worksheet_hba_and_zone_information_tab.html 
 sidebar: sidebar 
 keywords: site, survey and planning worksheet, hba and zone information tab 
 summary: Dans le cadre de votre feuille de travail étude et planification du site, vous devez configurer un onglet contenant des informations sur votre HBA et les informations de zone. 
