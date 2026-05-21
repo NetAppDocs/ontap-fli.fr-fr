@@ -11,7 +11,7 @@ summary: 'Découvrez la phase de vérification qui confirme que la migration s"e
 
 
 [role="lead"]
-La phase de vérification confirme que la migration s'est déroulée comme prévu et se concentre sur le nettoyage post-migration. Cela inclut la validation du comportement des applications, la confirmation de l'accès hôte et des chemins d'accès corrects aux LUN ONTAP, la collecte des journaux de migration à des fins d'audit et de dépannage, ainsi que la suppression de la connectivité et de la configuration temporaires utilisées uniquement pour la migration.
+La phase de vérification confirme que la migration s'est déroulée comme prévu et se concentre sur le nettoyage post-migration. Cela inclut la validation du comportement des applications, la confirmation de l'accès hôte et des chemins d'accès aux LUNs ONTAP, la collecte des journaux de migration à des fins d'audit et de dépannage, ainsi que la suppression de la connectivité et de la configuration temporaires utilisées uniquement pour la migration.
 
 Dans le cadre du nettoyage, vous supprimez les enregistrements d'initiateurs côté source et le zonage qui ne sont plus nécessaires, et vous documentez la configuration finale afin que les équipes d'exploitation disposent d'un état « tel que construit » clair.
 
